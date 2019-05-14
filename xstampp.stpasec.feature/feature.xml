@@ -38,8 +38,8 @@
       <import plugin="org.eclipse.ui.workbench"/>
       <import plugin="org.eclipse.zest.core" version="1.5.300" match="greaterOrEqual"/>
       <import plugin="org.eclipse.zest.layouts" version="1.1.300" match="greaterOrEqual"/>
-      <import plugin="xstampp.stpapriv" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.apache.log4j"/>
+      <import plugin="xstampp.stpapriv" version="1.1.2" match="greaterOrEqual"/>
    </requires>
 
    <plugin

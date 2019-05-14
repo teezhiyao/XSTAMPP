@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="xstampp.stlsa.feature"
+      label="Feature"
+      version="1.1.2">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.gef" version="3.9.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.p2.core"/>
+      <import plugin="org.eclipse.equinox.p2.operations" version="2.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.p2.engine" version="2.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.9.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.8.101" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.ui.workbench.addons.swt" version="1.0.1" match="greaterOrEqual"/>
+      <import plugin="xstampp.extension" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.core.jobs"/>
+      <import plugin="org.eclipse.swt"/>
+      <import plugin="org.eclipse.nebula.widgets.grid" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.junit"/>
+      <import plugin="org.eclipse.help"/>
+      <import plugin="org.apache.log4j"/>
+      <import plugin="org.eclipse.nebula.widgets.grid" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="xstampp.astpa" version="2.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.ui.workbench"/>
+      <import plugin="org.eclipse.zest.core" version="1.5.300" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.zest.layouts" version="1.1.300" match="greaterOrEqual"/>
+      <import plugin="xstampp.stpapriv" version="1.1.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.help.ui"/>
+      <import plugin="org.eclipse.equinox.p2.metadata.repository" version="1.2.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.net" version="1.2.200" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.lang" version="2.6.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.workbench"/>
+      <import plugin="org.apache.commons.lang3" version="3.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.p2.ui" version="2.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.p2.ui.sdk" version="1.0.300" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.p2.ui.sdk.scheduler" version="1.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.ds" version="1.4.200" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.ui.workbench" version="1.3.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="xstampp.astpa" version="2.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.zest.core" version="1.5.201" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.zest.layouts" version="1.1.200" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.io"/>
+   </requires>
+
+   <plugin
+         id="xstampp.astpa"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="xstampp.stlsa"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="xstampp"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="xstampp.extension"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="xstampp.stpapriv"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

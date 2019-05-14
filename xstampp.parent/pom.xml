@@ -35,9 +35,11 @@
 		<module>../xstampp.stpapriv</module>
 		<module>../xstampp.xstpapriv</module>
 		<module>../xstampp.stpasec</module>
+		<module>../xstampp.stlsa</module>
 		<module>../xstampp.xstpasec</module>
 		<module>../xstampp.acast.feature</module>
 		<module>../xstampp.xstpa.feature</module>
+		<module>../xstampp.stlsa.feature</module>
 		<module>../xstampp.stpapriv.feature</module>
 		<module>../xstampp.xstpapriv.feature</module>
 		<module>../xstampp.stpasec.feature</module>

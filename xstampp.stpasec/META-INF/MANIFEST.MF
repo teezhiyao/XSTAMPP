@@ -22,8 +22,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.workbench,
  org.eclipse.zest.core;bundle-version="1.5.300",
  org.eclipse.zest.layouts;bundle-version="1.1.300",
- xstampp.stpapriv;bundle-version="1.0.0"
-Bundle-ActivationPolicy: lazy
+ xstampp.stpapriv;bundle-version="1.1.2"
 Export-Package: xstampp.stpasec;uses:="org.osgi.framework,org.eclipse.jface.resource,org.eclipse.ui.plugin",
  xstampp.stpasec.messages;
   uses:="xstampp.model,
