@@ -43,7 +43,7 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 		ImageDescriptor desc = Activator
 				.getImageDescriptor("icons/branding/i64.png"); //$NON-NLS-1$
 		this.page = new NewProjectPage(Messages.CreateNewProject,
-				Messages.NewProject, desc,"sec"); //$NON-NLS-1$ //$NON-NLS-2$
+				Messages.NewProject, desc,"stlsa"); //$NON-NLS-1$ //$NON-NLS-2$
 				
 		this.addPage(this.page);
 	}

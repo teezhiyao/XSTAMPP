@@ -159,6 +159,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <feature id="xstampp.xstpa.feature"/>
       <feature id="xstampp.xstpapriv.feature"/>
       <feature id="xstampp.xstpasec.feature"/>
+      <feature id="xstampp.stlsa.feature" installMode="root"/>
    </features>
 
    <configurations>

@@ -7,11 +7,11 @@
             DataModelClass="xstampp.stpapriv.model.PrivacyController"
             command="stlsa.command.load"
             editorId="stlsa.steps.step1_1"
-            extension="sec"
+            extension="stlsa"
             extensionDescriptions="extended STPA Project;STPA Project"
             icon="icons/Logo_small_sec.png"
             id="stlsa.navigation.process"
-            name="STPA for Security Project"
+            name="STLSA"
             newWizard="stlsa.wizards.NewWizard"
             runCommand="xstampp.stlsa.command.run">
          <category
@@ -34,33 +34,22 @@
                   editorId="stpasec.steps.step1_2"
                   icon="icons/buttons/navigation/STEP1_2(16).png"
                   id="stpasec.navigation.step1_2"
-                  name="Losses">
+                  name="Accidents (Unacceptable Losses)">
             </step>
             <step
                   editorId="stlsa.steps.step1_3"
                   icon="icons/buttons/navigation/STEP1_3(16).png"
                   id="stlsa.navigation.step1_3"
-                  name="Vulnerabilities">
+                  name="Hazards (Vulnerabilities)">
             </step>
             <step
                   editorId="stlsa.steps.step1_4"
                   icon="icons/buttons/navigation/STEP1_4(16).png"
                   id="stlsa.navigation.step1_4"
                   isVisible="&quot;bla&quot;"
-                  name="Linking of Losses and Vulnerabilities">
+                  name="Linking of Accidents and Hazards">
             </step>
-            <step
-                  editorId="stlsa.steps.step1_5"
-                  icon="icons/buttons/navigation/STEP1_5(16).png"
-                  id="stlsa.navigation.step1_5"
-                  name="Security Constraints">
-            </step>
-            <step
-                  editorId="stlsa.steps.step1_7"
-                  icon="icons/buttons/navigation/STEP1_7(16).png"
-                  id="stlsa.navigation.step1_7"
-                  name="Design Requirements">
-            </step>
+
             <editor_List
                   command="xstampp.astpa.newControlStructure.command"
                   editorId="astpa.steps.step1_8"
@@ -89,7 +78,7 @@
          <category
                icon="icons/branding/step2ControlActions.png"
                id="stlsa.category2"
-               name="Unsecure Control Actions">
+               name="Unsafe/Insecure Control Actions">
             <step
                   editorId="stlsa.steps.step2_1"
                   icon="icons/buttons/navigation/STEP2_1(16).png"
@@ -100,13 +89,7 @@
                   editorId="stlsa.steps.step2_2"
                   icon="icons/buttons/navigation/STEP2_2(16).png"
                   id="stlsa.navigation.step2_2"
-                  name="Unsecure Control Actions Table">
-            </step>
-            <step
-                  editorId="stlsa.steps.step2_3"
-                  icon="icons/buttons/navigation/STEP2_3(16).png"
-                  id="stlsa.navigation.step2_3"
-                  name="Corresponding Security Constraints">
+                  name="Unsafe/Insecure Control Actions Table">
             </step>
          </category>
          <category
@@ -129,7 +112,7 @@
                   default_editor="true"
                   editorId="stlsa.editor.results"
                   id="stlsa.navigation.step3_3"
-                  name="STPA-Sec Results">
+                  name="STLSA Results">
             </step>
          </category>
       </process>

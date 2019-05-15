@@ -58,7 +58,7 @@ public class ResultEditor extends StandartEditorPart implements Observer {
   private static final String SECURITY_CONSTRAINT = "Security Constraint";
   private static final String COLUMN_ID = "ID";
   private static final String STPA_SEC_STEP = "STPA-Sec Step";
-  private static final String STPA_SEC_RESULTS = "STPA-Sec Results";
+  private static final String STPA_SEC_RESULTS = "STLSA Results";
   private static final String BOTH = "Both";
   private static final String SAFETY_RELATED = "Safety related";
   private static final String SECURITY_RELATED = "Security related";
