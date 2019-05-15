@@ -78,7 +78,7 @@
          <category
                icon="icons/branding/step2ControlActions.png"
                id="stlsa.category2"
-               name="Unsafe/Insecure Control Actions">
+               name="Unsafe/Insecure Control Analysis">
             <step
                   editorId="stlsa.steps.step2_1"
                   icon="icons/buttons/navigation/STEP2_1(16).png"
@@ -89,7 +89,7 @@
                   editorId="stlsa.steps.step2_2"
                   icon="icons/buttons/navigation/STEP2_2(16).png"
                   id="stlsa.navigation.step2_2"
-                  name="Unsafe/Insecure Control Actions Table">
+                  name="Unsafe/Insecure Control Action(UCA) Table">
             </step>
          </category>
          <category
@@ -100,7 +100,7 @@
                   editorId="stlsa.steps.step3_1"
                   icon="icons/buttons/navigation/STEP3_1(16).png"
                   id="stlsa.navigation.step3_1"
-                  name="Control Structure With Process Model">
+                  name="Unsafe/Insecure Control Actions">
             </step>
             <step
                   editorId="stlsa.steps.step3_2"
@@ -108,13 +108,46 @@
                   id="stlsa.navigation.step3_2"
                   name="Causal Factors Table">
             </step>
-            <step
-                  default_editor="true"
-                  editorId="stlsa.editor.results"
-                  id="stlsa.navigation.step3_3"
-                  name="STLSA Results">
-            </step>
          </category>
+         
+         <category
+               icon="icons/branding/step3CausalAnalysis.png"
+               id="stlsa.category4"
+               name="Severity and Likelihood Analysis">
+            <step
+                  editorId="stlsa.steps.step4_1"
+                  icon="icons/buttons/navigation/STEP3_1(16).png"
+                  id="stlsa.navigation.step4_1"
+                  name="Causal Factors (Read only)">
+            </step>
+            <step
+                  editorId="stlsa.steps.step4_2"
+                  icon="icons/buttons/navigation/STEP3_2(16).png"
+                  id="stlsa.navigation.step4_2"
+                  name="Assessment Scales">
+            </step>
+            <step
+                  editorId="stlsa.steps.step4_3"
+                  icon="icons/buttons/navigation/STEP3_2(16).png"
+                  id="stlsa.navigation.step4_3"
+                  name="Severity and Likelihood Evaluation Table">
+            </step>            
+         </category>
+
+            <step
+                  editorId="stlsa.steps.step5"
+                  icon="icons/buttons/navigation/STEP3_1(16).png"
+                  id="stlsa.navigation.step5"
+                  name="Assessment overview">
+            </step>
+            
+            <step
+                  editorId="stlsa.steps.step6"
+                  icon="icons/buttons/navigation/STEP3_1(16).png"
+                  id="stlsa.navigation.step6"
+                  name="Export STLSA Report">
+            </step>
+         
       </process>
       <SettingsPage
             class="xstampp.astpa.preferences.ProjectSpecifics"
