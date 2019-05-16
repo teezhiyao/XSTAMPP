@@ -13,39 +13,39 @@
 
 package xstampp.stlsa.ui.vulloss;
 
-//import xstampp.stlsa.messages.SecMessages;
-//
-///**
-// * @author Jarkko Heidenwag
-// * 
-// */
-//public class LossesView extends xstampp.stpapriv.ui.vulloss.LossesView {
-//
-//	/**
-//	 * @author Jarkko Heidenwag
-//	 * 
-//	 */
-//	public static final String ID = "stlsa.steps.step1_2"; //$NON-NLS-1$
-//
-//
-//
-//	/**
-//	 * @author Jarkko Heidenwag
-//	 * 
-//	 */
-//	public LossesView() {
-//		 super(SecMessages.Losses);
-//
-//	}
-//
-//	@Override
-//	public String getId() {
-//		return LossesView.ID;
-//	}
-//
-//	@Override
-//	public String getTitle() {
-//		return SecMessages.Losses;
-//	}
-//
-//}
+import xstampp.stlsa.messages.SecMessages;
+
+/**
+ * @author Jarkko Heidenwag
+ * 
+ */
+public class LossesView extends xstampp.stpapriv.ui.vulloss.LossesView {
+
+	/**
+	 * @author Jarkko Heidenwag
+	 * 
+	 */
+	public static final String ID = "stlsa.steps.step1_2"; //$NON-NLS-1$
+
+
+
+	/**
+	 * @author Jarkko Heidenwag
+	 * 
+	 */
+	public LossesView() {
+		 super(SecMessages.Losses);
+
+	}
+
+	@Override
+	public String getId() {
+		return LossesView.ID;
+	}
+
+	@Override
+	public String getTitle() {
+		return SecMessages.Losses;
+	}
+
+}

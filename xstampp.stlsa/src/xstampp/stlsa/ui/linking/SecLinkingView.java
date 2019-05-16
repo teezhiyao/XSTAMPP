@@ -51,7 +51,7 @@ public class SecLinkingView extends LinkingView {
   }
 
   public String getTitle() {
-    return SecMessages.LinkingOfLossesAndVulnerabilities;
+    return SecMessages.LinkingOfAccidentsAndHazards;
   }
 
 }
