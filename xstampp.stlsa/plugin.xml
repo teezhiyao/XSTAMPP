@@ -31,9 +31,9 @@
                   name="System Goals">
             </step>
             <step
-                  editorId="stpasec.steps.step1_2"
+                  editorId="stlsa.steps.step1_2"
                   icon="icons/buttons/navigation/STEP1_2(16).png"
-                  id="stpasec.navigation.step1_2"
+                  id="stlsa.navigation.step1_2"
                   name="Accidents (Unacceptable Losses)">
             </step>
             <step
@@ -535,14 +535,14 @@
             name="%editor.name.SystemDescription">
       </editor>
       <editor
-            class="xstampp.stlsa.ui.vulloss.LossesView"
+            class="xstampp.stlsa.ui.acchaz.AccidentsView"
             default="false"
             icon="icons/buttons/navigation/STEP1_2(16).png"
             id="stlsa.steps.step1_2"
             name="%editor.name.Accidents">
       </editor>
       <editor
-            class="xstampp.stlsa.ui.vulloss.VulnerabilityView"
+            class="xstampp.stlsa.ui.acchaz.HazardsView"
             default="false"
             icon="icons/buttons/navigation/STEP1_3(16).png"
             id="stlsa.steps.step1_3"
