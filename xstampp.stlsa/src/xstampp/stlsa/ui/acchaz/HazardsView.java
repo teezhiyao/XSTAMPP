@@ -41,7 +41,7 @@ public class HazardsView extends CommonTableView<IHazardViewDataModel> {
   }
 
   public HazardsView(String tableHeader) {
-    super(EnumSet.of(TableStyle.RESTRICTED, TableStyle.WITH_SEVERITY), tableHeader);
+    super(EnumSet.of(TableStyle.RESTRICTED), tableHeader);
     setUpdateValues(
         EnumSet.of(ObserverValue.HAZARD, ObserverValue.SEVERITY, ObserverValue.LINKING));
   }

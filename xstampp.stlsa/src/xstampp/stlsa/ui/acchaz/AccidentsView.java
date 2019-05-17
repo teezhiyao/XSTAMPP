@@ -51,7 +51,7 @@ public class AccidentsView extends CommonTableView<IAccidentViewDataModel> {
    * 
    */
   public AccidentsView(String tableHeader) {
-    super(EnumSet.of(TableStyle.RESTRICTED, TableStyle.WITH_SEVERITY), tableHeader);
+    super(EnumSet.of(TableStyle.RESTRICTED), tableHeader);
     setUpdateValues(EnumSet.of(ObserverValue.ACCIDENT, ObserverValue.SEVERITY, ObserverValue.LINKING));
   }
 
