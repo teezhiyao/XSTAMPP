@@ -48,10 +48,21 @@ public enum ComponentType {
   CONTROLLER(Messages.Controller),
 
   /**
+   * This constant is used to create Multiple Controller
+   */
+  MULTIPLE_CONTROLLER(Messages.MultipleController),
+  
+  /**
    * This constant is used to create Actuator
    */
   ACTUATOR(Messages.Actuator),
 
+  /**
+   * This constant is used to create Actuator
+   */
+  MULTIPLE_ACTUATOR(Messages.MultipleActuator),
+
+  
   FEEDBACK("Feedback"),
   
   UNDEFINED("Component"),
@@ -59,6 +70,10 @@ public enum ComponentType {
    * This constant is used to create a new Process
    */
   CONTROLLED_PROCESS(Messages.ControlledProcess),
+  /**
+   * This constant is used to create Multiple new Process
+   */
+  MULTIPLE_CONTROLLED_PROCESS(Messages.MultipleControlledProcess),
 
   /**
    * This constant is used to create a new Process Model
@@ -79,7 +94,11 @@ public enum ComponentType {
    * This constant is used to create a new Sensor
    */
   SENSOR(Messages.Sensor),
-
+  
+  /**
+   * This constant is used to create a new Multiple Sensor
+   */
+  MULTIPLE_SENSOR(Messages.MultipleSensor),
   OTHER_COMPONENT,
   /**
    * This Constant is used to create a root

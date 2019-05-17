@@ -49,23 +49,6 @@
                   isVisible="&quot;bla&quot;"
                   name="Linking of Accidents and Hazards">
             </step>
-
-            <editor_List
-                  command="xstampp.astpa.newControlStructure.command"
-                  editorId="astpa.steps.step1_8"
-                  icon="icons/buttons/navigation/STEP1_8(16).png"
-                  id="xstampp.stlsa.controlStructure_List"
-                  isVisible="astpa.use.multics"
-                  name="Control Structure Diagrams"
-                  provider="xstampp.astpa.controlstructure.ControlStructureProvider">
-               <commandAddition
-                     commandId="xstampp.astpa.command.cs.rename"
-                     name="Rename">
-               </commandAddition>
-               <commandAddition
-                     commandId="xstampp.astpa.command.cs.deleteRoot">
-               </commandAddition>
-            </editor_List>
             <step
                   default_editor="true"
                   editorId="stlsa.steps.step1_8"
@@ -514,7 +497,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="xstampp.astpa.controlstructure.CSEditor"
+            class="xstampp.stlsa.controlstructure.CSEditor"
             default="false"
             icon="icons/buttons/navigation/STEP1_8(16).png"
             id="stlsa.steps.step1_8"
@@ -1174,15 +1157,6 @@
             id="xstpa.wizard.img.ltl"
             name="%exportWizard.name.LTLFormulasTableIMG">
       </wizard>
-   </extension>
-   <extension
-         point="xstampp.extension.stepEditors">
-      <stepEditor
-            editorId="stlsa.editor.unsafe"
-            id="xstampp.stlsa.stepEditor1"
-            name="Unsafe Unsecure Editor"
-            parentStep="xstampp.stlsa.step1_8">
-      </stepEditor>
    </extension>
  <extension
          point="org.eclipse.ui.commandImages">

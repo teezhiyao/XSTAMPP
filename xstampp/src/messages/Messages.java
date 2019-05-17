@@ -34,6 +34,8 @@ public final class Messages extends NLS {
   @SuppressWarnings("javadoc")
   public static String Actuator;
   @SuppressWarnings("javadoc")
+  public static String MultipleActuator;
+  @SuppressWarnings("javadoc")
   public static String AccidentsAvailableForLinking;
   @SuppressWarnings("javadoc")
   public static String Abort;
@@ -130,9 +132,13 @@ public final class Messages extends NLS {
   @SuppressWarnings("javadoc")
   public static String Controller;
   @SuppressWarnings("javadoc")
+  public static String MultipleController;
+  @SuppressWarnings("javadoc")
   public static String CreateControlAction;
   @SuppressWarnings("javadoc")
   public static String CreateController;
+  @SuppressWarnings("javadoc")
+  public static String CreateMultipleController;
   @SuppressWarnings("javadoc")
   public static String ControlActionController_NotHazardous;
   @SuppressWarnings("javadoc")
@@ -144,6 +150,10 @@ public final class Messages extends NLS {
   public static String ControlledProcess;
   @SuppressWarnings("javadoc")
   public static String CreateControlledProcess;
+  @SuppressWarnings("javadoc")
+  public static String MultipleControlledProcess;
+  @SuppressWarnings("javadoc")
+  public static String CreateMultipleControlledProcess;
   @SuppressWarnings("javadoc")
   public static String CreateProcessModel;
   @SuppressWarnings("javadoc")
@@ -203,6 +213,8 @@ public final class Messages extends NLS {
   @SuppressWarnings("javadoc")
   public static String CreateActuator;
   @SuppressWarnings("javadoc")
+  public static String CreateMultipleActuator;
+  @SuppressWarnings("javadoc")
   public static String CreateDashedBox;
   @SuppressWarnings("javadoc")
   public static String CreateNew;
@@ -210,6 +222,8 @@ public final class Messages extends NLS {
   public static String CreateNewProject;
   @SuppressWarnings("javadoc")
   public static String CreateSensor;
+  @SuppressWarnings("javadoc")
+  public static String CreateMultipleSensor;
   @SuppressWarnings("javadoc")
   public static String CorrespondingSafetyConstraints;
   @SuppressWarnings("javadoc")
@@ -575,6 +589,8 @@ public final class Messages extends NLS {
   public static String Semicolon;
   @SuppressWarnings("javadoc")
   public static String Sensor;
+  @SuppressWarnings("javadoc")
+  public static String MultipleSensor;
   @SuppressWarnings("javadoc")
   public static String SeperatorCharacter;
   @SuppressWarnings("javadoc")
