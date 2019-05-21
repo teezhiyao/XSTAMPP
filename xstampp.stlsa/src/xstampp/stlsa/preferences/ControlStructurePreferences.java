@@ -41,6 +41,7 @@ implements IWorkbenchPreferencePage {
 	private ColorFieldEditor CSActuatorDeco;
 	private ColorFieldEditor CSControllerDeco;
 	private BooleanFieldEditor ListOfCABorderSwitch;
+  private ColorFieldEditor CSMultipleControllerDeco;
 
 	public ControlStructurePreferences() {
 		super(FieldEditorPreferencePage.GRID);
@@ -69,6 +70,11 @@ implements IWorkbenchPreferencePage {
 				IControlStructureConstants.CONTROLSTRUCTURE_CONTROLLER_COLOR, Messages.Controller,
 				this.getFieldEditorParent());
 		this.addField(this.CSControllerDeco);
+
+    this.CSMultipleControllerDeco = new ColorFieldEditor(
+        IControlStructureConstants.CONTROLSTRUCTURE_MULTIPLE_CONTROLLER_COLOR, Messages.MultipleController,
+        this.getFieldEditorParent());
+    this.addField(this.CSMultipleControllerDeco);
 		
 		this.CSActuatorDeco = new ColorFieldEditor(
 				IControlStructureConstants.CONTROLSTRUCTURE_ACTUATOR_COLOR, Messages.Actuator,
@@ -104,6 +110,7 @@ implements IWorkbenchPreferencePage {
 		this.csLabelFont.store();
 		this.CSProcessDeco.store();
 		this.CSControllerDeco.store();
+    this.CSMultipleControllerDeco.store();
 		this.CSSensorDeco.store();
 		this.CSActuatorDeco.store();
 		this.ConnectorSwitch.store();
@@ -118,6 +125,7 @@ implements IWorkbenchPreferencePage {
 		this.csLabelFont.loadDefault();
 		this.CSProcessDeco.loadDefault();
 		this.CSControllerDeco.loadDefault();
+    this.CSMultipleControllerDeco.loadDefault();
 		this.CSSensorDeco.loadDefault();
 		this.CSActuatorDeco.loadDefault();
 		this.ConnectorSwitch.loadDefault();
@@ -129,6 +137,7 @@ implements IWorkbenchPreferencePage {
 		this.csLabelFont.store();
 		this.CSProcessDeco.store();
 		this.CSControllerDeco.store();
+    this.CSMultipleControllerDeco.store();
 		this.ConnectorSwitch.store();
 		this.CSSensorDeco.store();
 		this.CSActuatorDeco.store();

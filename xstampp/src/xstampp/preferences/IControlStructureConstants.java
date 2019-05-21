@@ -33,6 +33,8 @@ public interface IControlStructureConstants {
    * @author Lukas Balzer
    */
   String CONTROLSTRUCTURE_CONTROLLER_COLOR = "CSontrollerDecoration"; //$NON-NLS-1$
+  String CONTROLSTRUCTURE_MULTIPLE_CONTROLLER_COLOR = "CSMultipleControllerDecoration"; //$NON-NLS-1$
+
   /**
    * 
    * @author Lukas Balzer

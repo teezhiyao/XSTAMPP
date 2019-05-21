@@ -35,6 +35,7 @@ import xstampp.astpa.controlstructure.controller.editparts.EmptyComponentEditPar
 import xstampp.astpa.controlstructure.controller.editparts.FeedbackEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.IControlStructureEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.ListOfCAEditPart;
+import xstampp.astpa.controlstructure.controller.editparts.MultipleControllerEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.ProcessModelEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.ProcessValueEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.ProcessVariableEditPart;
@@ -125,6 +126,10 @@ public class CSEditPartFactory implements EditPartFactory {
     }
     case CONTROLLER: {
       part = new ControllerEditPart(this.dataModel, this.stepId);
+      break;
+    }
+    case MULTIPLE_CONTROLLER: {
+      part = new MultipleControllerEditPart(this.dataModel, this.stepId);
       break;
     }
     case CONTROLLED_PROCESS: {

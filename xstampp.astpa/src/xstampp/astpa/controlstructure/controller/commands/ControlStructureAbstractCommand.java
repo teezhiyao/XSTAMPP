@@ -43,6 +43,7 @@ public abstract class ControlStructureAbstractCommand extends Command {
     {
       this.add(ComponentType.ACTUATOR);
       this.add(ComponentType.CONTROLLER);
+      this.add(ComponentType.MULTIPLE_CONTROLLER);
       this.add(ComponentType.CONTROLACTION);
       this.add(ComponentType.CONTROLLED_PROCESS);
       this.add(ComponentType.SENSOR);
