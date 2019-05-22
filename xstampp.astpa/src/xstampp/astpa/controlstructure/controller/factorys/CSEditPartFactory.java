@@ -116,6 +116,10 @@ public class CSEditPartFactory implements EditPartFactory {
       part = new ActuatorEditPart(this.dataModel, this.stepId);
       break;
     }
+    case MULTIPLE_ACTUATOR: {
+      part = new ActuatorEditPart(this.dataModel, this.stepId);
+      break;
+    }
     case SENSOR: {
       part = new SensorEditPart(this.dataModel, this.stepId);
       break;
