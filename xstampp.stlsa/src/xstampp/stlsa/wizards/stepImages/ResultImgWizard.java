@@ -2,7 +2,7 @@ package xstampp.stlsa.wizards.stepImages;
 
 import messages.Messages;
 import xstampp.stlsa.Activator;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.ui.results.ResultEditor;
 import xstampp.stlsa.wizards.AbstractPrivacyExportWizard;
 import xstampp.ui.wizards.TableExportPage;
@@ -13,7 +13,7 @@ public class ResultImgWizard extends AbstractPrivacyExportWizard {
 		super(ResultEditor.ID);
 		String[] filters = new String[] {"*.png" ,"*.bmp"}; //$NON-NLS-1$ //$NON-NLS-2$ 
 		this.setExportPage(new TableExportPage(filters,
-				SecMessages.Results + Messages.AsImage, Activator.PLUGIN_ID));
+				StlsaMessages.Results + Messages.AsImage, Activator.PLUGIN_ID));
 	}
 
 	@Override

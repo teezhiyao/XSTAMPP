@@ -12,7 +12,7 @@ package xstampp.stlsa.wizards.pdf;
 
 import messages.Messages;
 import xstampp.stlsa.Activator;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.ui.vulloss.VulnerabilityView;
 import xstampp.stlsa.wizards.AbstractPrivacyExportWizard;
 import xstampp.ui.wizards.TableExportPage;
@@ -23,12 +23,12 @@ public class VulnerabilitiesPDFWizard extends AbstractPrivacyExportWizard {
 		super(VulnerabilityView.ID);
 		String[] filters = new String[] { "*.pdf" }; //$NON-NLS-1$ 
 		this.setExportPage(new TableExportPage(filters,
-				SecMessages.CorrespondingSecurityConstraints + Messages.AsPDF, Activator.PLUGIN_ID));
+				StlsaMessages.CorrespondingSecurityConstraints + Messages.AsPDF, Activator.PLUGIN_ID));
 	}
 
 	@Override
 	public boolean performFinish() {
 		return this.performXSLExport(				
-				"/fopHazards.xsl", false, SecMessages.CorrespondingSecurityConstraints, false); ////$NON-NLS-1$
+				"/fopHazards.xsl", false, StlsaMessages.CorrespondingSecurityConstraints, false); ////$NON-NLS-1$
 	}
 }

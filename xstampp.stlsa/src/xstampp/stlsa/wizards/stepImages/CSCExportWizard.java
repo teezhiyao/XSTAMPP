@@ -12,7 +12,7 @@ package xstampp.stlsa.wizards.stepImages;
 
 import messages.Messages;
 import xstampp.stlsa.Activator;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.ui.sds.CSCView;
 import xstampp.stlsa.wizards.AbstractPrivacyExportWizard;
 import xstampp.ui.wizards.TableExportPage;
@@ -23,7 +23,7 @@ public class CSCExportWizard extends AbstractPrivacyExportWizard {
 		super(CSCView.ID);
 		String[] filters = new String[] {"*.png" ,"*.bmp"}; //$NON-NLS-1$ //$NON-NLS-2$ 
 		this.setExportPage(new TableExportPage(filters,
-				SecMessages.CorrespondingSecurityConstraints + Messages.AsImage, Activator.PLUGIN_ID));
+				StlsaMessages.CorrespondingSecurityConstraints + Messages.AsImage, Activator.PLUGIN_ID));
 	}
 
 	@Override

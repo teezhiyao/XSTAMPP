@@ -51,7 +51,7 @@ import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.ui.common.ProjectManager;
 import xstampp.util.XstamppJob;
 
@@ -139,8 +139,8 @@ public class STPAWordJob extends XstamppJob {
 			addDescription(document);
 
 			addTableModel(controller.getAllSystemGoals(), "",Messages.SystemGoals, document);
-			addTableModel(controller.getAllAccidents(), "",SecMessages.Losses, document);
-			addTableModel(controller.getAllHazards(), "",SecMessages.Vulnerabilities, document);
+			addTableModel(controller.getAllAccidents(), "",StlsaMessages.Losses, document);
+			addTableModel(controller.getAllHazards(), "",StlsaMessages.Vulnerabilities, document);
 			addTableModel(controller.getAllDesignRequirements(), "",Messages.DesignRequirements, document);
 			addPicture(document, Messages.ControlStructure, normalCSArray,csRatio);
 			addPicture(document, Messages.ControlStructureDiagramWithProcessModel, pmCSArray,csPmRatio);
@@ -231,14 +231,14 @@ public class STPAWordJob extends XstamppJob {
 	 * @param paragraph 
 	 */
 	private void addUCATable(XWPFDocument document,List<IControlAction> list){
-		addNewTitle(SecMessages.UnsecureControlActionsTable, document);
+		addNewTitle(StlsaMessages.UnsecureControlActionsTable, document);
 		XWPFTable ucaTable = document.createTable(1,5);
 		XWPFTableRow row = ucaTable.getRow(0);
 		row.getCell(0);
 		
 		String[] heads = new String[] {
-				Messages.ControlAction, SecMessages.NotGiven2,
-				SecMessages.GivenIncorrectly2, SecMessages.WrongTiming2,
+				Messages.ControlAction, StlsaMessages.NotGiven2,
+				StlsaMessages.GivenIncorrectly2, StlsaMessages.WrongTiming2,
 				Messages.StoppedTooSoon };
 		XWPFRun run;
 		XWPFParagraph paragraph;

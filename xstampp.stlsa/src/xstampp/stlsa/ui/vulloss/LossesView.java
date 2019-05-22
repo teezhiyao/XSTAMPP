@@ -13,7 +13,7 @@
 
 package xstampp.stlsa.ui.vulloss;
 
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 
 /**
  * @author Jarkko Heidenwag
@@ -34,7 +34,7 @@ public class LossesView extends xstampp.stpapriv.ui.vulloss.LossesView {
 	 * 
 	 */
 	public LossesView() {
-		 super(SecMessages.Losses);
+		 super(StlsaMessages.Losses);
 
 	}
 
@@ -45,7 +45,7 @@ public class LossesView extends xstampp.stpapriv.ui.vulloss.LossesView {
 
 	@Override
 	public String getTitle() {
-		return SecMessages.Losses;
+		return StlsaMessages.Losses;
 	}
 
 }

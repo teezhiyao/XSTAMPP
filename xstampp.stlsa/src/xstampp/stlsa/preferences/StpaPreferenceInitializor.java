@@ -72,7 +72,6 @@ public class StpaPreferenceInitializor extends AbstractPreferenceInitializer {
 				Display.getCurrent().getSystemColor(SWT.COLOR_BLUE).getRGB());
     PreferenceConverter.setDefault(this.store, IControlStructureConstants.CONTROLSTRUCTURE_MULTIPLE_CONTROLLER_COLOR,
         Display.getCurrent().getSystemColor(SWT.COLOR_GREEN).getRGB());
-    
 		PreferenceConverter.setDefault(this.store, IControlStructureConstants.CONTROLSTRUCTURE_ACTUATOR_COLOR,
 				   ColorConstants.orange.getRGB());
 		PreferenceConverter.setDefault(this.store, IControlStructureConstants.CONTROLSTRUCTURE_PROCESS_COLOR,

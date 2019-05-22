@@ -15,7 +15,7 @@ package xstampp.stlsa.messages;
 
 
 // CHECKSTYLE:OFF
-public final class SecMessages {
+public final class StlsaMessages {
 
 
 

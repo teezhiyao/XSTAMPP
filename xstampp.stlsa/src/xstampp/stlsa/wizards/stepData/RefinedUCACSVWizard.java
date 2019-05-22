@@ -21,7 +21,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import messages.Messages;
 import xstampp.model.IDataModel;
 import xstampp.stlsa.Activator;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.util.jobs.XCSVExportJob;
 import xstampp.stlsa.wizards.AbstractPrivacyExportWizard;
 import xstampp.ui.common.ProjectManager;
@@ -42,7 +42,7 @@ public class RefinedUCACSVWizard extends AbstractPrivacyExportWizard {
 	public RefinedUCACSVWizard() {
 		super("");
 		String[] filters = new String[] { "*.csv" }; //$NON-NLS-1$
-		this.setExportPage(new CSVExportPage(filters, SecMessages.RefinedUnsecureControlActions + Messages.AsDataSet, Activator.PLUGIN_ID));
+		this.setExportPage(new CSVExportPage(filters, StlsaMessages.RefinedUnsecureControlActions + Messages.AsDataSet, Activator.PLUGIN_ID));
 	}
 
 	@Override

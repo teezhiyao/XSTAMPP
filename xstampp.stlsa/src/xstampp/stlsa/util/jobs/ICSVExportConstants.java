@@ -13,7 +13,7 @@ package xstampp.stlsa.util.jobs;
 import java.util.ArrayList;
 
 import messages.Messages;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 
 /**
  * @since 2.0
@@ -34,14 +34,14 @@ public interface ICSVExportConstants {
 
 		{
 			this.add(Messages.SystemDescription);
-			this.add(SecMessages.Losses);
-			this.add(SecMessages.Vulnerabilities);
-			this.add(SecMessages.SecurityConstraints);
+			this.add(StlsaMessages.Losses);
+			this.add(StlsaMessages.Vulnerabilities);
+			this.add(StlsaMessages.SecurityConstraints);
 			this.add(Messages.SystemGoals);
 			this.add(Messages.DesignRequirements);
 			this.add(Messages.ControlActions);
-			this.add(SecMessages.CorrespondingSecurityConstraints);
-			this.add(SecMessages.UnsecureControlActionsTable);
+			this.add(StlsaMessages.CorrespondingSecurityConstraints);
+			this.add(StlsaMessages.UnsecureControlActionsTable);
 			this.add(Messages.CausalFactorsTable);
 			this.add("Results");
 		}

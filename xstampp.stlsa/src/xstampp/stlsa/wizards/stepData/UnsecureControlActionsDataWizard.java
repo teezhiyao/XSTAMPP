@@ -12,7 +12,7 @@ package xstampp.stlsa.wizards.stepData;
 
 import messages.Messages;
 import xstampp.stlsa.Activator;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.ui.unsecurecontrolaction.UnsecureControlActionsView;
 import xstampp.stlsa.util.jobs.ICSVExportConstants;
 import xstampp.stlsa.wizards.AbstractPrivacyExportWizard;
@@ -34,7 +34,7 @@ public class UnsecureControlActionsDataWizard extends AbstractPrivacyExportWizar
 		super(UnsecureControlActionsView.ID);
 		String[] filters = new String[] { "*.csv" }; //$NON-NLS-1$
 		this.setExportPage(new CSVExportPage(filters,
-				SecMessages.UnsecureControlActions + Messages.AsDataSet, Activator.PLUGIN_ID));
+				StlsaMessages.UnsecureControlActions + Messages.AsDataSet, Activator.PLUGIN_ID));
 	}
 
 	@Override

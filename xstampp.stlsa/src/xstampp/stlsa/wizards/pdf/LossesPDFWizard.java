@@ -12,7 +12,7 @@ package xstampp.stlsa.wizards.pdf;
 
 import messages.Messages;
 import xstampp.stlsa.Activator;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.ui.vulloss.LossesView;
 import xstampp.stlsa.wizards.AbstractPrivacyExportWizard;
 import xstampp.ui.wizards.TableExportPage;
@@ -23,13 +23,13 @@ public class LossesPDFWizard extends AbstractPrivacyExportWizard {
 		super(LossesView.ID);
 		String[] filters = new String[] { "*.pdf" }; //$NON-NLS-1$ 
 		this.setExportPage(new TableExportPage(filters,
-				SecMessages.Losses + Messages.AsPDF, Activator.PLUGIN_ID));
+				StlsaMessages.Losses + Messages.AsPDF, Activator.PLUGIN_ID));
 		
 	}
 
 	@Override
 	public boolean performFinish() {
 		return this.performXSLExport(				
-				"/fopAccidents.xsl", false, SecMessages.Losses, false); ////$NON-NLS-1$
+				"/fopAccidents.xsl", false, StlsaMessages.Losses, false); ////$NON-NLS-1$
 	}
 }

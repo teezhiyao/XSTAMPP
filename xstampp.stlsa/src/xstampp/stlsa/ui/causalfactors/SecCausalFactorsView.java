@@ -16,7 +16,7 @@ package xstampp.stlsa.ui.causalfactors;
 
 import messages.Messages;
 import xstampp.astpa.ui.causalfactors.CausalFactorsView;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 
 /**
  * The view to add causal factors to control structure components, edit them and
@@ -26,11 +26,11 @@ import xstampp.stlsa.messages.SecMessages;
  */
 public class SecCausalFactorsView extends CausalFactorsView{
 	private static String[] _withScenarioColumns = new String[] { Messages.Component,
-      Messages.CausalFactors,"Unsecure Control Action", SecMessages.VulnerabilityLinks,"Causal Scenarios",
-      SecMessages.SecurityConstraint, Messages.NotesSlashRationale };
+      Messages.CausalFactors,"Unsecure Control Action", StlsaMessages.VulnerabilityLinks,"Causal Scenarios",
+      StlsaMessages.SecurityConstraint, Messages.NotesSlashRationale };
 	private static String[] _withoutColumns = new String[] { Messages.Component,
-		      Messages.CausalFactors, "Unsecure Control Action", SecMessages.VulnerabilityLinks,
-		      SecMessages.SecurityConstraint, Messages.NotesSlashRationale };
+		      Messages.CausalFactors, "Unsecure Control Action", StlsaMessages.VulnerabilityLinks,
+		      StlsaMessages.SecurityConstraint, Messages.NotesSlashRationale };
   /**
    * ViewPart ID.
    */

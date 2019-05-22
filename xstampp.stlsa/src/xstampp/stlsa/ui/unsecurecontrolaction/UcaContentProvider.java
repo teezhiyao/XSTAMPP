@@ -16,7 +16,7 @@ package xstampp.stlsa.ui.unsecurecontrolaction;
 import java.util.List;
 import java.util.UUID;
 
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
 import xstampp.ui.common.contentassist.ITableContentProvider;
@@ -69,6 +69,6 @@ public class UcaContentProvider  implements ITableContentProvider<ITableModel> {
 
   @Override
   public String getEmptyMessage() {
-    return SecMessages.NotVulnerable;
+    return StlsaMessages.NotVulnerable;
   }
 }

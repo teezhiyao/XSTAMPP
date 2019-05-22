@@ -14,7 +14,7 @@
 package xstampp.stlsa.ui.sds;
 
 import xstampp.astpa.ui.sds.SafetyConstraintView;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 
 /**
  * @author Jarkko Heidenwag
@@ -29,7 +29,7 @@ public class SecurityConstraintView extends SafetyConstraintView {
 	public static final String ID = "stlsa.steps.step1_5"; //$NON-NLS-1$
 
 	public SecurityConstraintView() {
-    super(SecMessages.SecurityConstraints);
+    super(StlsaMessages.SecurityConstraints);
   }
 	@Override
 	public String getId() {
@@ -38,7 +38,7 @@ public class SecurityConstraintView extends SafetyConstraintView {
 
 	@Override
 	public String getTitle() {
-		return SecMessages.SecurityConstraints;
+		return StlsaMessages.SecurityConstraints;
 	}
 
 }

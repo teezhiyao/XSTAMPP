@@ -12,7 +12,7 @@
 package xstampp.stlsa.ui.linking;
 
 import xstampp.astpa.ui.linking.LinkingView;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 
 /**
  * Editor to create and delete links between hazards and accidents. There are two table modes:
@@ -36,22 +36,22 @@ public class SecLinkingView extends LinkingView {
    */
   public void updateMode() {
     if (isInAtoB_Mode()) {
-      this.setUpdateSelected(SecMessages.Losses);
-      this.setUpdateAvailableForLinking(SecMessages.VulnerabilitiesAvailableForLinking);
-      this.setUpdateCurrentlyLinked(SecMessages.CurrentlyLinkedVulnerabilities);
-      this.setUpdateModeButton(SecMessages.SwitchToVulnerabilities);
+      this.setUpdateSelected(StlsaMessages.Losses);
+      this.setUpdateAvailableForLinking(StlsaMessages.VulnerabilitiesAvailableForLinking);
+      this.setUpdateCurrentlyLinked(StlsaMessages.CurrentlyLinkedVulnerabilities);
+      this.setUpdateModeButton(StlsaMessages.SwitchToVulnerabilities);
     } else {
-      this.setUpdateSelected(SecMessages.Vulnerabilities);
-      this.setUpdateAvailableForLinking(SecMessages.LossesAvailableForLinking);
-      this.setUpdateCurrentlyLinked(SecMessages.CurrentlyLinkedLosses);
-      this.setUpdateModeButton(SecMessages.SwitchToLosses);
+      this.setUpdateSelected(StlsaMessages.Vulnerabilities);
+      this.setUpdateAvailableForLinking(StlsaMessages.LossesAvailableForLinking);
+      this.setUpdateCurrentlyLinked(StlsaMessages.CurrentlyLinkedLosses);
+      this.setUpdateModeButton(StlsaMessages.SwitchToLosses);
     }
 
     updateSelection();
   }
 
   public String getTitle() {
-    return SecMessages.LinkingOfAccidentsAndHazards;
+    return StlsaMessages.LinkingOfAccidentsAndHazards;
   }
 
 }

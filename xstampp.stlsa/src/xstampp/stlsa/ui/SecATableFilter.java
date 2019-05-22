@@ -18,7 +18,7 @@ import org.eclipse.jface.viewers.Viewer;
 import messages.Messages;
 
 
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.ui.ATableFilter;
@@ -32,7 +32,7 @@ public class SecATableFilter extends ATableFilter{
 	public SecATableFilter() {
 		this.getCategorys().clear();
 		this.getCategorys().add(Messages.All);
-		this.getCategorys().add(SecMessages.CorrespondingSecurityConstraints);
+		this.getCategorys().add(StlsaMessages.CorrespondingSecurityConstraints);
 	}
 
 	@Override

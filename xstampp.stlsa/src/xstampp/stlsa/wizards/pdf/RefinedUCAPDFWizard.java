@@ -12,7 +12,7 @@ package xstampp.stlsa.wizards.pdf;
 
 import messages.Messages;
 import xstampp.stlsa.Activator;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.wizards.AbstractPrivacyExportWizard;
 import xstampp.ui.wizards.TableExportPage;
 
@@ -22,14 +22,14 @@ public class RefinedUCAPDFWizard extends AbstractPrivacyExportWizard {
 		super("");
 		String[] filters = new String[] { "*.pdf" }; //$NON-NLS-1$ 
 		this.setExportPage(new TableExportPage(filters,
-				SecMessages.RefinedUnsecureControlActions + Messages.AsPDF, Activator.PLUGIN_ID)); //$NON-NLS-1$
+				StlsaMessages.RefinedUnsecureControlActions + Messages.AsPDF, Activator.PLUGIN_ID)); //$NON-NLS-1$
 		
 	}
 
 	@Override
 	public boolean performFinish() {
 		return this.performXSLExport(				
-				"/fopRefinedUnsafeControlActions.xsl", false,SecMessages.RefinedUnsecureControlActions, false); ////$NON-NLS-1$
+				"/fopRefinedUnsafeControlActions.xsl", false,StlsaMessages.RefinedUnsecureControlActions, false); ////$NON-NLS-1$
 	}
 }
 

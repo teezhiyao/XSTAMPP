@@ -31,7 +31,7 @@ import xstampp.astpa.util.jobs.ExportJob;
 import xstampp.model.ObserverValue;
 import xstampp.stpapriv.model.PrivacyController;
 import xstampp.stpapriv.util.jobs.StpaCSVExport;
-import xstampp.stlsa.messages.SecMessages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.wizards.AbstractExportPage;
 import xstampp.util.ExportPackage;
@@ -90,19 +90,19 @@ public class Run extends XstamppJob{
 	private static final int REPORT_WORK =8;
 	private String dir;
 	private boolean isCanceled;
-	private String[] xslMap = new String[] {SecMessages.Losses,"/fopAccidents.xsl",//$NON-NLS-1$
-											SecMessages.Vulnerabilities,"/fopHazards.xsl",//$NON-NLS-1$
+	private String[] xslMap = new String[] {StlsaMessages.Losses,"/fopAccidents.xsl",//$NON-NLS-1$
+											StlsaMessages.Vulnerabilities,"/fopHazards.xsl",//$NON-NLS-1$
 											Messages.CausalFactors,"/fopcausal.xsl",//$NON-NLS-1$
-											SecMessages.CorrespondingSecurityConstraints,"/fopCorrespondingSafetyConstraints.xsl",//$NON-NLS-1$
+											StlsaMessages.CorrespondingSecurityConstraints,"/fopCorrespondingSafetyConstraints.xsl",//$NON-NLS-1$
 											Messages.DesignRequirements,"/fopDesignRequirements.xsl",//$NON-NLS-1$
-											SecMessages.SecurityConstraints,"/fopSafetyConstraints.xsl",//$NON-NLS-1$
+											StlsaMessages.SecurityConstraints,"/fopSafetyConstraints.xsl",//$NON-NLS-1$
 											Messages.SystemDescription,"/fopSystemDescription.xsl",//$NON-NLS-1$
 											Messages.SystemGoals,"/fopSystemGoals.xsl",//$NON-NLS-1$
-											SecMessages.UnsecureControlActionsTable,"/fopuca.xsl"};//$NON-NLS-1$
+											StlsaMessages.UnsecureControlActionsTable,"/fopuca.xsl"};//$NON-NLS-1$
 
 	private String[] xstpaXslMap = new String[] {Messages.ContextTables,"/fopContextTable.xsl",//$NON-NLS-1$
-											SecMessages.RefinedSecurityConstraintsTable,"/fopRefinedConstraints.xsl",//$NON-NLS-1$
-											SecMessages.RefinedUnsecureControlActions,"/fopRefinedUnsafeControlActions.xsl",//$NON-NLS-1$
+											StlsaMessages.RefinedSecurityConstraintsTable,"/fopRefinedConstraints.xsl",//$NON-NLS-1$
+											StlsaMessages.RefinedUnsecureControlActions,"/fopRefinedUnsafeControlActions.xsl",//$NON-NLS-1$
 											Messages.LTLFormulasTable,"/fopLTLPropertys.xsl"};//$NON-NLS-1$
 	private boolean exportReport;
 	private boolean exportImages;
