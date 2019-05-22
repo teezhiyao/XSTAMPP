@@ -35,7 +35,9 @@ import xstampp.astpa.controlstructure.controller.editparts.EmptyComponentEditPar
 import xstampp.astpa.controlstructure.controller.editparts.FeedbackEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.IControlStructureEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.ListOfCAEditPart;
+import xstampp.astpa.controlstructure.controller.editparts.MultipleActuatorEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.MultipleControllerEditPart;
+import xstampp.astpa.controlstructure.controller.editparts.MultipleSensorEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.ProcessModelEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.ProcessValueEditPart;
 import xstampp.astpa.controlstructure.controller.editparts.ProcessVariableEditPart;
@@ -117,11 +119,15 @@ public class CSEditPartFactory implements EditPartFactory {
       break;
     }
     case MULTIPLE_ACTUATOR: {
-      part = new ActuatorEditPart(this.dataModel, this.stepId);
+      part = new MultipleActuatorEditPart(this.dataModel, this.stepId);
       break;
     }
     case SENSOR: {
       part = new SensorEditPart(this.dataModel, this.stepId);
+      break;
+    }
+    case MULTIPLE_SENSOR: {
+      part = new MultipleSensorEditPart(this.dataModel, this.stepId);
       break;
     }
     case FEEDBACK: {
