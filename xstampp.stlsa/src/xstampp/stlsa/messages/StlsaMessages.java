@@ -18,9 +18,9 @@ package xstampp.stlsa.messages;
 public final class StlsaMessages {
 
 
-
-	
-	public static String Delete_losses="Delete Accidents";
+	public static String Arrow = "Arrow (Interactions in the System)";
+  public static String DashedArrows = "Dashed Arrow (Interactions between system and environment)";
+  public static String Delete_losses="Delete Accidents";
 	public static String DoYouWishToDeleteTheLoss="Do you wish to delete the Loss";
 	public static String ConfirmTheDeletionOfTheFollowingLosses="Please confirm the deletion of the following Accidents:";
 	public static String ConfirmTheDeletionOfAllSelectedLosses="Please confirm the deletion of all selected Accidents.";

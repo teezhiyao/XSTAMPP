@@ -34,6 +34,7 @@ import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
 
 import messages.Messages;
+import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.astpa.Activator;
 import xstampp.astpa.controlstructure.controller.factorys.CSModelCreationFactory;
 import xstampp.astpa.controlstructure.controller.factorys.ConnectionCreationFactory;
@@ -229,7 +230,7 @@ public class CSEditor extends CSAbstractEditor {
     imgDesc = Activator.getImageDescriptor("/icons/buttons/controlstructure/arrow_dashed_32.png"); //$NON-NLS-1$
     imgDescLarge = Activator
         .getImageDescriptor("/icons/buttons/controlstructure/arrow_dashed_40.png"); //$NON-NLS-1$
-    entry = new ConnectionCreationToolEntry(Messages.DashedArrows, Messages.CreateConnections,
+    entry = new ConnectionCreationToolEntry(StlsaMessages.DashedArrows, Messages.CreateConnections,
         new ConnectionCreationFactory(ConnectionType.ARROW_DASHED), imgDesc, imgDescLarge);
     connectionElements.add(entry);
     entry.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, true);
