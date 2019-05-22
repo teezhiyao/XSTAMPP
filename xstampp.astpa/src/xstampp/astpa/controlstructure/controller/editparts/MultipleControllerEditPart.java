@@ -55,13 +55,13 @@ public class MultipleControllerEditPart extends CSAbstractEditPart {
     ImageDescriptor imgDesc = Activator
         .getImageDescriptor("/icons/buttons/controlstructure/controller_80.png"); //$NON-NLS-1$
     Image img = imgDesc.createImage(null);
-    CSFigure tmpFigure = new CSFigure(this.getId(), img,
-        IControlStructureConstants.CONTROLSTRUCTURE_MULTIPLE_CONTROLLER_COLOR);
+    CSFigure tmpFigure = new CSFigure(this.getId(), img, //To-do Modify CSFIGURE to create the nested effect
+        IControlStructureConstants.CONTROLSTRUCTURE_CONTROLLER_COLOR); //This determines the color, so multiple uses the same color box as a single instance
     tmpFigure.setStepId(getStepId());
     tmpFigure.setDeco((boolean) getViewer().getProperty(CSAbstractEditor.IS_DECORATED));
     tmpFigure.setPreferenceStore(getStore());
     tmpFigure.setParent(((IControlStructureEditPart) this.getParent()).getContentPane());
-    tmpFigure.setToolTip(new Label(Messages.Controller));
+    tmpFigure.setToolTip(new Label(Messages.MultipleController));
     return tmpFigure;
   }
 

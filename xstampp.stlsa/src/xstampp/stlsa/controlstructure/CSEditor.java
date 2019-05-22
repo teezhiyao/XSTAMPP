@@ -221,7 +221,7 @@ public class CSEditor extends CSAbstractEditor {
     imgDesc = Activator.getImageDescriptor("/icons/buttons/controlstructure/arrow_simple_32.png"); //$NON-NLS-1$
     imgDescLarge = Activator
         .getImageDescriptor("/icons/buttons/controlstructure/arrow_simple_40.png"); //$NON-NLS-1$
-    entry = new ConnectionCreationToolEntry(Messages.Arrow, Messages.CreateConnections,
+    entry = new ConnectionCreationToolEntry(StlsaMessages.Arrow, Messages.CreateConnections,
         new ConnectionCreationFactory(ConnectionType.ARROW_SIMPLE), imgDesc, imgDescLarge);
     entry.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, true);
     connectionElements.add(entry);
