@@ -60,7 +60,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 	 * ViewPart ID.
 	 */
 	public static final String ID = "stlsa.steps.step2_2"; //$NON-NLS-1$
-
+  private static final String ID_FILTER = "ID";
 	private static final String CA_FILTER="Control Action"; //$NON-NLS-1$
 	private static final String UCA_FILTER="unsecure Control Actions"; //$NON-NLS-1$
 	private static final String UCAID_FILTER="UCA ID"; //$NON-NLS-1$
@@ -68,7 +68,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 	private static final String NOHAZ_FILTER="not vulnerable"; //$NON-NLS-1$
 	private static final String HAZID_FILTER="Vulnerability ID"; //$NON-NLS-1$
 
-  private String[] columns = new String[] {
+  private String[] columns = new String[] {"ID",
     Messages.ControlAction, StlsaMessages.NotGiven2,
     StlsaMessages.GivenIncorrectly2, StlsaMessages.WrongTiming2,
     Messages.StoppedTooSoon };
@@ -108,6 +108,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 	@Override
 	protected Map<String, Boolean> getCategories() {
 		Map<String, Boolean> categories= new HashMap<>();
+    categories.put(ID_FILTER, false);
 		categories.put(CA_FILTER, false);
 		categories.put(UCA_FILTER, false);
 		categories.put(UCAID_FILTER, false);
@@ -121,7 +122,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 
 	@Override
 	protected String[] getCategoryArray() {
-		return new String[]{CA_FILTER,UCA_FILTER,UCAID_FILTER,HAZ_FILTER,HAZID_FILTER,NOHAZ_FILTER};
+		return new String[]{ID_FILTER,CA_FILTER,UCA_FILTER,UCAID_FILTER,HAZ_FILTER,HAZID_FILTER,NOHAZ_FILTER};
 	}
 	
 
@@ -212,16 +213,15 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 		boolean addControlAction;
 		for (IControlAction cAction : list) {
 			//fiter by the title of the control action
-			
 			if(isFiltered(cAction.getTitle(), CA_FILTER)){
 				continue;
 			}
-			GridRow controlActionRow = new GridRow(columns.length,3);
+			GridRow controlActionRow = new GridRow(columns.length,3, new int[] { 0,1 }); 
+			//GridRow is not from a library, the last argument specify which column will only have 1 row. In this case, the first 2 columns only has 1 row.
 			addControlAction = false;
-			
+			controlActionRow.addCell(0,new GridCellText(cAction.getIdString()));
+	    controlActionRow.addCell(1,new GridCellText(cAction.getTitle()));
 
-			controlActionRow.addCell(0,new GridCellText(cAction.getTitle()));
-			
 			List<IUnsafeControlAction> allNotGiven = cAction
 					.getUnsafeControlActions(UnsafeControlActionType.NOT_GIVEN);
 			List<IUnsafeControlAction> allIncorrect = cAction
@@ -238,12 +238,14 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
       boolean addUCA = false;
  			for (int i = 0; i <= maxHeight; i++) {
  			  addUCA = false;
+        System.out.println("Look here");
+ 			  System.out.println(columns.length);
 				GridRow idRow = new GridRow(columns.length,3);
 				GridRow ucaRow = new GridRow(columns.length,3);
 				GridRow linkRow = new GridRow(columns.length,3);
 
 				addUCA |= addUCAEntry(allNotGiven,
-											    i, 1,
+											    i, 2,
 											    Messages.AddNotGivenUCA,
 											    UnsafeControlActionType.NOT_GIVEN,
 											    idRow,
@@ -252,7 +254,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 											    cAction);
 				addUCA |= addUCAEntry(allIncorrect,
 												  i,
-												  2,
+												  3,
 											    Messages.AddGivenIncorrectlyUCA,
 											    UnsafeControlActionType.GIVEN_INCORRECTLY,
 											    idRow,
@@ -262,7 +264,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 				
 				addUCA |= addUCAEntry(allWrongTiming,
 											    i, 
-											    3,
+											    4,
 											    Messages.AddWrongTimingUCA,
 											    UnsafeControlActionType.WRONG_TIMING,
 											    idRow,
@@ -271,7 +273,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 											    cAction);
 				addUCA |= addUCAEntry(allTooSoon,
 											    i, 
-											    4,
+											    5,
 											    Messages.AddStoppedTooSoonUCA,
 											    UnsafeControlActionType.STOPPED_TOO_SOON,
 											    idRow,
