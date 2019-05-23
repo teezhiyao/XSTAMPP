@@ -41,7 +41,7 @@ import xstampp.model.IValueCombie;
  */
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "controlaction2")
-public class ControlAction extends ATableModel implements IControlAction {
+public class ControlAction extends xstampp.astpa.model.controlaction.ControlAction implements IControlAction {
 
   @XmlElementWrapper(name = "unsecurecontrolactions")
   @XmlElement(name = "unsecurecontrolaction")

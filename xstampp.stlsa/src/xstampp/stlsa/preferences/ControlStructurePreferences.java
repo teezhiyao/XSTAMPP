@@ -70,11 +70,6 @@ implements IWorkbenchPreferencePage {
 				IControlStructureConstants.CONTROLSTRUCTURE_CONTROLLER_COLOR, Messages.Controller,
 				this.getFieldEditorParent());
 		this.addField(this.CSControllerDeco);
-
-    this.CSMultipleControllerDeco = new ColorFieldEditor(
-        IControlStructureConstants.CONTROLSTRUCTURE_MULTIPLE_CONTROLLER_COLOR, Messages.MultipleController,
-        this.getFieldEditorParent());
-    this.addField(this.CSMultipleControllerDeco);
 		
 		this.CSActuatorDeco = new ColorFieldEditor(
 				IControlStructureConstants.CONTROLSTRUCTURE_ACTUATOR_COLOR, Messages.Actuator,
