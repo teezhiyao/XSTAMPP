@@ -28,36 +28,38 @@ import xstampp.astpa.model.interfaces.IControlStructureEditorDataModel;
 import xstampp.preferences.IControlStructureConstants;
 
 /**
- * @author Aliaksei Babkovich
+ * @author Aliaksei Babkovich, Lukas Balzer
  * @version 1.0
  * 
  */
-public class MultipleSensorEditPart extends CSAbstractEditPart {
+public class MultipleControlledProcessEditPart extends CSAbstractEditPart {
 
   /**
-   * this constuctor sets the unique ID of this EditPart which is the same in
-   * its model and figure
+   * this constuctor sets the unique ID of the
+   * {@link MultipleControlledProcessEditPart} which is the same in its model and
+   * figure
    * <p>
    * calls
    * {@link CSAbstractEditPart#CSAbstractEditPart(IControlStructureEditorDataModel, String, Integer)}
    * with 1
    */
-  public MultipleSensorEditPart(IControlStructureEditorDataModel model, String stepId) {
+  public MultipleControlledProcessEditPart(IControlStructureEditorDataModel model,
+      String stepId) {
     super(model, stepId, 1);
   }
 
   @Override
   protected IFigure createFigure() {
     ImageDescriptor imgDesc = Activator
-        .getImageDescriptor("/icons/buttons/controlstructure/sensor_80.png"); //$NON-NLS-1$
+        .getImageDescriptor("/icons/buttons/controlstructure/process_80.png"); //$NON-NLS-1$
     Image img = imgDesc.createImage(null);
     CSFigure tmpFigure = new CSFigure(this.getId(), img,
-        IControlStructureConstants.CONTROLSTRUCTURE_SENSOR_COLOR);
+        IControlStructureConstants.CONTROLSTRUCTURE_PROCESS_COLOR);
     tmpFigure.setStepId(getStepId());
     tmpFigure.setDeco((boolean) getViewer().getProperty(CSAbstractEditor.IS_DECORATED));
     tmpFigure.setPreferenceStore(getStore());
     tmpFigure.setParent(((IControlStructureEditPart) this.getParent()).getContentPane());
-    tmpFigure.setToolTip(new Label(Messages.MultipleSensor));
+    tmpFigure.setToolTip(new Label(Messages.MultipleControlledProcess));
     return tmpFigure;
   }
 

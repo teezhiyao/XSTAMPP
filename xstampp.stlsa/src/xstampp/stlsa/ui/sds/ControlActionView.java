@@ -36,7 +36,7 @@ import xstampp.usermanagement.api.AccessRights;
  * @author Jarkko Heidenwag
  * 
  */
-public class ControlActionView extends CommonTableView<IControlActionViewDataModel> {
+public class ControlActionView extends xstampp.astpa.ui.sds.ControlActionView {
 
   /**
    * @author Jarkko Heidenwag
