@@ -34,4 +34,5 @@ public class ControlActionView extends xstampp.astpa.ui.sds.ControlActionView {
   public String getTitle() {
     return Messages.ControlActions;
   }
+  
 }

@@ -504,7 +504,7 @@
             name="%editor.name.ControlStructure">
       </editor>
       <editor
-            class="xstampp.astpa.controlstructure.CSEditorWithPM"
+            class="xstampp.stlsa.ui.sds.UnsafeControlActionView"
             default="false"
             icon="icons/buttons/navigation/STEP3_1(16).png"
             id="stlsa.steps.step3_1"
@@ -574,7 +574,7 @@
             name="%editor.name.UnsafeControlActionsTable">
       </editor>
       <editor
-            class="xstampp.stlsa.ui.sds.CSCView"
+            class="xstampp.stlsa.ui.sds.ControlActionView"
             default="false"
             icon="icons/buttons/navigation/STEP2_3(16).png"
             id="stlsa.steps.step2_3"
