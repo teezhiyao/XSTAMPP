@@ -94,7 +94,7 @@
          </category>
          
          <category
-               icon="icons/branding/step3CausalAnalysis.png"
+               icon="icons/branding/step4SeverityLikelihoodAnalysis.png"
                id="stlsa.category4"
                name="Severity and Likelihood Analysis">
             <step
@@ -419,7 +419,7 @@
       <wizard
             category="xstampp.stlsa.export.main/stlsa.stepImages"
             class="xstampp.stlsa.wizards.stepImages.DesignRequirementsImgWizard"
-            icon="icons/buttons/navigation/STEP1_7(16).png"
+            icon="icons/buttons/navigation/STEP1_7(16m).png"
             id="xstampp.stlsa.imageExport.1_7"
             name="%wizard.name.images.DesignRequirements">
       </wizard>
