@@ -449,11 +449,13 @@ public abstract class CommonTableView<T extends IDataModel> extends StandartEdit
   public void createPartControl(Composite parent) {
     this.setDataModelInterface(
         ProjectManager.getContainerInstance().getDataModel(this.getProjectID()));
-    this.createCommonTableView(parent, tableHeader);
+    System.out.println("Check ");
+    this.createCommonTableView(parent, this.tableHeader);
     this.setFilter(new ATableFilter());
     this.getTableViewer().addFilter(this.getFilter());
   }
-
+ 
+  
   /**
    * This method allows children of this to add default {@link LinkSupport}'s to the table view.
    * Implementors should call the {@link CommonTableView#addLinkSupport(LinkSupport))} to add the
