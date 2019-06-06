@@ -12,6 +12,7 @@
 package xstampp.astpa.ui.sds;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
 
@@ -24,17 +25,18 @@ import org.eclipse.swt.widgets.Composite;
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
+import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlstructure.interfaces.IConnection;
 import xstampp.astpa.model.controlstructure.interfaces.IRectangleComponent;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
-import xstampp.astpa.ui.CommonTableView;
+import xstampp.astpa.ui.UnsafeCAView;
 import xstampp.model.ObserverValue;
 
 /**
  * @author Jarkko Heidenwag
  * 
  */
-public class UnsafeControlActionView extends CommonTableView<IControlActionViewDataModel> {
+public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewDataModel> {
 
   /**
    * @author Jarkko Heidenwag
@@ -62,6 +64,30 @@ public class UnsafeControlActionView extends CommonTableView<IControlActionViewD
   public void createPartControl(Composite parent) {
 
     super.createPartControl(parent);
+    
+    TableViewerColumn idColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    idColumn.getColumn().setText("ID"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(idColumn.getColumn(),
+        new ColumnWeightData(10, 100, true));
+
+    idColumn.setLabelProvider(new ColumnLabelProvider() {
+
+      @Override
+      public String getText(Object element) {
+        if (element instanceof IControlAction) {
+          List<IUnsafeControlAction> lst = ((IControlAction) element).getUnsafeControlActions();
+          System.out.println(lst.get(0).getType());
+          if(lst.size() > 0) {
+            return lst.get(0).getType().toString();
+          }
+          else {
+            return "N.A";
+          }
+        }
+        return null;
+      }
+    });
+    
     // the Control Action column is for the unsafe control actions
     TableViewerColumn CAColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
     CAColumn.getColumn().setText("Control Actions"); //$NON-NLS-1$
@@ -73,19 +99,14 @@ public class UnsafeControlActionView extends CommonTableView<IControlActionViewD
       @Override
       public String getText(Object element) {
         if (element instanceof IControlAction) {
-          IRectangleComponent comp = UnsafeControlActionView.this.getDataInterface()
-              .getComponent(((IControlAction) element).getComponentLink());
-          if (comp == null) {
-            return null;
+          List<IUnsafeControlAction> lst = ((IControlAction) element).getUnsafeControlActions();
+          System.out.println(lst.get(0).getType());
+          if(lst.size() > 0) {
+            return lst.get(0).getType().toString();
           }
-          IConnection conn = UnsafeControlActionView.this.getDataInterface()
-              .getConnection(comp.getRelative());
-          if (conn == null) {
-            return null;
+          else {
+            return "N.A";
           }
-          comp = UnsafeControlActionView.this.getDataInterface()
-              .getComponent(conn.getSourceAnchor().getOwnerId());
-          return comp.getText();
         }
         return null;
       }
@@ -177,9 +198,15 @@ public class UnsafeControlActionView extends CommonTableView<IControlActionViewD
 //        return null;
 //      }
 //    });
+    
+    
+    this.setIdColumn(idColumn);
+    
     this.updateTable();
     getAddNewItemButton().setEnabled(false);
     getAddNewItemButton().setToolTipText(Messages.ControlActionView_1);
+    
+    
   }
 
   @Override
