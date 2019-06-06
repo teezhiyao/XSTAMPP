@@ -238,8 +238,6 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
       boolean addUCA = false;
  			for (int i = 0; i <= maxHeight; i++) {
  			  addUCA = false;
-        System.out.println("Look here");
- 			  System.out.println(columns.length);
 				GridRow idRow = new GridRow(columns.length,3);
 				GridRow ucaRow = new GridRow(columns.length,3);
 				GridRow linkRow = new GridRow(columns.length,3);
