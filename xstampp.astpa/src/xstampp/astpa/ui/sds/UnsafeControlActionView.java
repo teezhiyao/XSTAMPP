@@ -176,9 +176,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 //      }
 //    });
     
-    
-    this.setIdColumn(idColumn);
-    
+        
     this.updateTable();
     getAddNewItemButton().setEnabled(false);
     getAddNewItemButton().setToolTipText(Messages.ControlActionView_1);
