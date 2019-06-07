@@ -653,7 +653,7 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
       nrColumn.getColumn().setResizable(true);
     }
     this.idColumn = new TableViewerColumn(this.getTableViewer(), SWT.NONE);
-    this.idColumn.getColumn().setText("UCA ID");
+    this.idColumn.getColumn().setText(Messages.ID);
     final int idWeight = 5;
     final int idMinWidth = 45;
     tableColumnLayout.setColumnData(this.idColumn.getColumn(),
@@ -686,7 +686,7 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
     
     
     this.titleColumn = new TableViewerColumn(this.getTableViewer(), SWT.None);
-    this.titleColumn.getColumn().setText("UCA Title");
+    this.titleColumn.getColumn().setText(Messages.Title);
     final int titleWeight = 50;
     final int titleMinWidth = 50;
     tableColumnLayout.setColumnData(this.titleColumn.getColumn(),
