@@ -65,29 +65,6 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 
     super.createPartControl(parent);
     
-    TableViewerColumn idColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-    idColumn.getColumn().setText("ID"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(idColumn.getColumn(),
-        new ColumnWeightData(10, 100, true));
-
-    idColumn.setLabelProvider(new ColumnLabelProvider() {
-
-      @Override
-      public String getText(Object element) {
-        if (element instanceof IControlAction) {
-          List<IUnsafeControlAction> lst = ((IControlAction) element).getUnsafeControlActions();
-          System.out.println(lst.get(0).getType());
-          if(lst.size() > 0) {
-            return lst.get(0).getType().toString();
-          }
-          else {
-            return "N.A";
-          }
-        }
-        return null;
-      }
-    });
-    
     // the Control Action column is for the unsafe control actions
     TableViewerColumn CAColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
     CAColumn.getColumn().setText("Control Actions"); //$NON-NLS-1$
