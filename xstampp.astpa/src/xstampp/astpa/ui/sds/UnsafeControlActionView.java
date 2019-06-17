@@ -43,7 +43,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
    * @author Jarkko Heidenwag
    * 
    */
-  public static final String ID = "astpa.steps.step2_1"; //$NON-NLS-1$
+  public static final String ID = "astpa.steps.step2_5"; //$NON-NLS-1$
 
   /**
    * @author Jarkko Heidenwag
@@ -210,7 +210,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 //      }
 //  }     
     System.out.println("Trying to updatetable in unsafe control action view");
-    UnsafeControlActionView.this.getTableViewer().setInput(this.getDataInterface().getAllControlActions());
+    UnsafeControlActionView.this.getTableViewer().setInput(this.getDataInterface().getControlActionController().getUCAList(null));
   }
 
   @Override

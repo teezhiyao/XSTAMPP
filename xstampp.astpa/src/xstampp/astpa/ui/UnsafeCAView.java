@@ -669,6 +669,8 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
 
       @Override
       public String getText(Object element) {
+        System.out.println(element.getClass().toString());
+        System.out.println("yoyo");
         if (element instanceof ATableModel) {
           return ((ATableModel) element).getIdString();
         }
