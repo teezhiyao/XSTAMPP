@@ -38,8 +38,8 @@ public interface IControlActionViewDataModel extends IDataModel, ICommonTables {
    * @return All control actions
    */
   List<IControlAction> getAllControlActions();
-
-  /**
+  
+  /**q
    * {@link IUnsafeControlActionDataModel#getControlActionController()}
    */
   IControlActionController getControlActionController();

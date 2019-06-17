@@ -11,6 +11,7 @@
 
 package xstampp.astpa.ui.sds;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Observable;
@@ -50,7 +51,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
    */
   public UnsafeControlActionView() {
     super(true);
-    setUpdateValues(EnumSet.of(ObserverValue.CONTROL_ACTION));
+    setUpdateValues(EnumSet.of(ObserverValue.UNSAFE_CONTROL_ACTION));
   }
 
   /**
@@ -77,7 +78,8 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
       public String getText(Object element) {
         if (element instanceof IControlAction) {
           List<IUnsafeControlAction> lst = ((IControlAction) element).getUnsafeControlActions();
-          System.out.println(lst.get(0).getType());
+//          System.out.println(lst.get(0).getType());
+//          System.out.println(lst.get(0).getIdString());
           if(lst.size() > 0) {
             return lst.get(0).getType().toString();
           }
@@ -196,8 +198,19 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
    */
   @Override
   public void updateTable() {
-    UnsafeControlActionView.this.getTableViewer()
-        .setInput(this.getDataInterface().getAllControlActions());
+
+//    List<ICorrespondingUnsafeControlAction> CAlist = this.getDataInterface().getControlActionController().getAllUnsafeControlActions();
+//    List<IUnsafeControlAction> UCA = new ArrayList<IUnsafeControlAction>();
+//    for (IControlAction CA : CAlist) {
+//      List<IUnsafeControlAction> tempUCA = CA.getUnsafeControlActions();
+//      for (IUnsafeControlAction unsafe : tempUCA) {
+//        System.out.println("Hi here");
+//        System.out.println(unsafe.getType().toString());
+//        UCA.add((IUnsafeControlAction) unsafe);
+//      }
+//  }     
+    System.out.println("Trying to updatetable in unsafe control action view");
+    UnsafeControlActionView.this.getTableViewer().setInput(this.getDataInterface().getAllControlActions());
   }
 
   @Override
@@ -205,7 +218,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
     super.update(dataModelController, updatedValue);
     ObserverValue type = (ObserverValue) updatedValue;
     switch (type) {
-    case CONTROL_ACTION:
+    case UNSAFE_CONTROL_ACTION:
       this.refreshView();
       break;
     default:
@@ -231,7 +244,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 
   @Override
   protected void moveEntry(UUID id, boolean moveUp) {
-    getDataInterface().moveEntry(false, moveUp, id, ObserverValue.CONTROL_ACTION);
+    getDataInterface().moveEntry(false, moveUp, id, ObserverValue.UNSAFE_CONTROL_ACTION);
   }
 
   @Override
