@@ -112,6 +112,7 @@ Export-Package: xstampp.astpa;uses:="org.osgi.framework,org.eclipse.jface.resour
    org.eclipse.gef.ui.views.palette,
    org.eclipse.draw2d.geometry,
    org.eclipse.draw2d.text",
+ xstampp.astpa.messages,
  xstampp.astpa.model;
   uses:="xstampp.model,
    xstampp.astpa.model.export,

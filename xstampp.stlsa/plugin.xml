@@ -4,7 +4,7 @@
    <extension
          point="xstampp.extension.steppedProcess">
       <process
-            DataModelClass="xstampp.stpapriv.model.PrivacyController"
+            DataModelClass="xstampp.stlsa.model.StlsaController"
             command="stlsa.command.load"
             editorId="stlsa.steps.step1_1"
             extension="stlsa"
