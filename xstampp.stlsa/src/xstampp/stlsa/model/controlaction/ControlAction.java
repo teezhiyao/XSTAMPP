@@ -9,7 +9,7 @@
  * 
  *******************************************************************************/
 
-package xstampp.stpapriv.model.controlaction;
+package xstampp.stlsa.model.controlaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,7 @@ import xstampp.astpa.model.extendedData.RefinedSafetyRule;
 import xstampp.astpa.model.extendedData.interfaces.IExtendedDataController;
 import xstampp.model.AbstractLTLProvider;
 import xstampp.model.IValueCombie;
+import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
 
 /**
  * Class representing the control action objects

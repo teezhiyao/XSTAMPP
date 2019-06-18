@@ -30,6 +30,7 @@ import xstampp.astpa.model.controlstructure.interfaces.IConnection;
 import xstampp.astpa.model.controlstructure.interfaces.IRectangleComponent;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.stlsa.ui.UnsafeCAView;
+import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
 import xstampp.model.ObserverValue;
 
 /**
@@ -75,13 +76,14 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 
       @Override
       public String getText(Object element) {
-        if (element instanceof IControlAction) {
-          List<IUnsafeControlAction> lst = ((IControlAction) element).getUnsafeControlActions();
-//          System.out.println(lst.get(0).getType());
-//          System.out.println(lst.get(0).getIdString());
-          if(lst.size() > 0) {
-            return lst.get(0).getType().toString();
-          }
+        System.out.println("i am here");
+        System.out.println(((UnsecureControlAction) element).getLinks().toString());
+        System.out.println(((UnsecureControlAction) element).getCreatedBy());
+
+        if ((UnsecureControlAction) element instanceof UnsecureControlAction) {
+          if (((UnsecureControlAction) element).getType().toString() != " ") {
+            return ((UnsecureControlAction) element).getType().toString();
+            }
           else {
             return "N.A";
           }
@@ -100,22 +102,18 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 
       @Override
       public String getText(Object element) {
-        if (element instanceof IControlAction) {
-          IRectangleComponent comp = UnsafeControlActionView.this.getDataInterface()
-              .getComponent(((IControlAction) element).getComponentLink());
-          if (comp == null) {
-            return null;
+        if ((UnsecureControlAction) element instanceof UnsecureControlAction) {
+//        List<IUnsafeControlAction> lst = ((IControlAction) element).getUnsafeControlActions();
+//        System.out.println(lst.get(0).getType());
+//        System.out.println(lst.get(0).getIdString());
+        if (((UnsecureControlAction) element).getType().toString() != " ") {
+          return ((UnsecureControlAction) element).getType().toString();
           }
-          IConnection conn = UnsafeControlActionView.this.getDataInterface()
-              .getConnection(comp.getRelative());
-          if (conn == null) {
-            return null;
-          }
-          comp = UnsafeControlActionView.this.getDataInterface()
-              .getComponent(conn.getSourceAnchor().getOwnerId());
-          return comp.getText();
+        else {
+          return "N.A";
         }
-        return null;
+      }
+      return null;
       }
     });
     
