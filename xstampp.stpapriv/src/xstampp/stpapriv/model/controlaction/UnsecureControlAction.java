@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import xstampp.astpa.model.ATableModel;
+import xstampp.astpa.model.EntryWithSeverity;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
 import xstampp.astpa.model.controlaction.safetyconstraint.CorrespondingSafetyConstraint;
@@ -37,7 +38,7 @@ import xstampp.astpa.model.interfaces.Severity;
 @XmlRootElement(name = "unsecurecontrolaction")
 @XmlAccessorType(XmlAccessType.NONE)
 public class UnsecureControlAction
-    extends ATableModel
+    extends EntryWithSeverity
     implements IUnsafeControlAction, ICorrespondingUnsafeControlAction, IEntryWithNameId {
 
   @XmlElement(name = "description")
@@ -134,14 +135,14 @@ public class UnsecureControlAction
    * @param description
    *          the description to set
    */
-//  public boolean setDescription(String description) {
-//    boolean result = false;
-//    if (!description.equals(this.description)) {
-//      result = true;
-//      this.description = description;
-//    }
-//    return result;
-//  }
+  public boolean setDescription(String description) {
+    boolean result = false;
+    if (!description.equals(this.description)) {
+      result = true;
+      this.description = description;
+    }
+    return result;
+  }
 
   @Override
   public UUID getId() {
@@ -152,9 +153,9 @@ public class UnsecureControlAction
    * @param id
    *          the id to set
    */
-//  public void setId(UUID id) {
-//    this.id = id;
-//  }
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
   @Override
   public UnsafeControlActionType getType() {
@@ -195,9 +196,9 @@ public class UnsecureControlAction
    * @param links
    *          the links to set
    */
-//  public void setLinks(String links) {
-//    this.links = links;
-//  }
+  public void setLinks(String links) {
+    this.links = links;
+  }
 
   public boolean setNumber(int number) {
     this.number = number;

@@ -77,8 +77,8 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
       @Override
       public String getText(Object element) {
         System.out.println("i am here");
-        System.out.println(((UnsecureControlAction) element).getLinks().toString());
-        System.out.println(((UnsecureControlAction) element).getCreatedBy());
+//        System.out.println(((UnsecureControlAction) element).getLinks().toString());
+//        System.out.println(((UnsecureControlAction) element).getCreatedBy());
 
         if ((UnsecureControlAction) element instanceof UnsecureControlAction) {
           if (((UnsecureControlAction) element).getType().toString() != " ") {

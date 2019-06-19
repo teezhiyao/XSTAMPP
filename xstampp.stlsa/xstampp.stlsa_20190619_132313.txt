@@ -1,0 +1,9 @@
+WARNING - 13:23:14: Creating types 
+WARNING - 13:23:20: Initializing types
+ERROR - 13:24:23: xstampp.model.NumberedArrayList cannot be found by org.eclipse.umlgen.reverse.java_9.0.0.201901300933
+ERROR - 13:24:30: xstampp.model.NumberedArrayList cannot be found by org.eclipse.umlgen.reverse.java_9.0.0.201901300933
+ERROR - 13:24:30: xstampp.model.NumberedArrayList cannot be found by org.eclipse.umlgen.reverse.java_9.0.0.201901300933
+WARNING - 13:24:46: Generic post-process : Creating usages and associations
+WARNING - 13:24:46: Generic post-process : Creating activities
+WARNING - 13:24:46: Saving uml file /resource/xstampp.stlsa/xstampp.stlsa.uml
+WARNING - 13:24:46: Uml file /resource/xstampp.stlsa/xstampp.stlsa.uml saved
