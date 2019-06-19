@@ -53,7 +53,6 @@ import xstampp.model.IValueCombie;
 import xstampp.model.NumberedArrayList;
 import xstampp.model.ObserverValue;
 import xstampp.stpapriv.messages.PrivMessages;
-import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
 import xstampp.stpapriv.model.vulloss.VulLossController;
 
 /**
