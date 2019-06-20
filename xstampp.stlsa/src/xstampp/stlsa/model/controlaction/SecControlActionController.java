@@ -1,6 +1,6 @@
 /*******************************************************************************
  * 
- * Copyright (c) 2013-2017 A-STPA Stupro Team Uni Stuttgart (Lukas Balzer, Adam
+  * Copyright (c) 2013-2017 A-STPA Stupro Team Uni Stuttgart (Lukas Balzer, Adam
  * Grahovac, Jarkko Heidenwag, Benedikt Markt, Jaqueline Patzek, Sebastian
  * Sieber, Fabian Toth, Patrick Wickenhäuser, Aliaksei Babkovich, Aleksander
  * Zotov).
@@ -12,7 +12,7 @@
  * 
  *******************************************************************************/
 
-package xstampp.stpapriv.model.controlaction;
+package xstampp.stlsa.model.controlaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +33,7 @@ import xstampp.astpa.model.controlaction.IControlActionController;
 import xstampp.astpa.model.controlaction.NotProvidedValuesCombi;
 import xstampp.astpa.model.controlaction.ProvidedValuesCombi;
 import xstampp.astpa.model.controlaction.UCAHazLink;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
@@ -53,7 +54,7 @@ import xstampp.model.IValueCombie;
 import xstampp.model.NumberedArrayList;
 import xstampp.model.ObserverValue;
 import xstampp.stpapriv.messages.PrivMessages;
-import xstampp.stpapriv.model.vulloss.VulLossController;
+import xstampp.stlsa.model.vulloss.VulLossController;
 
 /**
  * Manager class for control actions.
@@ -392,10 +393,10 @@ public class SecControlActionController implements IControlActionController {
    * @return true, if the description has been set
    */
   public boolean setUcaDescription(UUID unsafeControlActionId, String description) {
-    UnsecureControlAction unsafeControlAction = this
+    UnsafeControlAction unsafeControlAction = this
         .getInternalUnsafeControlAction(unsafeControlActionId);
     if (unsafeControlAction != null) {
-      return unsafeControlAction.setDescription(description);
+//      return unsafeControlAction.setDescription(description);
     }
     return false;
   }
@@ -455,7 +456,7 @@ public class SecControlActionController implements IControlActionController {
    */
   public int getUCANumber(UUID ucaID) {
     for (ControlAction controlAction : this.controlActions) {
-      for (UnsecureControlAction unsafeControlAction : controlAction
+      for (UnsafeControlAction unsafeControlAction : controlAction
           .getInternalUnsafeControlActions()) {
         boolean isSearched = unsafeControlAction.getId().equals(ucaID);
         if (isSearched) {
@@ -472,7 +473,7 @@ public class SecControlActionController implements IControlActionController {
   private void assignUCANumbers() {
     nextUcaIndex = 1;
     for (ControlAction controlAction : this.controlActions) {
-      for (UnsecureControlAction unsafeControlAction : controlAction
+      for (UnsafeControlAction unsafeControlAction : controlAction
           .getInternalUnsafeControlActions()) {
         unsafeControlAction.setNumber(nextUcaIndex);
         nextUcaIndex++;
@@ -503,7 +504,7 @@ public class SecControlActionController implements IControlActionController {
 
   public boolean setCorrespondingSafetyConstraint(UUID unsafeControlActionId,
       String safetyConstraintDescription) {
-    UnsecureControlAction unsafeControlAction = this
+    UnsafeControlAction unsafeControlAction = this
         .getInternalUnsafeControlAction(unsafeControlActionId);
     if (unsafeControlAction == null) {
       return false;
@@ -530,12 +531,12 @@ public class SecControlActionController implements IControlActionController {
    */
   public UUID setUCASafetyCritical(UUID unsafeControlActionId,
       boolean safetyConstraintDescription) {
-    UnsecureControlAction unsafeControlAction = this
+    UnsafeControlAction unsafeControlAction = this
         .getInternalUnsafeControlAction(unsafeControlActionId);
     if (unsafeControlAction == null) {
       return null;
     }
-    unsafeControlAction.setSafetyCritical(safetyConstraintDescription);
+//    unsafeControlAction.setSafetyCritical(safetyConstraintDescription);
     return unsafeControlAction.getId();
   }
 
@@ -554,23 +555,23 @@ public class SecControlActionController implements IControlActionController {
    */
   public UUID setUCASecurityCritical(UUID unsafeControlActionId,
       boolean safetyConstraintDescription) {
-    UnsecureControlAction unsafeControlAction = this
+    UnsafeControlAction unsafeControlAction = this
         .getInternalUnsafeControlAction(unsafeControlActionId);
     if (unsafeControlAction == null) {
       return null;
     }
-    unsafeControlAction.setSecurityCritical(safetyConstraintDescription);
+//    unsafeControlAction.setSecurityCritical(safetyConstraintDescription);
     return unsafeControlAction.getId();
   }
 
   public UUID setUCAPrivacyCritical(UUID unsafeControlActionId,
       boolean safetyConstraintDescription) {
-    UnsecureControlAction unsafeControlAction = this
+    UnsafeControlAction unsafeControlAction = this
         .getInternalUnsafeControlAction(unsafeControlActionId);
     if (unsafeControlAction == null) {
       return null;
     }
-    unsafeControlAction.setPrivacyCritical(safetyConstraintDescription);
+//    unsafeControlAction.setPrivacyCritical(safetyConstraintDescription);
     return unsafeControlAction.getId();
   }
 
@@ -584,9 +585,9 @@ public class SecControlActionController implements IControlActionController {
    *          the id of the unsafe control action
    * @return the unsafe control action with the given id
    */
-  public UnsecureControlAction getInternalUnsafeControlAction(UUID unsafeControlActionId) {
+  public UnsafeControlAction getInternalUnsafeControlAction(UUID unsafeControlActionId) {
     for (ControlAction controlAction : this.controlActions) {
-      for (UnsecureControlAction unsafeControlAction : controlAction
+      for (UnsafeControlAction unsafeControlAction : controlAction
           .getInternalUnsafeControlActions()) {
         if (unsafeControlAction.getId().equals(unsafeControlActionId)) {
           return unsafeControlAction;
@@ -642,7 +643,7 @@ public class SecControlActionController implements IControlActionController {
     moveRulesInCA();
     for (ControlAction controlAction : this.controlActions) {
       controlAction.prepareForExport(extendedData, csController, defaultLabel);
-      for (UnsecureControlAction unsafeControlAction : controlAction
+      for (UnsafeControlAction unsafeControlAction : controlAction
           .getInternalUnsafeControlActions()) {
         List<ITableModel> linkedHazards = new ArrayList<>();
         for (UUID link : this.getLinksOfUCA(unsafeControlAction.getId())) {
@@ -706,7 +707,7 @@ public class SecControlActionController implements IControlActionController {
     moveRulesInCA();
     for (ControlAction controlAction : this.controlActions) {
       controlAction.prepareForSave(extendedData);
-      for (UnsecureControlAction unsafeControlAction : controlAction
+      for (UnsafeControlAction unsafeControlAction : controlAction
           .getInternalUnsafeControlActions()) {
 
         unsafeControlAction.identifier = null;
@@ -751,8 +752,9 @@ public class SecControlActionController implements IControlActionController {
    *          the control action id which is used to look up the action
    */
   public boolean isUCASafetyCritical(UUID caID) {
-    UnsecureControlAction action = getInternalUnsafeControlAction(caID);
-    return action.isSafetyCritical();
+    UnsafeControlAction action = getInternalUnsafeControlAction(caID);
+//    return action.isSafetyCritical();
+    return false;
   }
 
   /**
@@ -761,13 +763,17 @@ public class SecControlActionController implements IControlActionController {
    *          the control action id which is used to look up the action
    */
   public boolean isUCASecurityCritical(UUID caID) {
-    UnsecureControlAction action = getInternalUnsafeControlAction(caID);
-    return action.isSecurityCritical();
+    UnsafeControlAction action = getInternalUnsafeControlAction(caID);
+//    return action.isSecurityCritical();
+    return false;
+
   }
 
   public boolean isUCAPrivacyCritical(UUID caID) {
-    UnsecureControlAction action = getInternalUnsafeControlAction(caID);
-    return action.isPrivacyCritical();
+    UnsafeControlAction action = getInternalUnsafeControlAction(caID);
+//    return action.isPrivacyCritical();
+    return false;
+
   }
 
   /**

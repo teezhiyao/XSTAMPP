@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  *******************************************************************************/
-package xstampp.stpapriv.model.vulloss;
+package xstampp.stlsa.model.vulloss;
 
 import java.util.ArrayList;
 import java.util.Collections;

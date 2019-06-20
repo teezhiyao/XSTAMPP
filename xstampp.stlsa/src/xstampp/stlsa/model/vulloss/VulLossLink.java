@@ -1,4 +1,4 @@
-package xstampp.stpapriv.model.vulloss;
+package xstampp.stlsa.model.vulloss;
 
 import java.util.UUID;
 

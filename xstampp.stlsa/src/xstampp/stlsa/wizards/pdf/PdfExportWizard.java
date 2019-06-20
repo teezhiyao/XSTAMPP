@@ -19,8 +19,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import messages.Messages;
 import xstampp.preferences.IPreferenceConstants;
-import xstampp.stpapriv.model.PrivacyController;
 import xstampp.stlsa.Activator;
+import xstampp.stlsa.model.StlsaController;
 import xstampp.stlsa.util.jobs.STPAWordJob;
 import xstampp.stlsa.wizards.AbstractPrivacyExportWizard;
 import xstampp.ui.common.ProjectManager;
@@ -60,7 +60,7 @@ public class PdfExportWizard extends AbstractPrivacyExportWizard {
 		this.getStore().setValue(IPreferenceConstants.COMPANY_LOGO,
 				this.page.getTextLogo());
 		if(getExportPage().getExportPath().endsWith("docx")){
-			final PrivacyController controller = (PrivacyController) ProjectManager.getContainerInstance().getDataModel(page.getProjectID());
+			final StlsaController controller = (StlsaController) ProjectManager.getContainerInstance().getDataModel(page.getProjectID());
 
 			STPAWordJob exportJob = new STPAWordJob("STPA Word Report",getExportPage().getExportPath(),controller,true);
 			exportJob.addJobChangeListener(new JobChangeAdapter(){

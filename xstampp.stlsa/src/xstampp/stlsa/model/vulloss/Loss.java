@@ -11,7 +11,7 @@
  *
  *******************************************************************************/
 
-package xstampp.stpapriv.model.vulloss;
+package xstampp.stlsa.model.vulloss;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

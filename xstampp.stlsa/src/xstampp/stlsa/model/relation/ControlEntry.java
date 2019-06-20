@@ -1,4 +1,4 @@
-package xstampp.stpapriv.model.relation;
+package xstampp.stlsa.model.relation;
 
 import java.util.UUID;
 

@@ -19,7 +19,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.PlatformUI;
 
-import xstampp.stpapriv.model.PrivacyController;
+import xstampp.stlsa.model.StlsaController;
 import xstampp.ui.common.ProjectManager;
 
 /**
@@ -39,7 +39,7 @@ public class NewProject extends AbstractHandler {
 			ProjectManager.getLOGGER().debug("failed to initialize new Project");
 		}
 
-		if(ProjectManager.getContainerInstance().startUp(PrivacyController.class,
+		if(ProjectManager.getContainerInstance().startUp(StlsaController.class,
 				nameParam, pathParam, null) == null){
 			ProjectManager.getLOGGER().debug("failed to start up new Project");
 		}

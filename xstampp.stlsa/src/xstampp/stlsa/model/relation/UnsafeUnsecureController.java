@@ -1,4 +1,4 @@
-package xstampp.stpapriv.model.relation;
+package xstampp.stlsa.model.relation;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,27 +10,30 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
 
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.interfaces.IExtendedDataModel;
 import xstampp.model.IValueCombie;
 import xstampp.model.ObserverValue;
-import xstampp.stpapriv.model.PrivacyController;
-import xstampp.stpapriv.model.controlaction.ControlAction;
-import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
+import xstampp.stlsa.model.StlsaController;
+import xstampp.stlsa.model.controlaction.ControlAction;
+//import xstampp.stpapriv.model.PrivacyController;
+//import xstampp.stpapriv.model.controlaction.ControlAction;
+//import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
 
 
 public class UnsafeUnsecureController extends Observable implements Observer{
 	private Map<UUID,ControlEntry> controlentries;
-	private Map<UUID,UnsecureControlAction> variablesList;
+	private Map<UUID,UnsafeControlAction> variablesList;
 	private ControlEntry linkedCAE;
-	private PrivacyController model;
+	private StlsaController model;
 	private boolean controlActionProvided;
 	
 	public UnsafeUnsecureController(IExtendedDataModel model) {
 		this.variablesList = new HashMap<>();
 		this.controlentries  = new HashMap<>();
-		this.model = (PrivacyController) model;
+		this.model = (StlsaController) model;
 		model.addObserver(this);
 		clear();
 		
@@ -89,8 +92,8 @@ public class UnsafeUnsecureController extends Observable implements Observer{
 	/**
 	 * @return the variablesList
 	 */
-	public ArrayList<UnsecureControlAction> getVariablesList() {
-		return new ArrayList<UnsecureControlAction>(this.variablesList.values());
+	public ArrayList<UnsafeControlAction> getVariablesList() {
+		return new ArrayList<UnsafeControlAction>(this.variablesList.values());
 	}
 
 	/**
@@ -100,7 +103,7 @@ public class UnsafeUnsecureController extends Observable implements Observer{
 	 * @return the ProcessModelVariable stored at the given index
 	 * @see ProcessModelVariables
 	 */
-	public UnsecureControlAction getVariable(int index) {
+	public UnsafeControlAction getVariable(int index) {
 		return this.variablesList.get(index);
 	}
 	
@@ -110,7 +113,7 @@ public class UnsafeUnsecureController extends Observable implements Observer{
 	/**
 	 * @param varible the value which is to add to the valuesList
 	 */
-	public void addVariable(UnsecureControlAction varible) {
+	public void addVariable(UnsafeControlAction varible) {
 		varible.setNumber(this.variablesList.size()+1);
 		this.variablesList.put(varible.getId(),varible);
 	}
@@ -132,11 +135,11 @@ public class UnsafeUnsecureController extends Observable implements Observer{
 	    	  ControlAction tempaction= (ControlAction) entry;
 	    	  if(!tempaction.getUnsafeControlActions().isEmpty()){
 	    		  for(IUnsafeControlAction action: tempaction.getUnsafeControlActions()){
-	    			  UnsecureControlAction tempUCA= (UnsecureControlAction) action;
+	    			  UnsafeControlAction tempUCA= (UnsafeControlAction) action;
 		    		  temp= getEntryFor(entry, getModel().getIvaluesWhenCAProvided(entry.getId()));
-		    		  temp.setPrivacyCritical(tempUCA.isPrivacyCritical);
-		    		  temp.setSafetyCritical(tempUCA.isSafetyCritical);
-		    		  temp.setSecurityCritical(tempUCA.isSecurityCritical);
+//		    		  temp.setPrivacyCritical(tempUCA.isPrivacyCritical);
+//		    		  temp.setSafetyCritical(tempUCA.isSafetyCritical);
+//		    		  temp.setSecurityCritical(tempUCA.isSecurityCritical);
 		    		  temp.setUnsecureControlAction(tempUCA.getDescription());
 		    		  temp.setId(tempUCA.getId());
 		    		  this.controlentries.put(action.getId(),temp);
@@ -202,15 +205,15 @@ public class UnsafeUnsecureController extends Observable implements Observer{
 		/**
 		 * @return the model
 		 */
-		public PrivacyController getModel() {
+		public StlsaController getModel() {
 			return this.model;
 		}
 
 		/**
 		 * @param model the model to set
 		 */
-		public void setModel(PrivacyController model) {
-			this.model = (PrivacyController) model;
+		public void setModel(StlsaController model) {
+			this.model = (StlsaController) model;
 		}
 
 		@Override

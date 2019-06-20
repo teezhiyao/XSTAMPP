@@ -76,6 +76,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import messages.Messages;
 import xstampp.astpa.Activator;
 import xstampp.astpa.model.ATableModel;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.interfaces.ILinkModel;
 import xstampp.astpa.model.interfaces.ISeverityDataModel;
 import xstampp.astpa.model.interfaces.ISeverityEntry;
@@ -88,7 +89,6 @@ import xstampp.astpa.ui.linkingSupport.LinkSupport;
 import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
 import xstampp.preferences.IPreferenceConstants;
-import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.editors.StandartEditorPart;
 import xstampp.ui.editors.interfaces.IEditorBase;
@@ -674,8 +674,8 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
       public String getText(Object element) {
         System.out.println(element.getClass().toString());
         System.out.println("yoyo");
-        if (element instanceof UnsecureControlAction) {
-          return ((UnsecureControlAction) element).getIdString();
+        if (element instanceof UnsafeControlAction) {
+          return ((UnsafeControlAction) element).getIdString();
         }
         return null;
       }
@@ -712,11 +712,11 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
 
       @Override
       public String getText(Object element) {
-        System.out.println(((UnsecureControlAction) element).getIdString());
-        if (((UnsecureControlAction) element).getTitle().equals("") && canEdit(((ATableModel) element))) {
+        System.out.println(((UnsafeControlAction) element).getIdString());
+        if (((UnsafeControlAction) element).getTitle().equals("") && canEdit(((ATableModel) element))) {
           return Messages.DoubleClickToEditTitle;
         }
-        return ((UnsecureControlAction) element).getDescription();
+        return ((UnsafeControlAction) element).getDescription();
       }
     });
 
@@ -1043,13 +1043,16 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
 
   @SuppressWarnings("unchecked")
   public void setDataModelInterface(IDataModel dataInterface) {
+    System.out.println("In setdatainterface");
+    System.out.println(dataInterface.toString());
     this.dataInterface = (T) dataInterface;
     dataInterface.addObserver(this);
 
   }
 
   public T getDataInterface() {
-
+    System.out.println("In getdatainterface");
+    System.out.println(dataInterface.toString());
     return dataInterface;
   }
 

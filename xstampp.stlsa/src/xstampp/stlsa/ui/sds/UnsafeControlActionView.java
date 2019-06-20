@@ -12,7 +12,6 @@
 package xstampp.stlsa.ui.sds;
 
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
 
@@ -24,13 +23,13 @@ import org.eclipse.swt.widgets.Composite;
 
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
-import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlstructure.interfaces.IConnection;
 import xstampp.astpa.model.controlstructure.interfaces.IRectangleComponent;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.stlsa.ui.UnsafeCAView;
-import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
+//import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
 import xstampp.model.ObserverValue;
 
 /**
@@ -77,12 +76,12 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
       @Override
       public String getText(Object element) {
         System.out.println("i am here");
-//        System.out.println(((UnsecureControlAction) element).getLinks().toString());
-//        System.out.println(((UnsecureControlAction) element).getCreatedBy());
+//        System.out.println(((UnsafeControlAction) element).getLinks().toString());
+//        System.out.println(((UnsafeControlAction) element).getCreatedBy());
 
-        if ((UnsecureControlAction) element instanceof UnsecureControlAction) {
-          if (((UnsecureControlAction) element).getType().toString() != " ") {
-            return ((UnsecureControlAction) element).getType().toString();
+        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
+          if (((UnsafeControlAction) element).getType().toString() != " ") {
+            return ((UnsafeControlAction) element).getType().toString();
             }
           else {
             return "N.A";
@@ -102,12 +101,12 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 
       @Override
       public String getText(Object element) {
-        if ((UnsecureControlAction) element instanceof UnsecureControlAction) {
+        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
 //        List<IUnsafeControlAction> lst = ((IControlAction) element).getUnsafeControlActions();
 //        System.out.println(lst.get(0).getType());
 //        System.out.println(lst.get(0).getIdString());
-        if (((UnsecureControlAction) element).getType().toString() != " ") {
-          return ((UnsecureControlAction) element).getType().toString();
+        if (((UnsafeControlAction) element).getType().toString() != " ") {
+          return ((UnsafeControlAction) element).getType().toString();
           }
         else {
           return "N.A";

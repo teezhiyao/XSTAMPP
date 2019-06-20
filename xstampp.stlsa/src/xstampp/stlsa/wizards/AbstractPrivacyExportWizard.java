@@ -1,7 +1,7 @@
 package xstampp.stlsa.wizards;
 
 import xstampp.astpa.wizards.AbstractExportWizard;
-import xstampp.stpapriv.model.PrivacyController;
+import xstampp.stlsa.model.StlsaController;
 
 public abstract class AbstractPrivacyExportWizard extends AbstractExportWizard {
 
@@ -19,7 +19,7 @@ public abstract class AbstractPrivacyExportWizard extends AbstractExportWizard {
 
 	@Override
 	protected Class<?> getExportModel() {
-		return PrivacyController.class;
+		return StlsaController.class;
 	}
 
 }

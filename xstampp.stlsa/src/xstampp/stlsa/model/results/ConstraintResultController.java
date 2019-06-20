@@ -1,4 +1,4 @@
-package xstampp.stpapriv.model.results;
+package xstampp.stlsa.model.results;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import xstampp.astpa.model.causalfactor.interfaces.ICausalComponent;
 import xstampp.astpa.model.interfaces.ITableModel;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
@@ -25,12 +26,11 @@ import xstampp.astpa.model.linking.Link;
 import xstampp.astpa.model.linking.LinkingType;
 import xstampp.model.AbstractLTLProvider;
 import xstampp.model.ObserverValue;
-import xstampp.stpapriv.model.PrivacyController;
-import xstampp.stpapriv.model.controlaction.ControlAction;
-import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
+import xstampp.stlsa.model.StlsaController;
+import xstampp.stlsa.model.controlaction.ControlAction;
 
 public class ConstraintResultController extends Observable implements Observer {
-  private PrivacyController model;
+  private StlsaController model;
   private Map<UUID, ConstraintResult> constraintResults;
 
   @XmlElementWrapper(name = "constraintResults")
@@ -46,7 +46,7 @@ public class ConstraintResultController extends Observable implements Observer {
     this.constraintResults = constraintResults;
   }
 
-  public void setModel(PrivacyController model) {
+  public void setModel(StlsaController model) {
     this.model = model;
   }
 
@@ -56,7 +56,7 @@ public class ConstraintResultController extends Observable implements Observer {
   public ConstraintResultController(IExtendedDataModel model) {
 
     super();
-    this.model = (PrivacyController) model;
+    this.model = (StlsaController) model;
     constraintResults = new HashMap<UUID, ConstraintResult>();
     clear();
 
@@ -204,7 +204,7 @@ public class ConstraintResultController extends Observable implements Observer {
       if (!tempaction.getUnsafeControlActions().isEmpty()) {
         for (IUnsafeControlAction action : tempaction.getUnsafeControlActions()) {
           ConstraintResult temp = new ConstraintResult();
-          UnsecureControlAction tempUCA = (UnsecureControlAction) action;
+          UnsafeControlAction tempUCA = (UnsafeControlAction) action;
           if (tempUCA.getCorrespondingSafetyConstraint() != null
               && !tempUCA.getCorrespondingSafetyConstraint().getText().equals("")) {
             temp.setScId("SC1." + tempUCA.getNumber());
@@ -213,11 +213,11 @@ public class ConstraintResultController extends Observable implements Observer {
               temp.setStpastep("");
               set = true;
             }
-            temp.setTemp(tempaction);
+//            temp.setTemp(tempaction);
             temp.setSecurityConstraint(tempUCA.getCorrespondingSafetyConstraint().getText());
-            temp.setSafe(tempUCA.isSafetyCritical);
-            temp.setSecure(tempUCA.isSecurityCritical);
-            temp.setPrivate(tempUCA.isPrivacyCritical);
+//            temp.setSafe(tempUCA.isSafetyCritical);
+//            temp.setSecure(tempUCA.isSecurityCritical);
+//            temp.setPrivate(tempUCA.isPrivacyCritical);
 
             this.constraintResults.put(temp.getId(), temp);
           }
@@ -265,19 +265,19 @@ public class ConstraintResultController extends Observable implements Observer {
                     entryLink.getLinkA());
 
                 if (ucaMap.containsKey(ucaCfLink.getLinkA())) {
-                  UnsecureControlAction uca = (UnsecureControlAction) ucaMap
+                  UnsafeControlAction uca = (UnsafeControlAction) ucaMap
                       .get(ucaCfLink.getLinkA());
                   for (ControlAction cas : calist) {
                     for (IUnsafeControlAction ucas : cas.getUnsafeControlActions()) {
                       if (ucas.getId() == uca.getId()) {
-                        tempResult.setTemp(cas);
+//                        tempResult.setTemp(cas);
                       }
                     }
                   }
                   tempResult.setRelatedId("SC1." + uca.getNumber());
-                  tempResult.setSafe(uca.isSafetyCritical());
-                  tempResult.setSecure(uca.isSecurityCritical);
-                  tempResult.setPrivate(uca.isPrivacyCritical);
+//                  tempResult.setSafe(uca.isSafetyCritical());
+//                  tempResult.setSecure(uca.isSecurityCritical);
+//                  tempResult.setPrivate(uca.isPrivacyCritical);
 
                   // tempResult.addRelatedConstraints(tempResult.getSecurityConstraint());
                   if (this.constraintResults.get(tempResult.getId()) == null) {
@@ -325,7 +325,7 @@ public class ConstraintResultController extends Observable implements Observer {
    * @return the model
    */
   @XmlTransient
-  public PrivacyController getModel() {
+  public StlsaController getModel() {
     return this.model;
   }
 

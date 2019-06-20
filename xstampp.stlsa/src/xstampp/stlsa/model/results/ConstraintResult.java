@@ -1,4 +1,4 @@
-package xstampp.stpapriv.model.results;
+package xstampp.stlsa.model.results;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.UUID;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import xstampp.stpapriv.model.controlaction.ControlAction;
+import xstampp.stlsa.model.controlaction.ControlAction;
 
 
 public class ConstraintResult implements Comparable<ConstraintResult>{

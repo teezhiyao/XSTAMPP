@@ -29,7 +29,7 @@ import xstampp.astpa.controlstructure.CSEditorWithPM;
 import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.util.jobs.ExportJob;
 import xstampp.model.ObserverValue;
-import xstampp.stpapriv.model.PrivacyController;
+import xstampp.stlsa.model.StlsaController;
 import xstampp.stpapriv.util.jobs.StpaCSVExport;
 import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.ui.common.ProjectManager;
@@ -186,7 +186,7 @@ public class Run extends XstamppJob{
 			fileName = this.xslMap[i] +".png";
 			ExportPackage data = new ExportPackage(getJobName(fileName), 
 					this.dir+ IMAGE_DIR + File.separator + fileName,  
-				 	this.xslMap[i+1], PrivacyController.class);
+				 	this.xslMap[i+1], StlsaController.class);
 			ExportJob job = new ExportJob(getProjectID(), data, true, false);
 			job.setPageFormat(exportImagesFormat);
 			job.showPreview(false);
@@ -199,7 +199,7 @@ public class Run extends XstamppJob{
 			fileName = this.xstpaXslMap[i] +".png";
 			ExportPackage data = new ExportPackage(getJobName(fileName), 
 					this.dir+ EX_IMAGE_DIR + File.separator + fileName,  
-				 	this.xstpaXslMap[i+1], PrivacyController.class);
+				 	this.xstpaXslMap[i+1], StlsaController.class);
 			ExportJob job = new ExportJob(getProjectID(), data, true, false);
 			job.setPageFormat(exportExtendedIMGsFormat);
 			job.showPreview(false);
@@ -225,7 +225,7 @@ public class Run extends XstamppJob{
 		for(int i= 0;i<this.xslMap.length && this.exportPDFs;i+=2){
 			ExportPackage data = new ExportPackage("Expoting " +this.xslMap[i] +".pdf",
 					this.dir + PDF_DIR + File.separator + this.xslMap[i] +".pdf", //$NON-NLS-1$
-					this.xslMap[i+1], PrivacyController.class);
+					this.xslMap[i+1], StlsaController.class);
 			ExportJob pdfJob = new ExportJob(getProjectID(), data, true, false);
 			pdfJob.showPreview(false);
 			pdfJob.setPageFormat(exportPDFsFormat);
@@ -237,7 +237,7 @@ public class Run extends XstamppJob{
 		for(int i= 0;i<this.xstpaXslMap.length && this.exportExtendedPDFs;i+=2){
 			ExportPackage data = new ExportPackage("Expoting " +this.xstpaXslMap[i] +".pdf",
 					this.dir + EX_PDF_DIR + File.separator + this.xstpaXslMap[i] +".pdf", //$NON-NLS-1$
-					this.xstpaXslMap[i+1], PrivacyController.class);
+					this.xstpaXslMap[i+1], StlsaController.class);
 			ExportJob pdfJob = new ExportJob(getProjectID(), data, true, false);
 			pdfJob.setPageFormat(exportExtendedPDFsFormat);
 			pdfJob.showPreview(false);
@@ -249,7 +249,7 @@ public class Run extends XstamppJob{
 		if(this.exportReport){
 			ExportPackage data = new ExportPackage(getJobName("Final Report"),
 					this.dir + getName()+".pdf", //$NON-NLS-1$
-					"/fopxsl.xsl", PrivacyController.class);
+					"/fopxsl.xsl", StlsaController.class);
 			ExportJob pdfRepJob = new ExportJob(getProjectID(), data, true, false); //$NON-NLS-1$
 			pdfRepJob.setCSDirty();
 			pdfRepJob.setPageFormat(exportReportFormat);

@@ -11,7 +11,7 @@
  * 
  *******************************************************************************/
 
-package xstampp.stpapriv.model.controlaction;
+package xstampp.stlsa.model.controlaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +23,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 
-import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.controlaction.ControlAction;
-import xstampp.astpa.model.controlaction.NotProvidedValuesCombi;
-import xstampp.astpa.model.controlaction.ProvidedValuesCombi;
-import xstampp.astpa.model.controlaction.interfaces.IControlAction;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
-import xstampp.astpa.model.controlstructure.ControlStructureController;
-import xstampp.astpa.model.extendedData.ExtendedDataController;
-import xstampp.astpa.model.extendedData.RefinedSafetyRule;
-import xstampp.astpa.model.extendedData.interfaces.IExtendedDataController;
-import xstampp.model.AbstractLTLProvider;
-import xstampp.model.IValueCombie;
 
 /**
  * Class representing the control action objects
@@ -46,9 +37,9 @@ import xstampp.model.IValueCombie;
 @XmlType(name = "controlaction2")
 public class SecControlAction extends ControlAction {
 
-	@XmlElementWrapper(name = "unsecurecontrolactions")
-	@XmlElement(name = "unsecurecontrolaction")
-	private List<UnsecureControlAction> unsafeControlActions;
+	@XmlElementWrapper(name = "UnsafeControlActions")
+	@XmlElement(name = "UnsafeControlAction")
+	private List<UnsafeControlAction> unsafeControlActions;
 
 
 	
@@ -84,7 +75,7 @@ public class SecControlAction extends ControlAction {
 	@Override
 	public List<IUnsafeControlAction>  getUnsafeControlActions() {
 		List<IUnsafeControlAction> result = new ArrayList<>();
-		for (UnsecureControlAction unsafeControlAction : this.unsafeControlActions) {
+		for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
 			result.add(unsafeControlAction);
 		}
 		return result;
@@ -92,7 +83,7 @@ public class SecControlAction extends ControlAction {
 
 	@Override
   public IUnsafeControlAction getUnsafeControlAction(UUID ucaId) {
-    for (UnsecureControlAction unsafeControlAction : this.unsafeControlActions) {
+    for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
       if (unsafeControlAction.getId().equals(ucaId)) {
         return unsafeControlAction;
       }
@@ -104,7 +95,7 @@ public class SecControlAction extends ControlAction {
   public List<IUnsafeControlAction> getUnsafeControlActions(
       UnsafeControlActionType unsafeControlActionType) {
 		List<IUnsafeControlAction> result = new ArrayList<>();
-		for (UnsecureControlAction unsafeControlAction : this.unsafeControlActions) {
+		for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
 			if (unsafeControlAction.getType().equals(unsafeControlActionType)) {
 				result.add(unsafeControlAction);
 			}
@@ -125,7 +116,7 @@ public class SecControlAction extends ControlAction {
 	 */
 	public UUID addUnsafeControlAction(int number, String description,
 			UnsafeControlActionType unsafeControlActionType) {
-    UnsecureControlAction unsafeControlAction = new UnsecureControlAction(description,
+    UnsafeControlAction unsafeControlAction = new UnsafeControlAction(description,
         unsafeControlActionType);
     this.unsafeControlActions.add(unsafeControlAction);
     unsafeControlAction.setNumber(number);
@@ -145,7 +136,7 @@ public class SecControlAction extends ControlAction {
    */
   public UUID addUnsafeControlAction(int number, String description,
       UnsafeControlActionType unsafeControlActionType, UUID id) {
-	  UnsecureControlAction unsafeControlAction = new UnsecureControlAction(description,
+	  UnsafeControlAction unsafeControlAction = new UnsafeControlAction(description,
         unsafeControlActionType);
     unsafeControlAction.setId(id);
 		this.unsafeControlActions.add(unsafeControlAction);
@@ -163,7 +154,7 @@ public class SecControlAction extends ControlAction {
 	 * @author Fabian Toth
 	 */
 	public boolean removeUnsafeControlAction(UUID unsafeControlActionId) {
-		for (UnsecureControlAction unsafeControlAction : this.unsafeControlActions) {
+		for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
 			if (unsafeControlAction.getId().equals(unsafeControlActionId)) {
 				return this.unsafeControlActions.remove(unsafeControlAction);
 			}
@@ -178,7 +169,7 @@ public class SecControlAction extends ControlAction {
 	 * 
 	 * @author Fabian Toth
 	 */
-	public List<UnsecureControlAction> getInternalUnsafeControlActions() {
+	public List<UnsafeControlAction> getInternalUnsafeControlActions() {
 		return this.unsafeControlActions;
 	}
 

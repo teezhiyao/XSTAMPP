@@ -5,15 +5,15 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Label;
 
-import xstampp.stpapriv.model.PrivacyController;
+import xstampp.stlsa.model.StlsaController;
 import xstampp.stpapriv.model.results.ConstraintResult;
 
 public class EntryCellModifier implements ICellModifier {
   private Viewer viewer;
   private Label label;
-  private PrivacyController model;
+  private StlsaController model;
 
-  public EntryCellModifier(Viewer viewer, PrivacyController controller, Label label) {
+  public EntryCellModifier(Viewer viewer, StlsaController controller, Label label) {
     this.viewer = viewer;
     this.model = controller;
     this.label = label;

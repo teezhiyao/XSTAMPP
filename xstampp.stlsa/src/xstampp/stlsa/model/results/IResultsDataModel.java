@@ -1,4 +1,4 @@
-package xstampp.stpapriv.model.results;
+package xstampp.stlsa.model.results;
 
 import java.util.List;
 

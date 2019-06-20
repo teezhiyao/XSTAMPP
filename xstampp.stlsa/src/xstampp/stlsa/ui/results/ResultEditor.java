@@ -45,7 +45,7 @@ import xstampp.astpa.Activator;
 import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
 import xstampp.preferences.IPreferenceConstants;
-import xstampp.stpapriv.model.PrivacyController;
+import xstampp.stlsa.model.StlsaController;
 import xstampp.stpapriv.model.results.ConstraintResult;
 import xstampp.stlsa.diagram.DiagramView;
 import xstampp.stlsa.ui.relation.SecView;
@@ -82,7 +82,7 @@ public class ResultEditor extends StandartEditorPart implements Observer {
   private TableViewerColumn corrConstraintColumn;
   private TableViewerColumn isSafeColumn;
   private TableViewerColumn isSecureColumn;
-  private PrivacyController dataInterface;
+  private StlsaController dataInterface;
   DiagramView view;
   private ResultsTableFilter filter;
 
@@ -541,14 +541,14 @@ public class ResultEditor extends StandartEditorPart implements Observer {
 
   @SuppressWarnings("unchecked")
   public void setDataModelInterface(IDataModel dataInterface) {
-    this.dataInterface = (PrivacyController) dataInterface;
+    this.dataInterface = (StlsaController) dataInterface;
     tableViewer.setCellModifier(new EntryCellModifier(tableViewer, getDataInterface(), filterLabel2));
 
     dataInterface.addObserver(this);
 
   }
 
-  public PrivacyController getDataInterface() {
+  public StlsaController getDataInterface() {
     return dataInterface;
   };
 
@@ -558,7 +558,7 @@ public class ResultEditor extends StandartEditorPart implements Observer {
         + this.dataInterface.getConstraintController().getBothValueCount());
   }
 
-  public void setDataInterface(PrivacyController data) {
+  public void setDataInterface(StlsaController data) {
 
     this.dataInterface = data;
   };

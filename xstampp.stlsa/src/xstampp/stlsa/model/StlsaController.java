@@ -33,12 +33,12 @@ import xstampp.astpa.model.extendedData.RefinedSafetyRule;
 import xstampp.astpa.model.hazacc.IHazAccController;
 import xstampp.model.AbstractLTLProvider;
 import xstampp.model.ObserverValue;
-import xstampp.stpapriv.Activator;
-import xstampp.stpapriv.model.controlaction.SecControlActionController;
-import xstampp.stpapriv.model.results.ConstraintResult;
-import xstampp.stpapriv.model.results.ConstraintResultController;
-import xstampp.stpapriv.model.vulloss.VulLossController;
-import xstampp.stpapriv.util.jobs.SaveJob;
+import xstampp.stlsa.Activator;
+import xstampp.stlsa.model.controlaction.SecControlActionController;
+import xstampp.stlsa.model.results.ConstraintResult;
+import xstampp.stlsa.model.results.ConstraintResultController;
+import xstampp.stlsa.model.vulloss.VulLossController;
+import xstampp.stlsa.util.jobs.SaveJob;
 import xstampp.ui.common.ProjectManager;
 
 /**

@@ -33,7 +33,7 @@ import xstampp.astpa.model.extendedData.RefinedSafetyRule;
 import xstampp.astpa.model.extendedData.interfaces.IExtendedDataController;
 import xstampp.model.AbstractLTLProvider;
 import xstampp.model.IValueCombie;
-import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 
 /**
  * Class representing the control action objects
@@ -44,9 +44,9 @@ import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
 @XmlType(name = "controlaction2")
 public class ControlAction extends xstampp.astpa.model.controlaction.ControlAction implements IControlAction {
 
-  @XmlElementWrapper(name = "unsecurecontrolactions")
-  @XmlElement(name = "unsecurecontrolaction")
-  private List<UnsecureControlAction> unsafeControlActions;
+  @XmlElementWrapper(name = "unsafecontrolactions")
+  @XmlElement(name = "unsafecontrolaction")
+  private List<UnsafeControlAction> unsafeControlActions;
 
   @XmlElement(name = "componentLink")
   private UUID componentLink;
@@ -139,7 +139,7 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
   @Override
   public List<IUnsafeControlAction> getUnsafeControlActions() {
     List<IUnsafeControlAction> result = new ArrayList<>();
-    for (UnsecureControlAction unsafeControlAction : this.unsafeControlActions) {
+    for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
       result.add(unsafeControlAction);
     }
     return result;
@@ -147,7 +147,7 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
 
   @Override
   public IUnsafeControlAction getUnsafeControlAction(UUID ucaId) {
-    for (UnsecureControlAction unsafeControlAction : this.unsafeControlActions) {
+    for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
       if (unsafeControlAction.getId().equals(ucaId)) {
         return unsafeControlAction;
       }
@@ -159,7 +159,7 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
   public List<IUnsafeControlAction> getUnsafeControlActions(
       UnsafeControlActionType unsafeControlActionType) {
     List<IUnsafeControlAction> result = new ArrayList<>();
-    for (UnsecureControlAction unsafeControlAction : this.unsafeControlActions) {
+    for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
       if (unsafeControlAction.getType().equals(unsafeControlActionType)) {
         result.add(unsafeControlAction);
       }
@@ -180,7 +180,7 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
    */
   public UUID addUnsafeControlAction(int number, String description,
       UnsafeControlActionType unsafeControlActionType) {
-    UnsecureControlAction unsafeControlAction = new UnsecureControlAction(description,
+    UnsafeControlAction unsafeControlAction = new UnsafeControlAction(description,
         unsafeControlActionType);
     this.unsafeControlActions.add(unsafeControlAction);
     unsafeControlAction.setNumber(number);
@@ -200,7 +200,7 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
    */
   public UUID addUnsafeControlAction(int number, String description,
       UnsafeControlActionType unsafeControlActionType, UUID id) {
-    UnsecureControlAction unsafeControlAction = new UnsecureControlAction(description,
+    UnsafeControlAction unsafeControlAction = new UnsafeControlAction(description,
         unsafeControlActionType);
     unsafeControlAction.setId(id);
     this.unsafeControlActions.add(unsafeControlAction);
@@ -218,7 +218,7 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
    * @author Fabian Toth
    */
   public boolean removeUnsafeControlAction(UUID unsafeControlActionId) {
-    for (UnsecureControlAction unsafeControlAction : this.unsafeControlActions) {
+    for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
       if (unsafeControlAction.getId().equals(unsafeControlActionId)) {
         return this.unsafeControlActions.remove(unsafeControlAction);
       }
@@ -233,7 +233,7 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
    * 
    * @author Fabian Toth
    */
-  public List<UnsecureControlAction> getInternalUnsafeControlActions() {
+  public List<UnsafeControlAction> getInternalUnsafeControlActions() {
     return this.unsafeControlActions;
   }
 

@@ -11,9 +11,9 @@ import org.osgi.framework.BundleContext;
 
 import xstampp.astpa.model.interfaces.IExtendedDataModel;
 import xstampp.model.IDataModel;
-import xstampp.stpapriv.model.PrivacyController;
-import xstampp.stpapriv.model.relation.UnsafeUnsecureController;
-import xstampp.stpapriv.model.results.ConstraintResultController;
+import xstampp.stlsa.model.StlsaController;
+import xstampp.stlsa.model.relation.UnsafeUnsecureController;
+import xstampp.stlsa.model.results.ConstraintResultController;
 import xstampp.ui.common.ProjectManager;
 
 /**
@@ -31,15 +31,15 @@ public class Activator extends AbstractUIPlugin {
 	private static Activator plugin;
 	private static Map<IDataModel,UnsafeUnsecureController> xstpaDataToIDataModel = new HashMap<>();
 	private static Map<IDataModel,ConstraintResultController> resultcontroller = new HashMap<>();
-	public static PrivacyController model;
+	public static StlsaController model;
 
 
-	public static PrivacyController getModel() {
+	public static StlsaController getModel() {
 		return model;
 	}
 
 
-	public static void setModel(PrivacyController model) {
+	public static void setModel(StlsaController model) {
 		Activator.model = model;
 	}
 
