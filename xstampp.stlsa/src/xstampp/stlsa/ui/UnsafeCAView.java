@@ -76,6 +76,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import messages.Messages;
 import xstampp.astpa.Activator;
 import xstampp.astpa.model.ATableModel;
+import xstampp.astpa.model.controlaction.ControlActionController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.interfaces.ILinkModel;
 import xstampp.astpa.model.interfaces.ISeverityDataModel;
@@ -453,6 +454,7 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
     this.setDataModelInterface(
         ProjectManager.getContainerInstance().getDataModel(this.getProjectID()));
     System.out.println("Check ");
+
     this.createCommonTableView(parent, this.tableHeader);
     this.setFilter(new ATableFilter());
     this.getTableViewer().addFilter(this.getFilter());
@@ -712,11 +714,12 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
 
       @Override
       public String getText(Object element) {
-        System.out.println(((UnsafeControlAction) element).getIdString());
+        System.out.println("Created by");
+        System.out.println(((ATableModel) element).getCreatedBy());
         if (((UnsafeControlAction) element).getTitle().equals("") && canEdit(((ATableModel) element))) {
           return Messages.DoubleClickToEditTitle;
         }
-        return ((UnsafeControlAction) element).getDescription();
+        return ((UnsafeControlAction) element).getTitle();
       }
     });
 
@@ -1051,8 +1054,6 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
   }
 
   public T getDataInterface() {
-    System.out.println("In getdatainterface");
-    System.out.println(dataInterface.toString());
     return dataInterface;
   }
 

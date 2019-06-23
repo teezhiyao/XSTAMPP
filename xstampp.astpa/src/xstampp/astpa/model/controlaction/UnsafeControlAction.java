@@ -46,6 +46,8 @@ public class UnsafeControlAction extends ATableModel
   @XmlElement(name = "correspondingSafetyConstraint")
   private CorrespondingSafetyConstraint correspondingSafetyConstraint;
 
+  public String identifier;
+
   /**
    * Constructs a new unsafe control action with the given values
    * 

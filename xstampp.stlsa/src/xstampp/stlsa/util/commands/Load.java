@@ -14,7 +14,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
-import xstampp.stpapriv.util.jobs.STPALoadJob;
+import xstampp.stlsa.util.jobs.STPALoadJob;
 
 public class Load extends AbstractHandler {
 

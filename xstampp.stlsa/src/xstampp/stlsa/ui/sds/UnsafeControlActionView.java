@@ -23,11 +23,13 @@ import org.eclipse.swt.widgets.Composite;
 
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
+import xstampp.astpa.model.controlaction.ControlAction;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlstructure.interfaces.IConnection;
 import xstampp.astpa.model.controlstructure.interfaces.IRectangleComponent;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
+import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.stlsa.ui.UnsafeCAView;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
 import xstampp.model.ObserverValue;
@@ -80,12 +82,14 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 //        System.out.println(((UnsafeControlAction) element).getCreatedBy());
 
         if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-          if (((UnsafeControlAction) element).getType().toString() != " ") {
-            return ((UnsafeControlAction) element).getType().toString();
-            }
-          else {
-            return "N.A";
-          }
+            System.out.println("hiii");
+            System.out.println(UnsafeControlActionView.this.getDataInterface().getClass().toString());
+            System.out.println(UnsafeControlActionView.this.getDataInterface().getControlActionController());
+            System.out.println(UnsafeControlActionView.this.getDataInterface().getControlActionController().getControlActionFor(((UnsafeControlAction) element).getId()).getTitle());
+
+//            ITableModel tempCA =  UnsafeControlActionView.this.getDataInterface().getControlActionController().getControlAction(((UnsafeControlAction) element).getCreatedBy());
+//            System.out.println(tempCA.getClass().toString());
+            return UnsafeControlActionView.this.getDataInterface().getControlActionController().getControlActionFor(((UnsafeControlAction) element).getId()).getTitle();
         }
         return null;
       }
