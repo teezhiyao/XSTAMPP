@@ -241,7 +241,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 				GridRow idRow = new GridRow(columns.length,3);
 				GridRow ucaRow = new GridRow(columns.length,3);
 				GridRow linkRow = new GridRow(columns.length,3);
-
+				//addUCAEntry creates 3row x 1 column and adds it 
 				addUCA |= addUCAEntry(allNotGiven,
 											    i, 2,
 											    Messages.AddNotGivenUCA,
@@ -280,7 +280,8 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 											    cAction);
 
         addControlAction |=addUCA;
-				if(addUCA){
+        
+				if(addUCA){ //if addUCA == true, add child 
 	        controlActionRow.addChildRow(idRow);
 	        controlActionRow.addChildRow(ucaRow);
 	        controlActionRow.addChildRow(linkRow);
