@@ -675,7 +675,6 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
       @Override
       public String getText(Object element) {
         System.out.println(element.getClass().toString());
-        System.out.println("yoyo");
         if (element instanceof UnsafeControlAction) {
           return ((UnsafeControlAction) element).getIdString();
         }
@@ -693,7 +692,7 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
     
     
     this.titleColumn = new TableViewerColumn(this.getTableViewer(), SWT.None);
-    this.titleColumn.getColumn().setText("UCA Title");
+    this.titleColumn.getColumn().setText("UCA Description");
     final int titleWeight = 50;
     final int titleMinWidth = 50;
     tableColumnLayout.setColumnData(this.titleColumn.getColumn(),
@@ -715,11 +714,13 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
       @Override
       public String getText(Object element) {
         System.out.println("Created by");
-        System.out.println(((ATableModel) element).getCreatedBy());
+//        System.out.println(((UnsafeControlAction) element).set);
+        System.out.println(canEdit(((ATableModel) element)));
+        System.out.println(((UnsafeControlAction) element).getLinks());
         if (((UnsafeControlAction) element).getTitle().equals("") && canEdit(((ATableModel) element))) {
           return Messages.DoubleClickToEditTitle;
         }
-        return ((UnsafeControlAction) element).getTitle();
+        return ((UnsafeControlAction) element).getDescription();
       }
     });
 

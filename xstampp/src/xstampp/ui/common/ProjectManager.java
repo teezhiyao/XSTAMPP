@@ -161,7 +161,7 @@ public class ProjectManager extends Observable implements IPropertyChangeListene
   public UUID startUp(Class<?> controller, String projectName, String path, UUID originalId) {
     IDataModel newController;
     System.out.println("starting upppp");
-    System.out.println(controller.getName().toString());
+    System.out.println(controller.toString());
     try {
       newController = (IDataModel) controller.newInstance();
       newController.setProjectName(projectName);

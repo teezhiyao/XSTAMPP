@@ -206,7 +206,7 @@ public abstract class ATableModel extends EntryWithSeverity
 
   @Override
   public String getDescription() {
-    return this.description == null ? "" : this.description;
+    return this.description == null ? "..." : this.description;
   }
 
   /**

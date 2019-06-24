@@ -141,7 +141,14 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 		}
 		@Override
 		public void updateDataModel(String newValue) {
-			getDataModel().setUcaDescription(getUUID(), newValue);
+		  System.out.println(getDataModel().hashCode());
+      System.out.println(getDataModel().toString());
+      System.out.println(getDataModel().getControlActionController().getUCAList(null).get(0).getIdString());
+      System.out.println(getUUID());
+
+      System.out.println("HMMM");
+
+		  getDataModel().getControlActionController().setUcaDescription(getUUID(), newValue);
 		}
 		
 
@@ -173,9 +180,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
     public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
 				Rectangle cellBounds) {
 		  if(e.button == 1){
-  			UUID newUCA = UnsecureControlActionsView.this.getDataModel()
-  					.addUnsafeControlAction(this.parentControlAction.getId(),
-  							"", this.ucaType); //$NON-NLS-1$
+  			UUID newUCA = UnsecureControlActionsView.this.getDataModel().addUnsafeControlAction(this.parentControlAction.getId(), "", this.ucaType); //$NON-NLS-1$
   			getGridWrapper().activateCell(newUCA);
         ProjectManager.getLOGGER().debug(Messages.AddingNewUCA);
 		  }
@@ -312,8 +317,8 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
         idCell.addCellButton(button);
 			}
       idRow.addCell(columnIndex, idCell);
-      UnsafeControlActionCell editor = new UnsafeControlActionCell(getGridWrapper(),
-          uca.getDescription(), uca.getId(), canWrite);
+      System.out.println("Are youhere????");
+      UnsafeControlActionCell editor = new UnsafeControlActionCell(getGridWrapper(),uca.getDescription(), uca.getId(), canWrite);
 			ucaRow.addCell(columnIndex,editor);
       linkRow.addCell(columnIndex, new GridCellLinking<UcaContentProvider>(uca.getId(),
           this.ucaContentProvider, getGridWrapper(), canWrite));
@@ -322,7 +327,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 
     if (ucaList.size() == i && canWrite) {
 			// add placeholder
-			idRow.addCell(columnIndex,new GridCellBlank(true));
+			idRow.addCell(columnIndex,new AddUcaButton(cAction, message, type));
       ucaRow.addCell(columnIndex, new AddUcaButton(cAction, message, type));
 			linkRow.addCell(columnIndex,new GridCellBlank(true));
 			return true;
