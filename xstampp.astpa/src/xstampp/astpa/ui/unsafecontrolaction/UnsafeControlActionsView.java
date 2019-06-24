@@ -261,9 +261,9 @@ public class UnsafeControlActionsView extends CommonGridView<IUnsafeControlActio
       boolean addUCA = false;
       for (int i = 0; i <= maxHeight; i++) {
         addUCA = false;
-        GridRow idRow = new GridRow(columns.length, 3);
-        GridRow ucaRow = new GridRow(columns.length, 3);
-        GridRow linkRow = new GridRow(columns.length, 3);
+        GridRow idRow = new GridRow(columns.length, 2);
+        GridRow ucaRow = new GridRow(columns.length, 2);
+        GridRow linkRow = new GridRow(columns.length, 2);
 
         addUCA |= addUCAEntry(allNotGiven, i, 1, Messages.AddNotGivenUCA,
             UnsafeControlActionType.NOT_GIVEN, idRow, ucaRow, linkRow, cAction);
