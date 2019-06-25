@@ -713,10 +713,10 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
 
       @Override
       public String getText(Object element) {
-        System.out.println("Created by");
-//        System.out.println(((UnsafeControlAction) element).set);
-        System.out.println(canEdit(((ATableModel) element)));
-        System.out.println(((UnsafeControlAction) element).getLinks());
+        System.out.println("ID");
+//        System.out.println(((UnsafeControlAction) element).getId());
+//        System.out.println(canEdit(((ATableModel) element)));
+        System.out.println(((UnsafeControlAction) element).getDescription());
         if (((UnsafeControlAction) element).getTitle().equals("") && canEdit(((ATableModel) element))) {
           return Messages.DoubleClickToEditTitle;
         }

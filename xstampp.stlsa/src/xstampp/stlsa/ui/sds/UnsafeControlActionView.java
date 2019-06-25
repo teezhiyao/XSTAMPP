@@ -177,7 +177,10 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 //        UCA.add((IUnsafeControlAction) unsafe);
 //      }
 //  }     
-    System.out.println("Trying to updatetable in unsafe control action view");
+//    System.out.println("Trying to updatetable in unsafe control action view");
+//    System.out.println(this.getDataInterface().toString());
+//    System.out.println(this.getDataInterface().getControlActionController().toString());
+
     UnsafeControlActionView.this.getTableViewer().setInput(this.getDataInterface().getControlActionController().getUCAList(null));
   }
 

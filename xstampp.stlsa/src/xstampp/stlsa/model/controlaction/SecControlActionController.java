@@ -393,10 +393,10 @@ public class SecControlActionController implements IControlActionController {
    * @return true, if the description has been set
    */
   public boolean setUcaDescription(UUID unsafeControlActionId, String description) {
-    UnsafeControlAction unsafeControlAction = this
-        .getInternalUnsafeControlAction(unsafeControlActionId);
+    UnsafeControlAction unsafeControlAction = this.getInternalUnsafeControlAction(unsafeControlActionId);
     if (unsafeControlAction != null) {
-//      return unsafeControlAction.setDescription(description);
+      unsafeControlAction.setDescription(description);
+      return true;
     }
     return false;
   }

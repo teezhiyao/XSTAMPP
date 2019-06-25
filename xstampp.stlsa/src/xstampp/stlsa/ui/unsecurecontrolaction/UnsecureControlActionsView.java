@@ -141,13 +141,12 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 		}
 		@Override
 		public void updateDataModel(String newValue) {
-		  System.out.println(getDataModel().hashCode());
-      System.out.println(getDataModel().toString());
-      System.out.println(getDataModel().getControlActionController().getUCAList(null).get(0).getIdString());
-      System.out.println(getUUID());
-
+//      System.out.println(getDataModel().toString());
+//      System.out.println(getDataModel().getControlActionController().getUCAList(null).get(0).getIdString());
+//      System.out.println(getUUID());
+//
       System.out.println("HMMM");
-
+      System.out.println(newValue);
 		  getDataModel().getControlActionController().setUcaDescription(getUUID(), newValue);
 		}
 		
