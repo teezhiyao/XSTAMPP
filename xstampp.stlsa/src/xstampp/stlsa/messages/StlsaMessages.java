@@ -55,7 +55,7 @@ public final class StlsaMessages {
 	public static String DeleteSecurityConstraints="Delete Security Constraints";
 	public static String DoYouWishToDeleteTheSecurityConstraint="Do you wish to delete the Security Constraint ";
 	public static String NewSecurityConstraint="New Security Constraint";
-	public static String NotGiven2="Not providing causes vulnerability ";
+	public static String NotGiven2="Control action not given";
 	public static String NotVulnerable="Not Vulnerable";
 	public static String DeleteUnsecureControlAction="Delete Unsecure Control Action";
 	public static String DeleteUnsecureControlActions="Delete Unsecure Control Actions";
@@ -66,7 +66,7 @@ public final class StlsaMessages {
 	public static String ExportingUCATable2="Exporting the Unsecure Control Actions Table...";
 	public static String ExportingRefinedSecurity="exporting Refined Security Constraints table...";
 	public static String ExportUCATable2="Export the Unsecure Control Actions Table";
-	public static String GivenIncorrectly2="Providing causes vulnerability ";
+	public static String GivenIncorrectly2="Control action given incorrectly";
 	public static String Updatingstlsa="Updating STPA for Security";
 	public static String TheUpdateRoutineDoesNotWorkWhenstlsaIsExecutedFromTheIDE="The update routine does not work when STPA for Security is executed from the IDE";
 	public static String UpdatesHaveBeenInstalledSuccessfullyDoYouWantToRestart2="Updates have been installed successfully and STPA for Security needs a restart to complete the update. Do you want to restart now?";
@@ -74,7 +74,7 @@ public final class StlsaMessages {
 	public static String RefinedUnsecureControlActions="Refined Unsecure Control Actions";
 	public static String UsuallyTheIDEStarts2="Usually the IDE starts STPA for Security with these parameters.";
 	public static String WantToDeleteTheUCA2="Do you really want to delete the Unsecure Control Action?";
-	public static String WrongTiming2="Wrong timing or order causes vulnerability ";
+	public static String WrongTiming2="Wrong timing/order of control action";
 	public static String saveSec="save sec";
 	public static String savingSec="saving STPA Analysis";
 }
