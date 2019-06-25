@@ -35,7 +35,7 @@
       <import plugin="org.apache.log4j"/>
       <import plugin="org.eclipse.nebula.widgets.grid" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="xstampp.astpa" version="2.1.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.e4.ui.workbench"/>
+      <import plugin="org.eclipse.ui.workbench"/>
       <import plugin="org.eclipse.zest.core" version="1.5.300" match="greaterOrEqual"/>
       <import plugin="org.eclipse.zest.layouts" version="1.1.300" match="greaterOrEqual"/>
       <import plugin="xstampp.stpapriv" version="1.1.2" match="greaterOrEqual"/>
@@ -43,7 +43,6 @@
       <import plugin="org.eclipse.equinox.p2.metadata.repository" version="1.2.100" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.net" version="1.2.200" match="greaterOrEqual"/>
       <import plugin="org.apache.commons.lang" version="2.6.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.workbench"/>
       <import plugin="org.apache.commons.lang3" version="3.1.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.p2.ui" version="2.3.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.p2.ui.sdk" version="1.0.300" match="greaterOrEqual"/>
