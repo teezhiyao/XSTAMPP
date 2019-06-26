@@ -309,24 +309,24 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
     boolean canWrite = checkAccess(cAction.getId(), AccessRights.WRITE);
 		if (ucaList.size() > i) {
       IUnsafeControlAction uca = ucaList.get(i);
-
+      System.out.println("Hi lol");
+      System.out.println(getDataModel().toString());
       GridCellText idCell = new UcaIdCell(ucaContentProvider, uca, getDataModel());
-//      if (getDataModel().isUseSeverity()) {
+      if (getDataModel().isUseSeverity()) {
         SeverityButton button = new SeverityButton((ISeverityEntry) uca, getDataModel(), getGrid());
         idCell.addCellButton(button);
-//			}
+			}
       idRow.addCell(columnIndex, idCell);
 //      System.out.println("Are youhere????");
       UnsafeControlActionCell editor = new UnsafeControlActionCell(getGridWrapper(),uca.getDescription(), uca.getId(), canWrite);
 			ucaRow.addCell(columnIndex,editor);
-      linkRow.addCell(columnIndex, new GridCellLinking<UcaContentProvider>(uca.getId(),
-          this.ucaContentProvider, getGridWrapper(), canWrite));
+      linkRow.addCell(columnIndex, new GridCellLinking<UcaContentProvider>(uca.getId(), this.ucaContentProvider, getGridWrapper(), canWrite));
 			return true;
 		}
 
     if (ucaList.size() == i && canWrite) {
 			// add placeholder
-			idRow.addCell(columnIndex,new AddUcaButton(cAction, message, type));
+			idRow.addCell(columnIndex,new GridCellBlank(true));
       ucaRow.addCell(columnIndex, new AddUcaButton(cAction, message, type));
 			linkRow.addCell(columnIndex,new GridCellBlank(true));
 			return true;

@@ -133,7 +133,7 @@ public class GridCellLinking<T extends ITableContentProvider<?>> extends Abstrac
     this.lines = 1;
     this.buttons = new ArrayList<>();
     if (canEdit) {
-      buttons.add(new CellButtonLinking<T>(grid, publicInterface, assignedId));
+//      buttons.add(new CellButtonLinking<T>(grid, publicInterface, assignedId));
     }
     this.buttonContainer = new CellButtonContainer();
   }
@@ -149,8 +149,13 @@ public class GridCellLinking<T extends ITableContentProvider<?>> extends Abstrac
     final int renderWidth = bounds.width;
 
     gc.setBackground(this.getBackgroundColor(renderer, gc));
-
+    
     List<? extends ITableEntry> linkedItems = this.publicInterface.getLinkedItems(this.assignedId);
+    System.out.println("Size of linkedItems");
+    System.out.println(linkedItems.size());
+    System.out.println(this.publicInterface.getClass());
+    System.out.println(this.publicInterface.toString());
+
     Collections.sort(linkedItems);
     this.buttonContainer.clearButtons();
     for (CellButton button : buttons) {

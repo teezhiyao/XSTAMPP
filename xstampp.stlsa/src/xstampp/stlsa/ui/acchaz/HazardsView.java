@@ -110,6 +110,10 @@ public class HazardsView extends CommonTableView<IHazardViewDataModel> {
 
   @Override
   protected void updateTitle(UUID id, String title) {
+    System.out.println("Update Title");
+    System.out.println(title);
+    System.out.println(HazardsView.this.getDataInterface().toString());
     HazardsView.this.getDataInterface().setHazardTitle(id, title);
+    
   }
 }

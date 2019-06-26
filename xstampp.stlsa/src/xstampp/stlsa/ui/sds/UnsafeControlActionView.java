@@ -81,7 +81,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 //        System.out.println(((UnsafeControlAction) element).getCreatedBy());
 // Code assumes that all UnsafeControlAction have a parent ControlAction. 
         if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-//            System.out.println(UnsafeControlActionView.this.getDataInterface().getClass().toString()); Gets the data Interface
+            System.out.println(UnsafeControlActionView.this.getDataInterface().toString()); //Gets the data Interface
 //            System.out.println(UnsafeControlActionView.this.getDataInterface().getControlActionController()); Gets the ControlActionController which contains all the control actions
 //            System.out.println(UnsafeControlActionView.this.getDataInterface().getControlActionController().getControlActionFor(((UnsafeControlAction) element).getId()).getTitle());
 // (UnsafeControlAction) element).getId() gives the Id of the UnsafeControlAction. 
