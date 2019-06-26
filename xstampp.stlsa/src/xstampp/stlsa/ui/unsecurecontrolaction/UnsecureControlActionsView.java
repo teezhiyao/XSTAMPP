@@ -311,12 +311,12 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
       IUnsafeControlAction uca = ucaList.get(i);
 
       GridCellText idCell = new UcaIdCell(ucaContentProvider, uca, getDataModel());
-      if (getDataModel().isUseSeverity()) {
+//      if (getDataModel().isUseSeverity()) {
         SeverityButton button = new SeverityButton((ISeverityEntry) uca, getDataModel(), getGrid());
         idCell.addCellButton(button);
-			}
+//			}
       idRow.addCell(columnIndex, idCell);
-      System.out.println("Are youhere????");
+//      System.out.println("Are youhere????");
       UnsafeControlActionCell editor = new UnsafeControlActionCell(getGridWrapper(),uca.getDescription(), uca.getId(), canWrite);
 			ucaRow.addCell(columnIndex,editor);
       linkRow.addCell(columnIndex, new GridCellLinking<UcaContentProvider>(uca.getId(),
