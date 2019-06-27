@@ -12,6 +12,7 @@
 package xstampp.stlsa.model;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.controlaction.IControlActionController;
 import xstampp.astpa.model.extendedData.RefinedSafetyRule;
 import xstampp.astpa.model.hazacc.IHazAccController;
+import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.model.AbstractLTLProvider;
 import xstampp.model.ObserverValue;
 import xstampp.stlsa.Activator;
@@ -106,6 +108,7 @@ public class StlsaController extends DataModelController {
     return id;
   }
 
+  
   public UUID setUCASecurityCritical(UUID unsafeControlActionId, boolean securityCritical) {
     if (unsafeControlActionId == null) {
       return null;

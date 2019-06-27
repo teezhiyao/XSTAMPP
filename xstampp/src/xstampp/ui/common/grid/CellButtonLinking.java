@@ -29,7 +29,12 @@ public class CellButtonLinking<T extends ITableContentProvider<?>> extends CellB
 
     @Override
     public void proposalAccepted(IContentProposal proposal) {
+      System.out.println("Proposal Accepted");
+      System.out.println(proposal.toString());
+      
       UUID linkId = ((LinkProposal) proposal).getProposalId();
+      System.out.println(proposal.getContent());
+
       if (linkId != null) {
         grid.setUpdateLock();
         publicInterface.addLink(assignedId, linkId);

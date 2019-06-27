@@ -981,7 +981,8 @@ public class DataModelController extends AbstractDataModel
     if (unsafeControlActionId == null) {
       return null;
     }
-
+//  System.out.println("PRINTTT");
+//  System.out.println(this.getLinkController().getClass());
     List<UUID> links = getLinksOfUCA(unsafeControlActionId);
     List<ITableModel> result = new ArrayList<>();
     for (UUID link : links) {

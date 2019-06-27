@@ -145,8 +145,8 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 //      System.out.println(getDataModel().getControlActionController().getUCAList(null).get(0).getIdString());
 //      System.out.println(getUUID());
 //
-      System.out.println("HMMM");
-      System.out.println(newValue);
+//      System.out.println("HMMM");
+//      System.out.println(newValue);
 		  getDataModel().getControlActionController().setUcaDescription(getUUID(), newValue);
 		}
 		
