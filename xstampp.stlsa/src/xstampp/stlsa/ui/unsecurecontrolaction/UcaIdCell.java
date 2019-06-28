@@ -32,15 +32,17 @@ public class UcaIdCell extends GridCellText {
   @Override
   public void paint(GridCellRenderer renderer, GC gc, NebulaGridRowWrapper item) {
     clearCellButtons();
-    if (provider.getLinkedItems(ucaId).isEmpty()) {
-      paintFrame(renderer, gc, item);
-    } else {
-      if (ucaDataModel.isUseSeverity()) {
-        SeverityButton button = new SeverityButton((ISeverityEntry) unsafeControlAction,
-            ucaDataModel, item.getParent());
-        addCellButton(button);
-      }
-      super.paint(renderer, gc, item);
-    }
+    super.paint(renderer, gc, item);
+
+//    if (provider.getLinkedItems(ucaId).isEmpty()) {
+//      paintFrame(renderer, gc, item);
+//    } else {
+//      if (ucaDataModel.isUseSeverity()) {
+//        SeverityButton button = new SeverityButton((ISeverityEntry) unsafeControlAction,
+//            ucaDataModel, item.getParent());
+//        addCellButton(button);
+//      }
+//      super.paint(renderer, gc, item);
+//    }
   }
 }

@@ -151,10 +151,10 @@ public class GridCellLinking<T extends ITableContentProvider<?>> extends Abstrac
     gc.setBackground(this.getBackgroundColor(renderer, gc));
     
     List<? extends ITableEntry> linkedItems = this.publicInterface.getLinkedItems(this.assignedId);
-    System.out.println("Size of linkedItems");
-    System.out.println(linkedItems.size());
+//    System.out.println("Size of linkedItems");
+//    System.out.println(linkedItems.size());
 //    System.out.println(this.publicInterface.getClass());
-    System.out.println(this.publicInterface.toString());
+//    System.out.println(this.publicInterface.toString());
 
     Collections.sort(linkedItems);
     this.buttonContainer.clearButtons();
