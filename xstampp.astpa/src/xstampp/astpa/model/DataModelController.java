@@ -983,10 +983,6 @@ public class DataModelController extends AbstractDataModel
     if (unsafeControlActionId == null) {
       return null;
     }
-//    System.out.println("In getLinkedHazards");
-
-//  System.out.println("PRINTTT");
-//  System.out.println(this.getLinkController().getClass());
     List<UUID> links = getLinksOfUCA(unsafeControlActionId);
     List<ITableModel> result = new ArrayList<>();
     for (UUID link : links) {
@@ -994,7 +990,19 @@ public class DataModelController extends AbstractDataModel
     }
     return result;
   }
-
+  
+  public List<String> getStringLinkedHazardsOfUCA(UUID unsafeControlActionId) {
+    if (unsafeControlActionId == null) {
+      return null;
+    }
+    List<UUID> links = getLinksOfUCA(unsafeControlActionId);
+    List<String> result = new ArrayList<>();
+    for (UUID link : links) {
+      result.add(this.getHazard(link).getTitle());
+    }
+    return result;  
+    }
+  
   @Override
   public List<UUID> getLinksOfUCA(UUID unsafeControlActionId) {
     return this.getLinkController().getLinksFor(LinkingType.UCA_HAZ_LINK, unsafeControlActionId);
