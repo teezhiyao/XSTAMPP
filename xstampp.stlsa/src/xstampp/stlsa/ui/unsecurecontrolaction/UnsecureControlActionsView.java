@@ -309,8 +309,8 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
     boolean canWrite = checkAccess(cAction.getId(), AccessRights.WRITE);
 		if (ucaList.size() > i) {
       IUnsafeControlAction uca = ucaList.get(i);
-      System.out.println("Hi lol");
-      System.out.println(getDataModel().toString());
+//      System.out.println("Hi lol");
+//      System.out.println(getDataModel().toString());
       GridCellText idCell = new UcaIdCell(ucaContentProvider, uca, getDataModel());
       if (getDataModel().isUseSeverity()) {
         SeverityButton button = new SeverityButton((ISeverityEntry) uca, getDataModel(), getGrid());
