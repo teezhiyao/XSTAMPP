@@ -97,7 +97,6 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
       @Override
       public String getText(Object element) {
         if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-
         if (((UnsafeControlAction) element).getType().toString() != " ") {
           return ((UnsafeControlAction) element).getType().toString();
           }
@@ -109,35 +108,50 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
       }
     });
     
-    // the Hazard column is for the unsafe control actions
-    TableViewerColumn HazardColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-    HazardColumn.getColumn().setText("Possible Hazards"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(HazardColumn.getColumn(),
+
+    TableViewerColumn IntentionColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    IntentionColumn.getColumn().setText("Intentional/Unintentional"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(IntentionColumn.getColumn(),
         new ColumnWeightData(10, 100, true));
 
-    HazardColumn.setLabelProvider(new ColumnLabelProvider() {
+    IntentionColumn.setLabelProvider(new ColumnLabelProvider() {
 
       @Override
       public String getText(Object element) {
-        if (element instanceof IControlAction) {
-          IRectangleComponent comp = CasualFactorTableView.this.getDataInterface()
-              .getComponent(((IControlAction) element).getComponentLink());
-          if (comp == null) {
-            return null;
+        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
+        if (((UnsafeControlAction) element).getType().toString() != " ") {
+          return ((UnsafeControlAction) element).getType().toString();
           }
-          IConnection conn = CasualFactorTableView.this.getDataInterface()
-              .getConnection(comp.getRelative());
-          if (conn == null) {
-            return null;
-          }
-          comp = CasualFactorTableView.this.getDataInterface()
-              .getComponent(conn.getSourceAnchor().getOwnerId());
-          return comp.getText();
+        else {
+          return "N.A";
         }
-        return null;
+      }
+      return null;
       }
     });
         
+    TableViewerColumn CasualFactorID = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    CasualFactorID.getColumn().setText("Casual Factor ID"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(CasualFactorID.getColumn(),
+        new ColumnWeightData(10, 100, true));
+
+    CasualFactorID.setLabelProvider(new ColumnLabelProvider() {
+
+      @Override
+      public String getText(Object element) {
+        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
+        if (((UnsafeControlAction) element).getType().toString() != " ") {
+          return ((UnsafeControlAction) element).getType().toString();
+          }
+        else {
+          return "N.A";
+        }
+      }
+      return null;
+      }
+    });
+    
+    
     this.updateTable();
     getAddNewItemButton().setEnabled(false);
     getAddNewItemButton().setToolTipText(Messages.ControlActionView_1);
@@ -157,20 +171,6 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
    */
   @Override
   public void updateTable() {
-
-//    List<ICorrespondingUnsafeControlAction> CAlist = this.getDataInterface().getControlActionController().getAllUnsafeControlActions();
-//    List<IUnsafeControlAction> UCA = new ArrayList<IUnsafeControlAction>();
-//    for (IControlAction CA : CAlist) {
-//      List<IUnsafeControlAction> tempUCA = CA.getUnsafeControlActions();
-//      for (IUnsafeControlAction unsafe : tempUCA) {
-//        System.out.println("Hi here");
-//        System.out.println(unsafe.getType().toString());
-//        UCA.add((IUnsafeControlAction) unsafe);
-//      }
-//  }     
-//    System.out.println("Trying to updatetable in unsafe control action view");
-//    System.out.println(this.getDataInterface().toString());
-//    System.out.println(this.getDataInterface().getControlActionController().toString());
 
     CasualFactorTableView.this.getTableViewer().setInput(this.getDataInterface().getControlActionController().getUCAList(null));
   }

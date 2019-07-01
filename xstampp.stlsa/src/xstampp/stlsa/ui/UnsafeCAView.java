@@ -534,71 +534,71 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
     // START of the creation of the right side of the view
 
     // composite for the description and its label
-    final Composite textContainer = new Composite(sashForm, SWT.NONE);
-    textContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-    textContainer.setLayout(new GridLayout(3, false));
-
-    this.descriptionLabel = new Label(textContainer, SWT.LEAD);
-    this.descriptionLabel.setFont(new Font(Display.getCurrent(),
-        PreferenceConverter.getFontData(IEditorBase.STORE, IPreferenceConstants.DEFAULT_FONT)));
-    this.descriptionLabel.setText(Messages.DescriptionNotes);
-    if (style.contains(TableStyle.WITH_SEVERITY) && getDataInterface() instanceof ISeverityDataModel
-        && ((ISeverityDataModel) getDataInterface()).isUseSeverity()) {
-      Label severityLabel = new Label(textContainer, SWT.NONE);
-      severityLabel.setText("Severity");
-      severityLabel.setLayoutData(new GridData(SWT.END, SWT.CENTER, true, false));
-      Composite severityComposite = new Composite(textContainer, SWT.NONE);
-      severityButton = new SeverityButton(null, getDataInterface(), severityComposite);
-      severityComposite.addPaintListener(severityButton);
-      severityComposite.addListener(SWT.MouseUp, severityButton);
-      Point bounds = severityButton.getPreferedBounds();
-      GridData layoutData = new GridData(bounds.x, bounds.y);
-      layoutData.horizontalAlignment = SWT.END;
-      severityComposite.setLayoutData(layoutData);
-
-    } else {
-      descriptionLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 3, 1));
-    }
-    Composite rightBody = new Composite(textContainer, SWT.None);
-    rightBody.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
-    rightBody.setLayout(new GridLayout());
-    SashForm leftSash = new SashForm(rightBody, SWT.VERTICAL);
-    leftSash.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+//    final Composite textContainer = new Composite(sashForm, SWT.NONE);
+//    textContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+//    textContainer.setLayout(new GridLayout(3, false));
+//
+//    this.descriptionLabel = new Label(textContainer, SWT.LEAD);
+//    this.descriptionLabel.setFont(new Font(Display.getCurrent(),
+//        PreferenceConverter.getFontData(IEditorBase.STORE, IPreferenceConstants.DEFAULT_FONT)));
+//    this.descriptionLabel.setText(Messages.DescriptionNotes);
+//    if (style.contains(TableStyle.WITH_SEVERITY) && getDataInterface() instanceof ISeverityDataModel
+//        && ((ISeverityDataModel) getDataInterface()).isUseSeverity()) {
+//      Label severityLabel = new Label(textContainer, SWT.NONE);
+//      severityLabel.setText("Severity");
+//      severityLabel.setLayoutData(new GridData(SWT.END, SWT.CENTER, true, false));
+//      Composite severityComposite = new Composite(textContainer, SWT.NONE);
+//      severityButton = new SeverityButton(null, getDataInterface(), severityComposite);
+//      severityComposite.addPaintListener(severityButton);
+//      severityComposite.addListener(SWT.MouseUp, severityButton);
+//      Point bounds = severityButton.getPreferedBounds();
+//      GridData layoutData = new GridData(bounds.x, bounds.y);
+//      layoutData.horizontalAlignment = SWT.END;
+//      severityComposite.setLayoutData(layoutData);
+//
+//    } else {
+//      descriptionLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 3, 1));
+//    }
+//    Composite rightBody = new Composite(textContainer, SWT.None);
+//    rightBody.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
+//    rightBody.setLayout(new GridLayout());
+//    SashForm leftSash = new SashForm(rightBody, SWT.VERTICAL);
+//    leftSash.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
     // the textfield for the description of the selected item
-    this.descriptionWidget = new Text(leftSash,
-        SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
-
-    this.descriptionWidget.setToolTipText(Messages.DoubleClickToEditTitle);
-    this.descriptionWidget.setEnabled(false);
-    this.descriptionWidget.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-
-    // KeyListener for ctrl + a (SelectAll) in the description
-    this.descriptionWidget.addKeyListener(new KeyAdapter() {
-
-      @Override
-      public void keyReleased(final KeyEvent e) {
-        if (((e.stateMask == SWT.CTRL) || (e.stateMask == SWT.COMMAND)) && (e.keyCode == 'a')) {
-          UnsafeCAView.this.getDescriptionWidget().selectAll();
-        }
-      }
-
-    });
-
-    this.descriptionWidget.addModifyListener(new ModifyListener() {
-
-      @Override
-      public void modifyText(ModifyEvent e) {
-        internalUpdate = true;
-        Text text = (Text) e.widget;
-        if (selectedEntry != null && !selectedEntry.getDescription().equals(text.getText())) {
-          updateDescription(getCurrentSelection(), text.getText());
-        }
-      }
-    });
-    if (linkFields.size() > 0) {
-      createFooter(leftSash);
-    }
+//    this.descriptionWidget = new Text(leftSash,
+//        SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
+//
+//    this.descriptionWidget.setToolTipText(Messages.DoubleClickToEditTitle);
+//    this.descriptionWidget.setEnabled(false);
+//    this.descriptionWidget.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+//
+//    // KeyListener for ctrl + a (SelectAll) in the description
+//    this.descriptionWidget.addKeyListener(new KeyAdapter() {
+//
+//      @Override
+//      public void keyReleased(final KeyEvent e) {
+//        if (((e.stateMask == SWT.CTRL) || (e.stateMask == SWT.COMMAND)) && (e.keyCode == 'a')) {
+//          UnsafeCAView.this.getDescriptionWidget().selectAll();
+//        }
+//      }
+//
+//    });
+//
+//    this.descriptionWidget.addModifyListener(new ModifyListener() {
+//
+//      @Override
+//      public void modifyText(ModifyEvent e) {
+//        internalUpdate = true;
+//        Text text = (Text) e.widget;
+//        if (selectedEntry != null && !selectedEntry.getDescription().equals(text.getText())) {
+//          updateDescription(getCurrentSelection(), text.getText());
+//        }
+//      }
+//    });
+//    if (linkFields.size() > 0) {
+//      createFooter(leftSash);
+//    }
     createTableViewer(tableComposite);
     // tab order: if tableComposite is active and tab is pressed,
     // you will leave the tableContainer and enter the description
@@ -1066,8 +1066,8 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
           PreferenceConverter.getFontData(IEditorBase.STORE, IPreferenceConstants.DEFAULT_FONT)));
       UnsafeCAView.this.filterLabel.setFont(new Font(Display.getCurrent(),
           PreferenceConverter.getFontData(IEditorBase.STORE, IPreferenceConstants.DEFAULT_FONT)));
-      UnsafeCAView.this.descriptionLabel.setFont(new Font(Display.getCurrent(),
-          PreferenceConverter.getFontData(IEditorBase.STORE, IPreferenceConstants.DEFAULT_FONT)));
+//      UnsafeCAView.this.descriptionLabel.setFont(new Font(Display.getCurrent(),
+//          PreferenceConverter.getFontData(IEditorBase.STORE, IPreferenceConstants.DEFAULT_FONT)));
     }
     super.partActivated(arg0);
   }
