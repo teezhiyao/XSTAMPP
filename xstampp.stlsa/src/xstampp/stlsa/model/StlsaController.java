@@ -195,7 +195,7 @@ public class StlsaController extends DataModelController {
         break;
       }
     }
-
+//Not entirely sure why the newer version of the code uses !ucaExists instead. Not entirely sure what the previous code does because of the naming. 
     if (ucaExists) {
       return false;
     }
