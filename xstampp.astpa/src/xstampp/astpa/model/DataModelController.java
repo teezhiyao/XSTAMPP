@@ -489,17 +489,19 @@ public class DataModelController extends AbstractDataModel
     if ((unsafeControlActionId == null) || (hazardId == null)) {
       return false;
     }
+
     if (!(this.getHazAccController().getHazard(hazardId) instanceof Hazard)) {
       return false;
     }
+
     boolean ucaExists = false;
-    for (ICorrespondingUnsafeControlAction uca : this.getControlActionController()
-        .getAllUnsafeControlActions()) {
+    for (ICorrespondingUnsafeControlAction uca : this.getControlActionController().getAllUnsafeControlActions()) {
       if (uca.getId().equals(unsafeControlActionId)) {
         ucaExists = true;
         break;
       }
     }
+
     if (!ucaExists) {
       return false;
     }
@@ -981,6 +983,8 @@ public class DataModelController extends AbstractDataModel
     if (unsafeControlActionId == null) {
       return null;
     }
+    System.out.println("In getLinkedHazards");
+
 //  System.out.println("PRINTTT");
 //  System.out.println(this.getLinkController().getClass());
     List<UUID> links = getLinksOfUCA(unsafeControlActionId);

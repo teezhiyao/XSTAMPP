@@ -33,11 +33,12 @@ public class CellButtonLinking<T extends ITableContentProvider<?>> extends CellB
       System.out.println(proposal.toString());
       
       UUID linkId = ((LinkProposal) proposal).getProposalId();
-      System.out.println(proposal.getContent());
 
       if (linkId != null) {
+        System.out.println("Can enter");
         grid.setUpdateLock();
         publicInterface.addLink(assignedId, linkId);
+        System.out.println(publicInterface.getClass());
         grid.getGrid().redraw();
       }
     }
@@ -60,6 +61,7 @@ public class CellButtonLinking<T extends ITableContentProvider<?>> extends CellB
   @Override
   public void onButtonDown(Point relativeMouse, Rectangle cellBounds) {
     List<? extends ITableEntry> linkedItems = this.publicInterface.getLinkedItems(this.assignedId);
+    System.out.println("on Button Down");
 
     List<? extends ITableEntry> items = this.publicInterface.getAllItems();
     // remove all already linked items
@@ -80,7 +82,7 @@ public class CellButtonLinking<T extends ITableContentProvider<?>> extends CellB
       proposals[i].setDescription(items.get(i).getDescription());
     }
 
-    AutoCompleteField linkField = new AutoCompleteField(proposals, grid.getGrid());
+    AutoCompleteField linkField = new AutoCompleteField(proposals, this.grid.getGrid());
 
     linkField.setPopupPosition(
         new Point(relativeMouse.x + cellBounds.x, relativeMouse.y + cellBounds.y));
