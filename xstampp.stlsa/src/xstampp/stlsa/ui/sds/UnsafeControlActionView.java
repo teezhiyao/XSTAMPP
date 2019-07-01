@@ -12,6 +12,7 @@
 package xstampp.stlsa.ui.sds;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
+import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.controlaction.ControlAction;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
@@ -30,6 +32,7 @@ import xstampp.astpa.model.controlstructure.interfaces.IConnection;
 import xstampp.astpa.model.controlstructure.interfaces.IRectangleComponent;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.astpa.model.interfaces.ITableModel;
+import xstampp.stlsa.model.StlsaController;
 import xstampp.stlsa.ui.UnsafeCAView;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
 import xstampp.model.ObserverValue;
@@ -77,16 +80,8 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 
       @Override
       public String getText(Object element) {
-//        System.out.println(((UnsafeControlAction) element).getLinks().toString());
-//        System.out.println(((UnsafeControlAction) element).getCreatedBy());
-// Code assumes that all UnsafeControlAction have a parent ControlAction. 
         if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
             System.out.println(UnsafeControlActionView.this.getDataInterface().toString()); //Gets the data Interface
-//            System.out.println(UnsafeControlActionView.this.getDataInterface().getControlActionController()); Gets the ControlActionController which contains all the control actions
-//            System.out.println(UnsafeControlActionView.this.getDataInterface().getControlActionController().getControlActionFor(((UnsafeControlAction) element).getId()).getTitle());
-// (UnsafeControlAction) element).getId() gives the Id of the UnsafeControlAction. 
-//            ITableModel tempCA =  UnsafeControlActionView.this.getDataInterface().getControlActionController().getControlAction(((UnsafeControlAction) element).getCreatedBy());
-//            System.out.println(tempCA.getClass().toString());
             return UnsafeControlActionView.this.getDataInterface().getControlActionController().getControlActionFor(((UnsafeControlAction) element).getId()).getTitle();
         }
         return null;
@@ -104,9 +99,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
       @Override
       public String getText(Object element) {
         if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-//        List<IUnsafeControlAction> lst = ((IControlAction) element).getUnsafeControlActions();
-//        System.out.println(lst.get(0).getType());
-//        System.out.println(lst.get(0).getIdString());
+
         if (((UnsafeControlAction) element).getType().toString() != " ") {
           return ((UnsafeControlAction) element).getType().toString();
           }
@@ -128,20 +121,13 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 
       @Override
       public String getText(Object element) {
-        if (element instanceof IControlAction) {
-          IRectangleComponent comp = UnsafeControlActionView.this.getDataInterface()
-              .getComponent(((IControlAction) element).getComponentLink());
-          if (comp == null) {
-            return null;
-          }
-          IConnection conn = UnsafeControlActionView.this.getDataInterface()
-              .getConnection(comp.getRelative());
-          if (conn == null) {
-            return null;
-          }
-          comp = UnsafeControlActionView.this.getDataInterface()
-              .getComponent(conn.getSourceAnchor().getOwnerId());
-          return comp.getText();
+        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
+            System.out.println("In get Hazard"); //Gets the data Interface
+            UUID Ucauuid = ((UnsafeControlAction) element).getId();
+            List<ITableModel> linkedHazard = ((StlsaController) UnsafeControlActionView.this.getDataInterface()).getLinkedHazardsOfUCA(Ucauuid); //Gets the data Interface
+            if(linkedHazard.size() > 0) {
+            return linkedHazard.get(0).getTitle();
+            }S
         }
         return null;
       }

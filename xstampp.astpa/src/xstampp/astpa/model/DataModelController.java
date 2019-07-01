@@ -983,7 +983,7 @@ public class DataModelController extends AbstractDataModel
     if (unsafeControlActionId == null) {
       return null;
     }
-    System.out.println("In getLinkedHazards");
+//    System.out.println("In getLinkedHazards");
 
 //  System.out.println("PRINTTT");
 //  System.out.println(this.getLinkController().getClass());

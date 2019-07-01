@@ -186,7 +186,6 @@ public class StlsaController extends DataModelController {
     if (!(this.getHazAccController().getHazard(hazardId) instanceof Hazard)) {
       return false;
     }
-
     boolean ucaExists = false;
     for (ICorrespondingUnsafeControlAction uca : this.getControlActionController().getAllUnsafeControlActions()) {
       System.out.println(uca.getClass());
