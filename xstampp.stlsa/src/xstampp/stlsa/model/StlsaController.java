@@ -30,9 +30,12 @@ import org.eclipse.swt.widgets.Display;
 
 import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.controlaction.IControlActionController;
+import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.extendedData.RefinedSafetyRule;
+import xstampp.astpa.model.hazacc.Hazard;
 import xstampp.astpa.model.hazacc.IHazAccController;
 import xstampp.astpa.model.interfaces.ITableModel;
+import xstampp.astpa.model.linking.LinkingType;
 import xstampp.model.AbstractLTLProvider;
 import xstampp.model.ObserverValue;
 import xstampp.stlsa.Activator;
@@ -173,4 +176,35 @@ public class StlsaController extends DataModelController {
     }
     return controlActionController;
   }
+  
+  @Override
+  public boolean addUCAHazardLink(UUID unsafeControlActionId, UUID hazardId) {
+    if ((unsafeControlActionId == null) || (hazardId == null)) {
+      return false;
+    }
+
+    if (!(this.getHazAccController().getHazard(hazardId) instanceof Hazard)) {
+      return false;
+    }
+
+    boolean ucaExists = false;
+    for (ICorrespondingUnsafeControlAction uca : this.getControlActionController().getAllUnsafeControlActions()) {
+      System.out.println(uca.getClass());
+      if (uca.getId().equals(unsafeControlActionId)) {
+        ucaExists = true;
+        break;
+      }
+    }
+
+    if (ucaExists) {
+      return false;
+    }
+
+    if (this.getLinkController().addLink(LinkingType.UCA_HAZ_LINK, unsafeControlActionId,
+        hazardId) != null) {
+      return true;
+    }
+    return false;
+  }
+  
 }
