@@ -51,7 +51,7 @@ public class UcaContentProvider  implements ITableContentProvider<ITableModel> {
 
 	public List<ITableModel> getLinkedItems(final UUID itemId) {
 //	   return this.ucaInterface.getControlActionController().getAllControlActions();
-	  UnsafeControlAction uca = (UnsafeControlAction) this.ucaInterface.getControlActionController().getUnsafeControlAction(itemId);
+//	  UnsafeControlAction uca = (UnsafeControlAction) this.ucaInterface.getControlActionController().getUnsafeControlAction(itemId);
 //	  System.out.println("PRINTTT");
 //	  System.out.println(this.ucaInterface.getClass());
 //	  this.ucaInterface.getControlActionController().getLinksOfUCA(itemId);
@@ -60,8 +60,8 @@ public class UcaContentProvider  implements ITableContentProvider<ITableModel> {
 
 	@Override
 	public void addLink(final UUID item1, final UUID item2) {
+		this.ucaInterface.addUCAHazardLink(item1, item2);
 
-		this.ucaInterface.getControlActionController().addUCAHazardLink(item1, item2);
 	}
 
 	@Override
