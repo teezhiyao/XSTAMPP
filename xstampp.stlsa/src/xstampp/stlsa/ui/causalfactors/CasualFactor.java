@@ -5,7 +5,10 @@ public enum CasualFactor implements CausalFactorInterface {
     MANIPULATED_OPERATION("Manipulated Operation", Intention.INTENTIONAL),
     REPLACED_SENSORS("Replaced Sensors", Intention.INTENTIONAL),
     TAMPERED_FEEDBACK("Tampered Feedback", Intention.INTENTIONAL),
-    
+    INTENTIONAL_CONGESTION_OF_FEEDBACK_PATH("Intentional congestion of feedback path", Intention.INTENTIONAL),
+    INJECTION_OF_INPUT("Injection of Input", Intention.INTENTIONAL),
+    TAMPERED_OR_FABRICATED_SIGNAL("Tampered or fabricated sensor signal", Intention.INTENTIONAL),
+       
     DELAYED_OPERATIONS("Delayed Operations", Intention.UNINTENTIONAL),
     ETHIOPIAN("Ethiopian Blend", Intention.UNINTENTIONAL);
     

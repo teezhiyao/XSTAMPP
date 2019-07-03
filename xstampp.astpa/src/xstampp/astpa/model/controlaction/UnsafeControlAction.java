@@ -48,6 +48,8 @@ public class UnsafeControlAction extends ATableModel
 
   public String identifier;
 
+  public int counter;
+
   /**
    * Constructs a new unsafe control action with the given values
    * 

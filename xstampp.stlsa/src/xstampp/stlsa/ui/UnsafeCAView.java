@@ -33,6 +33,7 @@ import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -90,6 +91,7 @@ import xstampp.astpa.ui.linkingSupport.LinkSupport;
 import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
 import xstampp.preferences.IPreferenceConstants;
+import xstampp.stlsa.ui.sds.CasualFactorTableView;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.editors.StandartEditorPart;
 import xstampp.ui.editors.interfaces.IEditorBase;
@@ -1088,7 +1090,11 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
 
     @Override
     protected CellEditor getCellEditor(Object element) {
-      return new TextCellEditor(getTableViewer().getTable());
+      System.out.print("get cell editor ");
+      return new ComboBoxCellEditor(
+          getTableViewer().getTable(), new String[] { "Zero", "Ten", "Twenty", "Thirty",
+            "Fourty", "Fifty", "Sixty", "Seventy", "Eighty",
+            "Ninety" });
     }
 
     @Override
