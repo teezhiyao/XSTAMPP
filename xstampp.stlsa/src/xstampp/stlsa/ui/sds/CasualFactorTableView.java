@@ -52,6 +52,7 @@ import xstampp.astpa.model.interfaces.ISeverityEntry;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.ui.CausalFactorButton;
 import xstampp.stlsa.ui.UnsafeCAView;
+import xstampp.stlsa.ui.causalfactors.CasualFactor;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
 import xstampp.model.ObserverValue;
 
@@ -109,11 +110,11 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
     TableItem[] items = this.getTableViewer().getTable().getItems();
     for (int i = 0; i < items.length; i++) {
       TableEditor editor = new TableEditor(this.getTableViewer().getTable());
-      CCombo combo = new CCombo(this.getTableViewer().getTable(), SWT.NONE);
-      combo.setText("CCombo");
-      combo.add("item 1");
-      combo.add("item 2");
-      editor.grabHorizontal = true;
+      CCombo combo = new CCombo(this.getTableViewer().getTable(), SWT.CENTER);
+      combo.setText("Casual Factor");
+      for (CasualFactor CF : CasualFactor.values()) { 
+        combo.add(CF.getLabel());
+    }
       editor.setEditor(combo, items[i], 2);}
     
     
