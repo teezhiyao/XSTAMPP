@@ -33,11 +33,15 @@ import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
@@ -91,20 +95,6 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
     TableViewerColumn CFG = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
     CFG.getColumn().setText("Casual factor"); //$NON-NLS-1$
     getTableColumnLayout().setColumnData(CFG.getColumn(), new ColumnWeightData(10, 100, true));
-    CFG.setLabelProvider(new ColumnLabelProvider() {
-      @Override
-      public String getText(Object element) {
-        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-        if (((UnsafeControlAction) element).getType().toString() != " ") {
-          return ((UnsafeControlAction) element).getType().toString();
-          }
-        else {
-          return "N.A";
-        }
-      }
-      return null;
-      }
-    });
     
 
     TableItem[] items = this.getTableViewer().getTable().getItems();
@@ -115,15 +105,23 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
       for (CasualFactor CF : CasualFactor.values()) { 
         combo.add(CF.getLabel());
     }
+      combo.addSelectionListener(selectionAdapter);
       editor.grabHorizontal = true;
       editor.setEditor(combo, items[i], 2);
       }
-    
-    
-    
-    
-    
-    
+      
+    CFG.setLabelProvider(new ColumnLabelProvider() {
+      @Override
+      public void update(ViewerCell cell) {
+        Object element = cell.getElement();
+        cell.setText(getText(element));
+        Image image = getImage(element);
+        cell.setImage(image);
+        cell.setBackground(getBackground(element));
+        cell.setForeground(getForeground(element));
+        cell.setFont(getFont(element));
+      }
+    });
     
     // the Type column is for the unsafe control actions
     TableViewerColumn typeColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
@@ -294,6 +292,20 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
     return elements;
   }
   
+
+
+static void selectionAtEnd(CCombo c) {
+  // get the length of the selected item
+  String text = c.getText();
+  System.out.println(text);
+//  int endSelection = text.length();
 }
 
-
+static SelectionAdapter selectionAdapter = new SelectionAdapter() {
+  @Override
+  public void widgetSelected(SelectionEvent arg0) {
+      // change selection when an item is selected
+      selectionAtEnd((CCombo) arg0.getSource());
+  }   
+};
+}
