@@ -115,7 +115,9 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
       for (CasualFactor CF : CasualFactor.values()) { 
         combo.add(CF.getLabel());
     }
-      editor.setEditor(combo, items[i], 2);}
+      editor.grabHorizontal = true;
+      editor.setEditor(combo, items[i], 2);
+      }
     
     
     
