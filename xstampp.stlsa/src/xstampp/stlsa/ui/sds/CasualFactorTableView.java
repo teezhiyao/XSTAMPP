@@ -13,21 +13,12 @@ package xstampp.stlsa.ui.sds;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.UUID;
 
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.EditingSupport;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
@@ -36,27 +27,16 @@ import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
-
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
-import xstampp.astpa.model.controlaction.ControlAction;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
-import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
-import xstampp.astpa.model.controlstructure.interfaces.IConnection;
-import xstampp.astpa.model.controlstructure.interfaces.IRectangleComponent;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
-import xstampp.astpa.model.interfaces.ISeverityEntry;
-import xstampp.astpa.model.interfaces.ITableModel;
-import xstampp.astpa.ui.CausalFactorButton;
+import xstampp.stlsa.model.StlsaController;
 import xstampp.stlsa.ui.UnsafeCAView;
-import xstampp.stlsa.ui.causalfactors.CasualFactor;
+import xstampp.stlsa.ui.causalfactors.CausalFactor;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
 import xstampp.model.ObserverValue;
 
@@ -94,32 +74,64 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
     
     TableViewerColumn CFG = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
     CFG.getColumn().setText("Casual factor"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(CFG.getColumn(), new ColumnWeightData(10, 100, true));
+    getTableColumnLayout().setColumnData(CFG.getColumn(), new ColumnWeightData(10, 300, true));
     
-
-    TableItem[] items = this.getTableViewer().getTable().getItems();
-    for (int i = 0; i < items.length; i++) {
-      TableEditor editor = new TableEditor(this.getTableViewer().getTable());
-      CCombo combo = new CCombo(this.getTableViewer().getTable(), SWT.CENTER);
-      combo.setText("Casual Factor");
-      for (CasualFactor CF : CasualFactor.values()) { 
-        combo.add(CF.getLabel());
-    }
-      combo.addSelectionListener(selectionAdapter);
-      editor.grabHorizontal = true;
-      editor.setEditor(combo, items[i], 2);
-      }
+//    TableItem[] items = this.getTableViewer().getTable().getItems();
+//    for (int i = 0; i < items.length; i++) {
+//      TableEditor editor = new TableEditor(this.getTableViewer().getTable());
+//      CCombo combo = new CCombo(this.getTableViewer().getTable(), SWT.CENTER);
+//      combo.setText("Casual Factor");
+//      for (CausalFactor CF : CausalFactor.values()) { 
+//        combo.add(CF.getLabel());
+//    }
+//      combo.addSelectionListener(new SelectionAdapter() {
+//            @Override
+//            public void widgetSelected(SelectionEvent arg0) {
+//                // change selection when an item is selected
+//                CCombo ccomboCell = ((CCombo) arg0.getSource());
+//                String selectedText = ccomboCell.getText();
+//                System.out.println(selectedText);
+//
+//            }   
+//          });
+//      editor.grabHorizontal = true;
+//      editor.setEditor(combo, items[i], 2);
+//      }
       
     CFG.setLabelProvider(new ColumnLabelProvider() {
       @Override
       public void update(ViewerCell cell) {
-        Object element = cell.getElement();
+        final Object element = cell.getElement();
         cell.setText(getText(element));
         Image image = getImage(element);
         cell.setImage(image);
         cell.setBackground(getBackground(element));
         cell.setForeground(getForeground(element));
         cell.setFont(getFont(element));
+        
+        TableItem[] items = CasualFactorTableView.this.getTableViewer().getTable().getItems();
+        for (int i = 0; i < items.length; i++) {
+          TableEditor editor = new TableEditor(CasualFactorTableView.this.getTableViewer().getTable());
+          CCombo combo = new CCombo(CasualFactorTableView.this.getTableViewer().getTable(), SWT.CENTER);
+          combo.setText("Casual Factor (Guide)");
+          for (CausalFactor CF : CausalFactor.values()) { 
+            combo.add(CF.getLabel());
+        }
+          combo.addSelectionListener(new SelectionAdapter() {
+                @Override
+                public void widgetSelected(SelectionEvent arg0) {
+                    // change selection when an item is selected
+                    CCombo ccomboCell = ((CCombo) arg0.getSource());
+                    String selectedText = ccomboCell.getText();
+                    System.out.println(selectedText);
+                    System.out.println(element.getClass());
+
+                }   
+              });
+          editor.grabHorizontal = true;
+          editor.setEditor(combo, items[i], 2);
+          }
+        
       }
     });
     
@@ -130,29 +142,6 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
         new ColumnWeightData(10, 100, true));
 
     typeColumn.setLabelProvider(new ColumnLabelProvider() {
-//      Map<Object, Button> buttons = new HashMap<Object, Button>();
-//      @Override
-//      public void update(ViewerCell cell) {
-//        TableItem item = (TableItem) cell.getItem();
-//        Button button;
-//        if(buttons.containsKey(cell.getElement()))
-//        {
-//            button = buttons.get(cell.getElement());
-//        }
-//        else
-//        {
-//            button = new Button((Composite) cell.getViewerRow().getControl(),SWT.NONE);
-//            button.setText("Remove");
-//            buttons.put(cell.getElement(), button);
-//        }
-//        TableEditor editor = new TableEditor(item.getParent());
-//        editor.grabHorizontal  = true;
-//        editor.grabVertical = true;
-//        editor.setEditor(button , item, cell.getColumnIndex());
-//        editor.layout();
-//    }
-      
-      
       
       @Override
       public String getText(Object element) {
@@ -292,20 +281,24 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
     return elements;
   }
   
+  //Helper methods below 
+  public void setCausalFactor(UUID CFID, String CFText) {
+    ((StlsaController) CasualFactorTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
+  }
+  
+  public void addCausalFactor(UUID CFID, String CFText) {
+    ((StlsaController) CasualFactorTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
+  }
+  
+  public SelectionAdapter selectionAdapter = new SelectionAdapter() {
+    @Override
+    public void widgetSelected(SelectionEvent arg0) {
+        // change selection when an item is selected
+        CCombo ccomboCell = ((CCombo) arg0.getSource());
+        String selectedText = ccomboCell.getText();
+        System.out.println(selectedText);
+        System.out.println(ccomboCell.getItems()[0]);
 
-
-static void selectionAtEnd(CCombo c) {
-  // get the length of the selected item
-  String text = c.getText();
-  System.out.println(text);
-//  int endSelection = text.length();
-}
-
-static SelectionAdapter selectionAdapter = new SelectionAdapter() {
-  @Override
-  public void widgetSelected(SelectionEvent arg0) {
-      // change selection when an item is selected
-      selectionAtEnd((CCombo) arg0.getSource());
-  }   
-};
+    }   
+  };
 }
