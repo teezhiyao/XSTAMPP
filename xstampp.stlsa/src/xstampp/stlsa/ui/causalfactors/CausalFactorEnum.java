@@ -19,20 +19,20 @@ public enum CausalFactorEnum implements CausalFactorInterface {
     UNAUTHORIZED_CHANGES_TO_THE_CONTROL_ALGORITHM("Unauthorized changes to the control algorithm", Intention.INTENTIONAL),
     PROCESS_MODEL_TAMPERED("Process Model tampered", Intention.INTENTIONAL),
             
-    INAPPROPRIATE_INEFFECTIVE_OR_MISSING_CONTROL_ACTIONS("Delayed Operations", Intention.UNINTENTIONAL),
+    INAPPROPRIATE_INEFFECTIVE_OR_MISSING_CONTROL_ACTIONS("Inappropriate, Ineffective or missing control actions", Intention.UNINTENTIONAL),
     DELAYED_OPERATIONS("Delayed Operations", Intention.UNINTENTIONAL),
-    CONFLICTING_CONTROL_ACTIONS("Delayed Operations", Intention.UNINTENTIONAL),
-    PROCESS_INPUT_MISSING_OR_WRONG("Delayed Operations", Intention.UNINTENTIONAL),
-    UNIDENTIFIED_OR_OUT_OF_RANGE_DISTURBANCE("Delayed Operations", Intention.UNINTENTIONAL),
-    PROCESS_OUTPUT_CONTRIBUTES_TO_SYSTEM_HAZARD("Delayed Operations", Intention.UNINTENTIONAL),
-    INCORRECT_OR_NO_INFORMATION_PROVIDED("Delayed Operations", Intention.UNINTENTIONAL),
-    MEASUREMENT_INACCURACIES("Delayed Operations", Intention.UNINTENTIONAL),
-    FEEDBACK_DELAYS("Delayed Operations", Intention.UNINTENTIONAL),
-    INADEQUATE_OPERATIONS("Delayed Operations", Intention.UNINTENTIONAL),
-    PROCESS_MODEL_INCONSISTENT_INCOMPLETE_OR_INCORRECT("Delayed Operations", Intention.UNINTENTIONAL),
-    INADEQUATE_CONTROL_ALGORITHM_FLAWS_IN_CREATION_PROCESS_CHANGES_INCORRECT_MODIFICATION_OR_ADAPTION("Delayed Operations", Intention.UNINTENTIONAL),
-    SPOOFED_CONTROLLER("Delayed Operations", Intention.UNINTENTIONAL),
-    CONTROL_INPUT_OR_EXTERNAL_INFORMATION_WRONG_OR_MISSING("Delayed Operations", Intention.UNINTENTIONAL);
+    CONFLICTING_CONTROL_ACTIONS("Conflicting control actions", Intention.UNINTENTIONAL),
+    PROCESS_INPUT_MISSING_OR_WRONG("Process Input missing or wrong", Intention.UNINTENTIONAL),
+    UNIDENTIFIED_OR_OUT_OF_RANGE_DISTURBANCE("Unidentified or out-of-range disturbance", Intention.UNINTENTIONAL),
+    PROCESS_OUTPUT_CONTRIBUTES_TO_SYSTEM_HAZARD("Process output contributes to system hazard", Intention.UNINTENTIONAL),
+    INCORRECT_OR_NO_INFORMATION_PROVIDED("Incorrect or no information provideds", Intention.UNINTENTIONAL),
+    MEASUREMENT_INACCURACIES("Measurement inaccuracies", Intention.UNINTENTIONAL),
+    FEEDBACK_DELAYS("Feedback delays", Intention.UNINTENTIONAL),
+    INADEQUATE_OPERATIONS("Inadequate or missing feedback", Intention.UNINTENTIONAL),
+    PROCESS_MODEL_INCONSISTENT_INCOMPLETE_OR_INCORRECT("Process Model inconsistent, incomplete or incorrect", Intention.UNINTENTIONAL),
+    INADEQUATE_CONTROL_ALGORITHM_FLAWS_IN_CREATION_PROCESS_CHANGES_INCORRECT_MODIFICATION_OR_ADAPTION("Inadequate Control Algorithm ( Flaws in creation process changes, incorrect modification or adaption", Intention.UNINTENTIONAL),
+    SPOOFED_CONTROLLER("Spoofed Controller", Intention.UNINTENTIONAL),
+    CONTROL_INPUT_OR_EXTERNAL_INFORMATION_WRONG_OR_MISSING("Control Input or external information wrong or missing", Intention.UNINTENTIONAL);
     
     private final String label;
     private String Description;
