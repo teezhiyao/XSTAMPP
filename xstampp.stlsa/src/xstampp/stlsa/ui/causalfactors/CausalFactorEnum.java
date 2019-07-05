@@ -1,6 +1,6 @@
 package xstampp.stlsa.ui.causalfactors;
 
-public enum CausalFactor implements CausalFactorInterface {
+public enum CausalFactorEnum implements CausalFactorInterface {
 
     MANIPULATED_OPERATION("Manipulated Operation", Intention.INTENTIONAL),
     REPLACED_SENSORS("Replaced Sensors", Intention.INTENTIONAL),
@@ -15,7 +15,7 @@ public enum CausalFactor implements CausalFactorInterface {
     private String Description;
     private final Intention type;
 
-    private CausalFactor(String label, Intention type) {
+    private CausalFactorEnum(String label, Intention type) {
         this.label = label;
         this.type = type;
     }

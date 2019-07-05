@@ -31,12 +31,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableItem;
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
+import xstampp.astpa.model.causalfactor.CausalFactor;
+import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.stlsa.ui.UnsafeCAView;
-import xstampp.stlsa.ui.causalfactors.CausalFactor;
+import xstampp.stlsa.ui.causalfactors.CausalFactorEnum;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
 import xstampp.model.ObserverValue;
 
@@ -75,28 +77,6 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
     TableViewerColumn CFG = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
     CFG.getColumn().setText("Casual factor"); //$NON-NLS-1$
     getTableColumnLayout().setColumnData(CFG.getColumn(), new ColumnWeightData(10, 300, true));
-    
-//    TableItem[] items = this.getTableViewer().getTable().getItems();
-//    for (int i = 0; i < items.length; i++) {
-//      TableEditor editor = new TableEditor(this.getTableViewer().getTable());
-//      CCombo combo = new CCombo(this.getTableViewer().getTable(), SWT.CENTER);
-//      combo.setText("Casual Factor");
-//      for (CausalFactor CF : CausalFactor.values()) { 
-//        combo.add(CF.getLabel());
-//    }
-//      combo.addSelectionListener(new SelectionAdapter() {
-//            @Override
-//            public void widgetSelected(SelectionEvent arg0) {
-//                // change selection when an item is selected
-//                CCombo ccomboCell = ((CCombo) arg0.getSource());
-//                String selectedText = ccomboCell.getText();
-//                System.out.println(selectedText);
-//
-//            }   
-//          });
-//      editor.grabHorizontal = true;
-//      editor.setEditor(combo, items[i], 2);
-//      }
       
     CFG.setLabelProvider(new ColumnLabelProvider() {
       @Override
@@ -114,7 +94,7 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
           TableEditor editor = new TableEditor(CasualFactorTableView.this.getTableViewer().getTable());
           CCombo combo = new CCombo(CasualFactorTableView.this.getTableViewer().getTable(), SWT.CENTER);
           combo.setText("Casual Factor (Guide)");
-          for (CausalFactor CF : CausalFactor.values()) { 
+          for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
             combo.add(CF.getLabel());
         }
           combo.addSelectionListener(new SelectionAdapter() {
@@ -125,6 +105,7 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
                     String selectedText = ccomboCell.getText();
                     System.out.println(selectedText);
                     System.out.println(element.getClass());
+                    ((StlsaController) CasualFactorTableView.this.getDataInterface()).getCausalFactorController().addCausalFactor(new CausalFactor(selectedText));
 
                 }   
               });
@@ -289,7 +270,12 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
   public void addCausalFactor(UUID CFID, String CFText) {
     ((StlsaController) CasualFactorTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
   }
-  
+  public UUID createCausalFactor(String selectedText) {
+  StlsaController dataController = ((StlsaController) CasualFactorTableView.this.getDataInterface());
+  CausalFactorController CFController = (CausalFactorController) dataController.getCausalFactorController();
+  UUID CFID = CFController.addCausalFactor(new CausalFactor(selectedText));
+  return CFID;
+  }
   public SelectionAdapter selectionAdapter = new SelectionAdapter() {
     @Override
     public void widgetSelected(SelectionEvent arg0) {
