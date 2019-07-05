@@ -105,8 +105,9 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
                     String selectedText = ccomboCell.getText();
                     System.out.println(selectedText);
                     System.out.println(element.getClass());
-                    ((StlsaController) CasualFactorTableView.this.getDataInterface()).getCausalFactorController().addCausalFactor(new CausalFactor(selectedText));
-
+                    UUID UcaID = ((UnsafeControlAction) element).getId();
+                    UUID CFID = CasualFactorTableView.this.createCausalFactor(selectedText);
+                    CasualFactorTableView.this.addCausalFactorToUca(CFID, UcaID);
                 }   
               });
           editor.grabHorizontal = true;
@@ -267,8 +268,8 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
     ((StlsaController) CasualFactorTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
   }
   
-  public void addCausalFactor(UUID CFID, String CFText) {
-    ((StlsaController) CasualFactorTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
+  public void addCausalFactorToUca(UUID CFID, UUID UcaID) {
+    ((StlsaController) CasualFactorTableView.this.getDataInterface()).addCausalFactor(CFID, UcaID);
   }
   public UUID createCausalFactor(String selectedText) {
   StlsaController dataController = ((StlsaController) CasualFactorTableView.this.getDataInterface());
@@ -276,6 +277,7 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
   UUID CFID = CFController.addCausalFactor(new CausalFactor(selectedText));
   return CFID;
   }
+  
   public SelectionAdapter selectionAdapter = new SelectionAdapter() {
     @Override
     public void widgetSelected(SelectionEvent arg0) {
