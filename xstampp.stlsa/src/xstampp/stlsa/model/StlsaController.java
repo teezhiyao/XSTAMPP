@@ -29,6 +29,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 
 import xstampp.astpa.model.DataModelController;
+import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.controlaction.IControlActionController;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.extendedData.RefinedSafetyRule;
@@ -134,6 +135,22 @@ public class StlsaController extends DataModelController {
     return id;
   }
 
+  public List<ITableModel> getLinkedCausalFactorOfUCA(UUID unsafeControlActionId) {
+    if (unsafeControlActionId == null) {
+      return null;
+    }
+    List<UUID> links = getCausalFactorsLinksOfUCA(unsafeControlActionId);
+    List<ITableModel> result = new ArrayList<>();
+    for (UUID link : links) {
+      result.add(this.getCausalFactor(link));
+    }
+    return result;
+  }
+  
+  public List<UUID> getCausalFactorsLinksOfUCA(UUID unsafeControlActionId) {
+    return this.getLinkController().getLinksFor(LinkingType.UCA_CausalFactor_LINK, unsafeControlActionId);
+  }
+  
   public void setRefinedSecurityConstraint(UUID refinedRuleId, String text) {
 
     Map<UUID, RefinedSafetyRule> ltlMap = new HashMap<>();
@@ -201,6 +218,38 @@ public class StlsaController extends DataModelController {
 
     if (this.getLinkController().addLink(LinkingType.UCA_HAZ_LINK, unsafeControlActionId,
         hazardId) != null) {
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean removeUCACausalFactorLink(UUID unsafeControlActionId, UUID causalFactorId) {
+    return this.getLinkController().deleteLink(LinkingType.UCA_CausalFactor_LINK, unsafeControlActionId,
+        causalFactorId);
+  }
+  
+  public boolean addUCACausalFactorLink(UUID unsafeControlActionId, UUID causalFactorId) {
+    if ((unsafeControlActionId == null) || (causalFactorId == null)) {
+      return false;
+    }
+
+    if (!(this.getCausalFactorController().getCausalFactor(causalFactorId) instanceof CausalFactor)) {
+      return false;
+    }
+    boolean ucaExists = false;
+    for (ICorrespondingUnsafeControlAction uca : this.getControlActionController().getAllUnsafeControlActions()) {
+      if (uca.getId().equals(unsafeControlActionId)) {
+        ucaExists = true;
+        break;
+      }
+    }
+//Not entirely sure why the newer version of the code uses !ucaExists instead. Not entirely sure what the previous code does because of the naming. 
+    if (ucaExists) {
+      return false;
+    }
+
+    if (this.getLinkController().addLink(LinkingType.UCA_CausalFactor_LINK, unsafeControlActionId,
+        causalFactorId) != null) {
       return true;
     }
     return false;

@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.causalfactor.CausalFactor;
+import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;
@@ -31,11 +32,14 @@ import xstampp.astpa.ui.unsafecontrolaction.UnsafeControlActionsView;
 import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
 import xstampp.stlsa.messages.StlsaMessages;
+import xstampp.stlsa.model.StlsaController;
+import xstampp.stlsa.ui.unsecurecontrolaction.UcaContentProvider;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.common.grid.DeleteGridEntryAction;
 import xstampp.ui.common.grid.GridCellLinking;
 import xstampp.ui.common.grid.GridCellText;
 import xstampp.ui.common.grid.GridRow;
+import xstampp.usermanagement.api.AccessRights;
 
 /**
  * View used to handle the unsafe control actions.
@@ -125,7 +129,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent,columns);
 		this.tableViewer = parent;
-    updateHazards();
+    updateCausalFactors();
 	}
 	
 	@Override
@@ -156,9 +160,9 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 			controlActionRow.addCell(0,new GridCellText(cAction.getIdString()));
 	    controlActionRow.addCell(1,new GridCellText(cAction.getDescription()));
 	    
-	    
-	    controlActionRow.addCell(3, new GridCellLinking<CfContentProvider>(cAction.getId(),
-	        cfContentProvider, getGridWrapper()));
+//      linkRow.addCell(columnIndex, new GridCellLinking<UcaContentProvider>(uca.getId(), this.ucaContentProvider, getGridWrapper(), canWrite));
+	    boolean canWrite = checkAccess(cAction.getId(), AccessRights.WRITE);
+	    controlActionRow.addCell(3, new GridCellLinking<CfContentProvider>(cAction.getId(), this.cfContentProvider, getGridWrapper(), canWrite));
 	    
 //
 //			List<IUnsafeControlAction> allNotGiven = cAction
@@ -295,13 +299,13 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 		}
 	}
 
-	private void updateHazards(){
-		String[] choices= new String[getDataModel().getAllHazards().size()];
-		String[] choiceIDs= new String[getDataModel().getAllHazards().size()];
-		String[] choiceValues= new String[getDataModel().getAllHazards().size()];
+	private void updateCausalFactors(){
+		String[] choices= new String[getCausalFactorController().getCausalFactors().size()];
+		String[] choiceIDs= new String[getCausalFactorController().getCausalFactors().size()];
+		String[] choiceValues= new String[getCausalFactorController().getCausalFactors().size()];
 		int index = 0;
 	
-		for (ITableModel model : getDataModel().getAllHazards()) {
+		for (ITableModel model : getCausalFactorController().getCausalFactors()) {
 			choices[index] = "V-" + model.getNumber() + ": "+ model.getTitle(); //$NON-NLS-1$ //$NON-NLS-2$
 			choiceIDs[index] = "" + model.getNumber(); //$NON-NLS-1$
 			choiceValues[index++] = model.getTitle();
@@ -312,15 +316,21 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 		this.addChoiceValues(HAZ_FILTER,choiceValues);
 	}
 
+  private CausalFactorController getCausalFactorController() {
+    return (CausalFactorController) ((StlsaController) getDataModel()).getCausalFactorController();
+  }
+  
   @Override
   public void update(Observable dataModelController, Object updatedValue) {
 
     super.update(dataModelController, updatedValue);
     ObserverValue type = (ObserverValue) updatedValue;
+    System.out.println("In Update for CF");
+    System.out.println(type.toString());
     switch (type) {
       case UNSAFE_CONTROL_ACTION:
-      case HAZARD:
-        updateHazards();
+      case CAUSAL_FACTOR:
+        updateCausalFactors();
       case CONTROL_ACTION:
         try {
           this.reloadTable();

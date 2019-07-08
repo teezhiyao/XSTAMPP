@@ -64,7 +64,7 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
    */
   public CasualFactorTableView() {
     super(true);
-    setUpdateValues(EnumSet.of(ObserverValue.UNSAFE_CONTROL_ACTION));
+    setUpdateValues(EnumSet.of(ObserverValue.CAUSAL_FACTOR));
   }
 
   /**

@@ -21,6 +21,7 @@ import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
+import xstampp.stlsa.model.StlsaController;
 import xstampp.ui.common.contentassist.ITableContentProvider;
 
 /**
@@ -29,7 +30,6 @@ import xstampp.ui.common.contentassist.ITableContentProvider;
  * 
  */
 public class CfContentProvider implements ITableContentProvider<ITableModel> {
-  private static final String HAZARD_ID_PREFIX = ""; //$NON-NLS-1$
   private final transient IUnsafeControlActionDataModel cfInterface;
   private boolean DefaultCFAdded = false;
   /**
@@ -58,22 +58,28 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
 
   @Override
   public List<ITableModel> getLinkedItems(final UUID itemId) {
-    return this.cfInterface.getLinkedHazardsOfUCA(itemId);
+    return getStlsaController().getLinkedCausalFactorOfUCA(itemId);
   }
-
+  
+  public StlsaController getStlsaController() {
+    return ((StlsaController)this.cfInterface);
+  }
+  
+  
+  
   @Override
   public void addLink(final UUID item1, final UUID item2) {
-    this.cfInterface.addUCAHazardLink(item1, item2);
+    getStlsaController().addUCACausalFactorLink(item1, item2);
   }
 
   @Override
   public void removeLink(final UUID item, final UUID removeItem) {
-    this.cfInterface.removeUCAHazardLink(item, removeItem);
+    getStlsaController().removeUCACausalFactorLink(item, removeItem);
   }
 
   @Override
   public String getPrefix() {
-    return HAZARD_ID_PREFIX;
+    return "";
   }
 
   @Override

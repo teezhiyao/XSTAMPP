@@ -44,6 +44,7 @@ import org.osgi.framework.Bundle;
 
 import messages.Messages;
 import xstampp.astpa.Activator;
+import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.causalfactor.ICausalController;
 import xstampp.astpa.model.causalfactor.interfaces.ICausalComponent;
@@ -901,6 +902,17 @@ public class DataModelController extends AbstractDataModel
     return hazard;
   }
 
+  public ITableModel getCausalFactor(UUID causalFactorId) {
+    if (causalFactorId == null) {
+      return null;
+    }
+    ITableModel causalFactor = this.getCausalFactorController().getCausalFactor(causalFactorId);
+    if (!(causalFactor instanceof CausalFactor)) {
+      return null;
+    }
+    return causalFactor;
+  }
+  
   @Override
   public List<ITableModel> getHazards(List<UUID> ids) {
     List<ITableModel> hazards = new ArrayList<>();
@@ -990,6 +1002,7 @@ public class DataModelController extends AbstractDataModel
     }
     return result;
   }
+  
   
   public List<String> getStringLinkedHazardsOfUCA(UUID unsafeControlActionId) {
     if (unsafeControlActionId == null) {
@@ -1430,7 +1443,7 @@ public class DataModelController extends AbstractDataModel
     return this.getLinkController().deleteLink(LinkingType.UCA_HAZ_LINK, unsafeControlActionId,
         hazardId);
   }
-
+  
   @Override
   public boolean removeAllUCAHazardLinks(UUID unsafeControlActionId) {
     boolean result = true;
