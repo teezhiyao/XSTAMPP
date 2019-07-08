@@ -581,7 +581,7 @@
             name="%editor.name.ControlStructureWithProcessModel">
       </editor>
       <editor
-            class="xstampp.stlsa.ui.sds.CasualFactorTableView"
+            class="xstampp.stlsa.ui.causalfactors.CausalFactorGridTableView"
             default="false"
             icon="icons/buttons/navigation/STEP3_2(16).png"
             id="stlsa.steps.step3_2"
@@ -594,7 +594,7 @@
             name="%editor.name.STPAResults">
       </editor>
       <editor
-            class="xstampp.stlsa.ui.causalScenarios.CausalScenariosView"
+            class="xstampp.stlsa.ui.sds.CasualFactorTableView"
             default="false"
             id="xstampp.stlsa.ui.causalScenarios"
             name="Causal Scenarios">
