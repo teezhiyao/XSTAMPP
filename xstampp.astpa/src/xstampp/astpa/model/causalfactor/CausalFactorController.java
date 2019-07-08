@@ -106,7 +106,7 @@ public class CausalFactorController extends ATableModelController implements ICa
   public UUID addCausalFactor() {
     return this.addCausalFactor(new CausalFactor(""));
   }
-
+  @Override
   public UUID addCausalFactor(CausalFactor factor) {
     if (this.causalFactors.add(factor)) {
       setChanged();

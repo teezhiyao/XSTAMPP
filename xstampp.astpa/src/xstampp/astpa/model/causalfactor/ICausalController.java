@@ -41,6 +41,7 @@ public interface ICausalController {
    * @return the {@link UUID} of the {@link ITableModel}
    */
   UUID addCausalFactor();
+  UUID addCausalFactor(CausalFactor causalFactor);
 
   /**
    * 

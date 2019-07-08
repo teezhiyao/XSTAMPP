@@ -17,39 +17,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-import java.util.UUID;
-
 import org.eclipse.swt.SWTException;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 
-import messages.Messages;
-import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
-import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
-import xstampp.astpa.model.interfaces.ISeverityEntry;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
-import xstampp.astpa.ui.SeverityButton;
 import xstampp.astpa.ui.unsafecontrolaction.DeleteUcaAction;
 import xstampp.astpa.ui.unsafecontrolaction.UnsafeControlActionsView;
 import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
 import xstampp.stlsa.messages.StlsaMessages;
-import xstampp.stlsa.ui.unsecurecontrolaction.UcaContentProvider;
-import xstampp.stlsa.ui.unsecurecontrolaction.UcaIdCell;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.common.grid.DeleteGridEntryAction;
-import xstampp.ui.common.grid.GridCellBlank;
-import xstampp.ui.common.grid.GridCellButton;
 import xstampp.ui.common.grid.GridCellLinking;
 import xstampp.ui.common.grid.GridCellText;
-import xstampp.ui.common.grid.GridCellTextEditor;
 import xstampp.ui.common.grid.GridRow;
-import xstampp.ui.common.grid.GridWrapper;
-import xstampp.usermanagement.api.AccessRights;
 
 /**
  * View used to handle the unsafe control actions.
@@ -71,16 +55,16 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	private static final String NOHAZ_FILTER="not vulnerable"; //$NON-NLS-1$
 	private static final String HAZID_FILTER="Vulnerability ID"; //$NON-NLS-1$
 
-  private String[] columns = new String[] {"ID",
-    Messages.ControlAction, StlsaMessages.NotGiven2,
-    StlsaMessages.GivenIncorrectly2, StlsaMessages.WrongTiming2,
-    Messages.StoppedTooSoon };
+  private String[] columns = new String[] {"UCA ID",
+    "UCA Title", "Causal Factor ID","Causal factor (Guide word)",
+    "Casual factor", "Unintentional/Intentional"};
 
 
 	/**
 	 * Interfaces to communicate with the data model.
 	 */
-	private UcaContentProvider ucaContentProvider = null;
+	private CfContentProvider cfContentProvider = null;
+  private Composite tableViewer;
 
 	public CausalFactorGridTableView() {
 		setUseFilter(true);
@@ -130,60 +114,6 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	
 
 	
-	private class UnsafeControlActionCell extends GridCellTextEditor {
-
-    public UnsafeControlActionCell(GridWrapper grid, String initialText, UUID uca,
-        boolean canDelete) {
-			super(grid, initialText,uca);
-      setShowDelete(canDelete);
-      setReadOnly(!canDelete);
-		}
-		@Override
-		public void delete() {
-		  deleteEntry();
-		}
-		@Override
-		public void updateDataModel(String newValue) {
-		  getDataModel().getControlActionController().setUcaDescription(getUUID(), newValue);
-		}
-		
-
-
-	  @Override
-	  protected void editorOpening() {
-	    getDataModel().lockUpdate();
-	  }
-	  
-	  @Override
-	  protected void editorClosing() {
-      getDataModel().releaseLockAndUpdate(new ObserverValue[] {});
-	  }
-	}
-
-	private class AddUcaButton extends GridCellButton {
-
-		private IControlAction parentControlAction;
-		private UnsafeControlActionType ucaType;
-
-    public AddUcaButton(IControlAction parentItem, String text, UnsafeControlActionType type) {
-			super(text);
-
-			this.parentControlAction = parentItem;
-			this.ucaType = type;
-		}
-
-		@Override
-    public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
-				Rectangle cellBounds) {
-		  if(e.button == 1){
-  			UUID newUCA = CausalFactorGridTableView.this.getDataModel().addUnsafeControlAction(this.parentControlAction.getId(), "", this.ucaType); //$NON-NLS-1$
-  			getGridWrapper().activateCell(newUCA);
-        ProjectManager.getLOGGER().debug(Messages.AddingNewUCA);
-		  }
-			
-		}
-	}
-
 	/**
 	 * User interface components.
 	 * 
@@ -192,13 +122,14 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent,columns);
+		this.tableViewer = parent;
     updateHazards();
 	}
 	
 	@Override
 	public void setDataModelInterface(IDataModel dataInterface) {
 	  super.setDataModelInterface(dataInterface);
-    this.ucaContentProvider = new UcaContentProvider(getDataModel());
+    this.cfContentProvider = new CfContentProvider(getDataModel());
 	}
 	@Override
 	public DeleteGridEntryAction<IUnsafeControlActionDataModel> getDeleteAction() {
@@ -207,21 +138,26 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	
 	@Override
 	protected void fillTable() throws SWTException{
-//	  List<ICorrespondingUnsafeControlAction> list = getDataModel().getUCAList(null);
-//		if (list.isEmpty()) {
-//			return;
-//		}
-//		boolean addControlAction;
-//		for (ICorrespondingUnsafeControlAction cAction : list) {
-//			//fiter by the title of the control action
-//			if(isFiltered(cAction.getTitle(), CA_FILTER)){
-//				continue;
-//			}
-//			GridRow controlActionRow = new GridRow(columns.length,3, new int[] { 0,1 }); 
-//			//GridRow is not from a library, the last argument specify which column will only have 1 row. In this case, the first 2 columns only has 1 row.
-//			addControlAction = false;
-//			controlActionRow.addCell(0,new GridCellText(cAction.getIdString()));
-//	    controlActionRow.addCell(1,new GridCellText(cAction.getTitle()));
+	  List<ICorrespondingUnsafeControlAction> list = getDataModel().getUCAList(null);
+		if (list.isEmpty()) {
+			return;
+		}
+		boolean addControlAction;
+		for (ICorrespondingUnsafeControlAction cAction : list) {
+			//fiter by the title of the control action
+			if(isFiltered(cAction.getTitle(), CA_FILTER)){
+				continue;
+			}
+			GridRow controlActionRow = new GridRow(columns.length,3, new int[] { 0,1 }); 
+			//GridRow is not from a library, the last argument specify which column will only have 1 row. In this case, the first 2 columns only has 1 row.
+			addControlAction = false;
+			controlActionRow.addCell(0,new GridCellText(cAction.getIdString()));
+	    controlActionRow.addCell(1,new GridCellText(cAction.getDescription()));
+	    
+	    
+	    controlActionRow.addCell(3, new GridCellLinking<CfContentProvider>(cAction.getId(),
+	        cfContentProvider, getGridWrapper()));
+	    
 //
 //			List<IUnsafeControlAction> allNotGiven = cAction
 //					.getUnsafeControlActions(UnsafeControlActionType.NOT_GIVEN);
@@ -291,10 +227,12 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 //				  break;
 //				}
 //			}
+      getGridWrapper().addRow(controlActionRow);      
+
 //			if(addControlAction){
 //				getGridWrapper().addRow(controlActionRow);			
 //			}
-//		}
+		}
 	}
 
 
