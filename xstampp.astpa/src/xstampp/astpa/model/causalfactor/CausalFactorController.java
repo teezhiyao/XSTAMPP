@@ -79,6 +79,15 @@ public class CausalFactorController extends ATableModelController implements ICa
   @XmlElementWrapper(name = "componentsList")
   @XmlElement(name = "component")
   private List<CausalCSComponent> componentsList;
+  private boolean addedCF = false;
+  @Override
+  public boolean isAddedCF() {
+    return addedCF;
+  }
+  @Override
+  public void setAddedCF(boolean addedCF) {
+    this.addedCF = addedCF;
+  }
 
   /**
    * Constructor of the causal factor controller

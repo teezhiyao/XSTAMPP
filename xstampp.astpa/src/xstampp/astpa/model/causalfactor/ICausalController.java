@@ -226,4 +226,6 @@ public interface ICausalController {
    *          if the Causal Factor and UCA column in the Causal Factors Table should be switched
    */
   void setAnalyseFactorsPerUCA(boolean analyseFactorsPerUCA);
+  boolean isAddedCF();
+  void setAddedCF(boolean addedCF);
 }

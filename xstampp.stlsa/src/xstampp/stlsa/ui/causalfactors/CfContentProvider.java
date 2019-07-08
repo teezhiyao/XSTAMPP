@@ -29,7 +29,7 @@ import xstampp.ui.common.contentassist.ITableContentProvider;
  * 
  */
 public class CfContentProvider implements ITableContentProvider<ITableModel> {
-  private static final String HAZARD_ID_PREFIX = "CF"; //$NON-NLS-1$
+  private static final String HAZARD_ID_PREFIX = ""; //$NON-NLS-1$
   private final transient IUnsafeControlActionDataModel cfInterface;
   private boolean DefaultCFAdded = false;
   /**
@@ -41,20 +41,17 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
    */
   public CfContentProvider(final IUnsafeControlActionDataModel cfInterface) {
     this.cfInterface = cfInterface;
-//    for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
-//    ((DataModelController)this.cfInterface).getCausalFactorController().addCausalFactor(new CausalFactor(CF.getLabel()));
-//    }
   }
 
   @Override
   public List<ITableModel> getAllItems() {
     System.out.println("Get all Items");
     System.out.println(this.cfInterface.toString());
-    if(!this.DefaultCFAdded) {
+    if(!((DataModelController)this.cfInterface).getCausalFactorController().isAddedCF()) {
       for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
         ((DataModelController)this.cfInterface).getCausalFactorController().addCausalFactor(new CausalFactor(CF.getLabel()));
         }
-      DefaultCFAdded = true;
+      ((DataModelController)this.cfInterface).getCausalFactorController().setAddedCF(true);
     }
     return ((DataModelController)this.cfInterface).getCausalFactorController().getCausalFactors();
   }
@@ -81,6 +78,6 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
 
   @Override
   public String getEmptyMessage() {
-    return Messages.NotHazardous;
+    return "Not Selected";
   }
 }

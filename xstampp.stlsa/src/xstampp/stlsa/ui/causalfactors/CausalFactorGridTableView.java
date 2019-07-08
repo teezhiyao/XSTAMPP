@@ -58,7 +58,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	private static final String HAZID_FILTER="Vulnerability ID"; //$NON-NLS-1$
 
   private String[] columns = new String[] {"UCA ID",
-    "UCA Title", "Causal Factor ID","Causal factor (Guide word)",
+    "UCA Description", "Causal Factor ID","Causal factor (Guide word)",
     "Casual factor", "Unintentional/Intentional"};
 
 
