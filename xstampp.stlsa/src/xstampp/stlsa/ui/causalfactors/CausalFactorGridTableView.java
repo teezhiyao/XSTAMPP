@@ -20,6 +20,8 @@ import java.util.Observable;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Composite;
 
+import xstampp.astpa.model.DataModelController;
+import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;

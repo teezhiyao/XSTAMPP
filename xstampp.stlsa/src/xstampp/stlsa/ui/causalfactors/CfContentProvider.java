@@ -29,9 +29,9 @@ import xstampp.ui.common.contentassist.ITableContentProvider;
  * 
  */
 public class CfContentProvider implements ITableContentProvider<ITableModel> {
-  private static final String HAZARD_ID_PREFIX = "CF-"; //$NON-NLS-1$
+  private static final String HAZARD_ID_PREFIX = "CF"; //$NON-NLS-1$
   private final transient IUnsafeControlActionDataModel cfInterface;
-
+  private boolean DefaultCFAdded = false;
   /**
    * 
    * @author Benedikt Markt
@@ -41,14 +41,20 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
    */
   public CfContentProvider(final IUnsafeControlActionDataModel cfInterface) {
     this.cfInterface = cfInterface;
+//    for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
+//    ((DataModelController)this.cfInterface).getCausalFactorController().addCausalFactor(new CausalFactor(CF.getLabel()));
+//    }
   }
 
   @Override
   public List<ITableModel> getAllItems() {
     System.out.println("Get all Items");
     System.out.println(this.cfInterface.toString());
-    for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
-    ((DataModelController)this.cfInterface).getCausalFactorController().addCausalFactor(new CausalFactor(CF.getLabel()));
+    if(!this.DefaultCFAdded) {
+      for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
+        ((DataModelController)this.cfInterface).getCausalFactorController().addCausalFactor(new CausalFactor(CF.getLabel()));
+        }
+      DefaultCFAdded = true;
     }
     return ((DataModelController)this.cfInterface).getCausalFactorController().getCausalFactors();
   }
