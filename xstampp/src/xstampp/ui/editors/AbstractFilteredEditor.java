@@ -30,8 +30,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import messages.Messages;
-import xstampp.astpa.model.DataModelController;
-import xstampp.astpa.model.causalfactor.CausalFactor;
 
 /**
  * Parts derived from this class are provided an optional filter bar, containing a Combo and a
@@ -116,13 +114,13 @@ public abstract class AbstractFilteredEditor extends StandartEditorPart {
 
   public void createPartControl(Composite parent, boolean modify) {
     if (useFilter) {
-      parent.setLayout(new GridLayout(1, false));
+      parent.setLayout(new GridLayout(1, true));
       filter = new Composite(parent, SWT.None) {
         @Override
         public void dispose() {
         }
       };
-      filter.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+      filter.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false));
       filter.setLayout(new GridLayout(11, false));
       createCategoryWidget(getCategoryArray()[0]);      
       
@@ -131,8 +129,7 @@ public abstract class AbstractFilteredEditor extends StandartEditorPart {
 //      FormData data = new FormData();
       final Text cfTitleText = new Text(filter, SWT.LEFT | SWT.BORDER);
       cfTitleText.setToolTipText("Causal Factor Title");
-//      filterText.setLayoutData(data);
-      
+//      filterText.setLayoutData(data);      
       Label intentionLabel = new Label(filter, SWT.LEFT);
       intentionLabel.setText("Intention:");
       final Combo intentionCombo = new Combo(filter, SWT.READ_ONLY | SWT.None);
