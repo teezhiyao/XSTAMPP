@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Table;
 import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;
@@ -189,7 +190,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
       for (int i = 0; i < maxHeight; i++) {
         GridRow cfRows = new GridRow(columns.length,3);
         SingleGridCellLinking<CfContentProvider> cfGridCell = new SingleGridCellLinking<CfContentProvider>(cAction.getId(), this.cfContentProvider, getGridWrapper(), canWrite, i);     
-        addRows(linkedItems, cfRows, cfGridCell, i);
+        addRows(linkedItems, cfRows, cfGridCell, i, cAction.getIdString());
         controlActionRow.addChildRow(cfRows);
       }
 	    }
@@ -198,13 +199,13 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	}
 
 
-	private void addRows(List<ITableModel> linkedItems,GridRow cfRows, SingleGridCellLinking<CfContentProvider> cfGridCell, int i) {
+	private void addRows(List<ITableModel> linkedItems,GridRow cfRows, SingleGridCellLinking<CfContentProvider> cfGridCell, int i, String ucaNumber) {
 //    while (linkedItems.size() > i ) {
 //      linkedItems.remove(i);
 //    }
 	  if(!linkedItems.isEmpty()) {
 	  CausalFactor currentItem = (CausalFactor) linkedItems.get(i);
-    cfRows.addCell(2, new GridCellText(currentItem.getIdString()));
+    cfRows.addCell(2, new GridCellText(currentItem.getIdString(ucaNumber)));
     cfRows.addCell(5, new GridCellText(currentItem.getIntention()));
     }
 	  cfRows.addCell(3, cfGridCell);

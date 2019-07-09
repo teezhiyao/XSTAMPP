@@ -174,4 +174,8 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
     return "CF-" + getNumber();
   }
 
+  public String getIdString(String x) {
+    String xsub = x.substring(3);
+    return "CF" + xsub + "."+ getNumber();
+  }
 }
