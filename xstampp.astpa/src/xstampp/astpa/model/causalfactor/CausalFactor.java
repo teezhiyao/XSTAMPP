@@ -60,6 +60,8 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
   @XmlElement
   private UUID constraintId;
 
+  private String intention;
+
   /**
    * Constructor of a causal factor
    * 
@@ -71,6 +73,20 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
   public CausalFactor(String text) {
     this.id = UUID.randomUUID();
     this.text = text;
+  }
+
+  public CausalFactor(String text, String intention) {
+    this.id = UUID.randomUUID();
+    this.text = text;
+    this.intention = intention;
+  }
+  
+  public String getIntention() {
+    return intention;
+  }
+
+  public void setIntention(String intention) {
+    this.intention = intention;
   }
 
   /**

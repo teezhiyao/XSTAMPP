@@ -49,7 +49,7 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
     System.out.println(this.cfInterface.toString());
     if(!((DataModelController)this.cfInterface).getCausalFactorController().isAddedCF()) {
       for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
-        ((DataModelController)this.cfInterface).getCausalFactorController().addCausalFactor(new CausalFactor(CF.getLabel()));
+        ((DataModelController)this.cfInterface).getCausalFactorController().addCausalFactor(new CausalFactor(CF.getLabel(), CF.getDisplayableType()));
         }
       ((DataModelController)this.cfInterface).getCausalFactorController().setAddedCF(true);
     }

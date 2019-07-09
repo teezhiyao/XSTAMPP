@@ -203,13 +203,12 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 //      linkedItems.remove(i);
 //    }
 	  if(!linkedItems.isEmpty()) {
-	  ITableModel currentItem = linkedItems.get(i);
-    cfRows.addCell(2, new GridCellText(currentItem.getIdString()));}
-	  
+	  CausalFactor currentItem = (CausalFactor) linkedItems.get(i);
+    cfRows.addCell(2, new GridCellText(currentItem.getIdString()));
+    cfRows.addCell(5, new GridCellText(currentItem.getIntention()));
+    }
 	  cfRows.addCell(3, cfGridCell);
 	  cfRows.addCell(4, new GridCellText("Hello"));
-	  cfRows.addCell(5, new GridCellText());
-
 	}
 	
 	@Override

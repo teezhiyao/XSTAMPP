@@ -36,15 +36,15 @@ public enum CausalFactorEnum implements CausalFactorInterface {
     
     private final String label;
     private String Description;
-    private final Intention type;
+    private Intention intention;
 
-    private CausalFactorEnum(String label, Intention type) {
+    private CausalFactorEnum(String label, Intention intention) {
         this.label = label;
-        this.type = type;
+        this.intention = intention;
     }
 
     public String getDisplayableType() {
-        return type.getDisplayableType();
+        return this.intention.getDisplayableType();
     }
 
     public String getLabel() {
