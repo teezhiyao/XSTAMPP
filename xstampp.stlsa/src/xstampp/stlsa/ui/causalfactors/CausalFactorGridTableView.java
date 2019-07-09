@@ -145,7 +145,8 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		super.createPartControl(parent,columns);
+		boolean modify = true;
+    super.createPartControl(parent,columns,modify);
 		this.tableViewer = parent;
 //		this.tableViewer.addListener(PROP_INPUT, new Listener() {
 //	    public void handleEvent(Event e)
@@ -158,6 +159,8 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 //	    });
     updateCausalFactors();
 	}
+	
+	
 	
 	@Override
 	public void setDataModelInterface(IDataModel dataInterface) {
@@ -223,10 +226,10 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	  
 	  cfRows.addCell(3, cfGridCell);
 
-    String intention = "Intended";
-    String title = "Testing add button";
-    String message = "Click to make new CF";
-    cfRows.addCell(6, new AddNewCfButton(message, title, intention ));
+//    String intention = "Intended";
+//    String title = "Testing add button";
+//    String message = "Click to make new CF";
+//    cfRows.addCell(6, new AddNewCfButton(message, title, intention ));
 
 	}
 	
@@ -305,6 +308,12 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
   private CausalFactorController getCausalFactorController() {
     return (CausalFactorController) ((StlsaController) getDataModel()).getCausalFactorController();
   }
+  @Override
+  protected void addCausalFactor(String title,String intention) {
+    getCausalFactorController().addCausalFactor(new CausalFactor(title, intention));
+
+  }
+
   
   @Override
   public void update(Observable dataModelController, Object updatedValue) {
@@ -334,31 +343,26 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
     super.dispose();
   }
 	
-  private class AddNewCfButton extends GridCellButton {
-
-    private IControlAction parentControlAction;
-    private String intention;
-    private String title;
-
-    public AddNewCfButton(String text, String title,String intention) {
-      super(text);
-      this.intention = intention;
-      this.title = title;
-    }
-
-    @Override
-    public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse, Rectangle cellBounds) {
-      if(e.button == 1){
-        UUID newCf = CausalFactorGridTableView.this.getCausalFactorController().addCausalFactor(new CausalFactor(this.title,this.intention));
-//        UUID newUCA = UnsecureControlActionsView.this.getDataModel().addUnsafeControlAction(this.parentControlAction.getId(), "", this.ucaType); //$NON-NLS-1$
-        getGridWrapper().activateCell(newCf);
-        ProjectManager.getLOGGER().debug("Create new CF");
-      }
-      
-    }
-  }
-  
-  
+//  private class AddNewCfButton extends GridCellButton {
+//
+//    private String intention;
+//    private String title;
+//
+//    public AddNewCfButton(String text, String title,String intention) {
+//      super(text);
+//      this.intention = intention;
+//      this.title = title;
+//    }
+//
+//    @Override
+//    public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse, Rectangle cellBounds) {
+//      if(e.button == 1){
+//        UUID newCf = CausalFactorGridTableView.this.getCausalFactorController().addCausalFactor(new CausalFactor(this.title,this.intention));
+//        getGridWrapper().activateCell(newCf);
+//        ProjectManager.getLOGGER().debug("Create new CF");
+//      }
+//    }
+//  }
   
   private class CausalFactorCell extends GridCellTextEditor {
 
@@ -378,7 +382,6 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
     public void updateDataModel(String newValue) {
       CausalFactor currentCf = (CausalFactor) ((StlsaController) getDataModel()).getCausalFactorController().getCausalFactor(getUUID());
       currentCf.setDescription(newValue);
-      System.out.println(currentCf.getDescription());
     }
 
     @Override

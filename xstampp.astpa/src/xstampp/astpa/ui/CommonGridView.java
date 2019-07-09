@@ -79,7 +79,27 @@ public abstract class CommonGridView<T extends IDataModel> extends AbstractFilte
       getGrid().setMenu(menu);
     }
   }
+  public void createPartControl(Composite parent, String[] columns, boolean modify) {
+    this.setDataModelInterface(ProjectManager.getContainerInstance()
+        .getDataModel(this.getProjectID()));
+    super.createPartControl(parent, modify);
+    parent.setLayout(new GridLayout(1, false));
+    this.grid = new GridWrapper(parent, columns);
+    this.columnCount = columns.length;
+    getGridWrapper().setSelectRow(false);
+    getGrid().setVisible(true);
 
+    getGrid().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+    this.reloadTable();
+    this.deleteAction = getDeleteAction();
+    if (this.deleteAction != null) {
+      MenuManager menuMgr = new MenuManager();
+      Menu menu = menuMgr.createContextMenu(getGrid());
+      menuMgr.addMenuListener(new ActionMenuListener(this.deleteAction));
+      menuMgr.setRemoveAllWhenShown(true);
+      getGrid().setMenu(menu);
+    }
+  }
   public int getColumnCount() {
     return columnCount;
   }

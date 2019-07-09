@@ -30,6 +30,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import messages.Messages;
+import xstampp.astpa.model.DataModelController;
+import xstampp.astpa.model.causalfactor.CausalFactor;
 
 /**
  * Parts derived from this class are provided an optional filter bar, containing a Combo and a
@@ -92,6 +94,7 @@ public abstract class AbstractFilteredEditor extends StandartEditorPart {
   private List<Category> categories;
   private String globalCategory;
   private Object filterValue;
+  private String intentionSelected = null;
 
   /**
    * if the filter is used this method expects a parent composite with a gridLayout.
@@ -111,6 +114,65 @@ public abstract class AbstractFilteredEditor extends StandartEditorPart {
     }
   }
 
+  public void createPartControl(Composite parent, boolean modify) {
+    if (useFilter) {
+      parent.setLayout(new GridLayout(1, false));
+      filter = new Composite(parent, SWT.None) {
+        @Override
+        public void dispose() {
+        }
+      };
+      filter.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+      filter.setLayout(new GridLayout(11, false));
+      createCategoryWidget(getCategoryArray()[0]);      
+      
+      Label cfTitleLabel = new Label(filter, SWT.LEFT);
+      cfTitleLabel.setText("Causal Factor Title:");
+//      FormData data = new FormData();
+      final Text cfTitleText = new Text(filter, SWT.LEFT | SWT.BORDER);
+      cfTitleText.setToolTipText("Causal Factor Title");
+//      filterText.setLayoutData(data);
+      
+      Label intentionLabel = new Label(filter, SWT.LEFT);
+      intentionLabel.setText("Intention:");
+      final Combo intentionCombo = new Combo(filter, SWT.READ_ONLY | SWT.None);
+      intentionCombo.setToolTipText("Set Intention here");
+      intentionCombo.add("Intentional");
+      intentionCombo.add("Unintentional");
+      intentionCombo.addSelectionListener(new SelectionAdapter() {
+
+        @Override
+        public void widgetSelected(SelectionEvent event) {
+          System.out.println("In this listener");
+          System.out.println(intentionCombo.getSelectionIndex());
+          if(intentionCombo.getSelectionIndex() == 0) {
+            AbstractFilteredEditor.this.intentionSelected = "Intentional";
+          }
+          else if(intentionCombo.getSelectionIndex() == 1) {
+            AbstractFilteredEditor.this.intentionSelected = "Unintentional";
+
+          }
+        }
+      });
+      
+      Button submit = new Button(filter, SWT.PUSH);
+      submit.setText("Submit");
+      submit.addSelectionListener(new SelectionAdapter() {
+        @Override
+        public void widgetSelected(SelectionEvent e) {
+          intentionSelected = AbstractFilteredEditor.this.intentionSelected;
+          System.out.println(cfTitleText.getText());
+          String title = cfTitleText.getText();
+          if(intentionSelected != null  && !cfTitleText.getText().isEmpty()) {
+            addCausalFactor(title, intentionSelected);
+          }
+
+        }
+      });
+      
+    }
+  }
+  
   /**
    * creates the label and category choose widget of the filter.
    * 
@@ -136,7 +198,7 @@ public abstract class AbstractFilteredEditor extends StandartEditorPart {
       Composite filterInput = new Composite(filter, SWT.None);
       filterInput.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
       filterInput.setLayout(new FormLayout());
-      FormData data = new FormData();
+      FormData data = new FormData(); 
       data.bottom = new FormAttachment(100);
       data.left = new FormAttachment(0);
       data.right = new FormAttachment(100);
@@ -284,7 +346,8 @@ public abstract class AbstractFilteredEditor extends StandartEditorPart {
   protected void updateFilter() {
 
   }
-
+  
+  protected void addCausalFactor(String title,String intention) {}
   /**
    * <i>This method should be implemented by subclasses, for the defaul only returns null</i>
    * 
