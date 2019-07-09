@@ -81,7 +81,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 
   private String[] columns = new String[] {"UCA ID",
     "UCA Description", "Causal Factor ID","Causal factor (Guide word)",
-    "Casual factor", "Unintentional/Intentional", "Add"};
+    "Casual factor", "Unintentional/Intentional"};
 
 
 	/**
