@@ -90,7 +90,7 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
     CausalFactor templateCf = (CausalFactor) getStlsaController().getCausalFactor(cfId);
     System.out.println("In Add Link");
     System.out.println(templateCf.getIdString());
-    CausalFactor newCf = new CausalFactor(templateCf.getText(), templateCf.getIntention());
+    CausalFactor newCf = new CausalFactor(templateCf.getTitle(), templateCf.getIntention());
     UUID newCFId = getStlsaController().getCausalFactorController().addCausalFactor(newCf);
     getStlsaController().addUCACausalFactorLink(ucaId, newCFId);
   }

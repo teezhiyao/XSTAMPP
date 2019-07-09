@@ -362,9 +362,9 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
   
   private class CausalFactorCell extends GridCellTextEditor {
 
-    public CausalFactorCell(GridWrapper grid, String initialText, UUID uca,
+    public CausalFactorCell(GridWrapper grid, String initialText, UUID cf,
         boolean canDelete) {
-      super(grid, initialText, uca);
+      super(grid, initialText, cf);
       setShowDelete(canDelete);
       setReadOnly(!canDelete);
     }
@@ -376,7 +376,9 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 
     @Override
     public void updateDataModel(String newValue) {
-      getDataModel().setUcaDescription(getUUID(), newValue);
+      CausalFactor currentCf = (CausalFactor) ((StlsaController) getDataModel()).getCausalFactorController().getCausalFactor(getUUID());
+      currentCf.setDescription(newValue);
+      System.out.println(currentCf.getDescription());
     }
 
     @Override

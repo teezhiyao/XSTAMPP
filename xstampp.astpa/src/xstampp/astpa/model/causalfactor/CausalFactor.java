@@ -61,6 +61,9 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
   private UUID constraintId;
 
   private String intention;
+  private String title;
+
+  private String description = "Description not set";
 
   /**
    * Constructor of a causal factor
@@ -70,14 +73,14 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
    * @param text
    *          the text of the new causal factor
    */
-  public CausalFactor(String text) {
+  public CausalFactor(String title) {
     this.id = UUID.randomUUID();
-    this.text = text;
+    this.title = title;
   }
 
-  public CausalFactor(String text, String intention) {
+  public CausalFactor(String title, String intention) {
     this.id = UUID.randomUUID();
-    this.text = text;
+    this.title = title;
     this.intention = intention;
   }
   
@@ -161,12 +164,16 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
 
   @Override
   public String getTitle() {
-    return getText();
+    return this.title;
   }
 
   @Override
   public String getDescription() {
-    return getText();
+    return this.description;
+  }
+  
+  public void setDescription(String description) {
+    this.description = description;
   }
   
   @Override
