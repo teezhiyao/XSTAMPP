@@ -17,19 +17,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.UUID;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWTException;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 
+import messages.Messages;
 import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
+import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
+import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
@@ -41,11 +47,15 @@ import xstampp.model.ObserverValue;
 import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.stlsa.ui.unsecurecontrolaction.UcaContentProvider;
+import xstampp.stlsa.ui.unsecurecontrolaction.UnsecureControlActionsView;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.common.grid.DeleteGridEntryAction;
+import xstampp.ui.common.grid.GridCellButton;
 import xstampp.ui.common.grid.GridCellLinking;
 import xstampp.ui.common.grid.GridCellText;
+import xstampp.ui.common.grid.GridCellTextEditor;
 import xstampp.ui.common.grid.GridRow;
+import xstampp.ui.common.grid.GridWrapper;
 import xstampp.ui.common.grid.SingleGridCellLinking;
 import xstampp.usermanagement.api.AccessRights;
 
@@ -71,7 +81,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 
   private String[] columns = new String[] {"UCA ID",
     "UCA Description", "Causal Factor ID","Causal factor (Guide word)",
-    "Casual factor", "Unintentional/Intentional"};
+    "Casual factor", "Unintentional/Intentional", "Add"};
 
 
 	/**
@@ -206,10 +216,18 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	  if(!linkedItems.isEmpty()) {
 	  CausalFactor currentItem = (CausalFactor) linkedItems.get(i);
     cfRows.addCell(2, new GridCellText(currentItem.getIdString(ucaNumber)));
+    CausalFactorCell editor = new CausalFactorCell(getGridWrapper(),currentItem.getDescription(), currentItem.getId(), true);
+    cfRows.addCell(4,editor);
     cfRows.addCell(5, new GridCellText(currentItem.getIntention()));
     }
+	  
 	  cfRows.addCell(3, cfGridCell);
-	  cfRows.addCell(4, new GridCellText("Hello"));
+
+    String intention = "Intended";
+    String title = "Testing add button";
+    String message = "Click to make new CF";
+    cfRows.addCell(6, new AddNewCfButton(message, title, intention ));
+
 	}
 	
 	@Override
@@ -316,4 +334,60 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
     super.dispose();
   }
 	
+  private class AddNewCfButton extends GridCellButton {
+
+    private IControlAction parentControlAction;
+    private String intention;
+    private String title;
+
+    public AddNewCfButton(String text, String title,String intention) {
+      super(text);
+      this.intention = intention;
+      this.title = title;
+    }
+
+    @Override
+    public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse, Rectangle cellBounds) {
+      if(e.button == 1){
+        UUID newCf = CausalFactorGridTableView.this.getCausalFactorController().addCausalFactor(new CausalFactor(this.title,this.intention));
+//        UUID newUCA = UnsecureControlActionsView.this.getDataModel().addUnsafeControlAction(this.parentControlAction.getId(), "", this.ucaType); //$NON-NLS-1$
+        getGridWrapper().activateCell(newCf);
+        ProjectManager.getLOGGER().debug("Create new CF");
+      }
+      
+    }
+  }
+  
+  
+  
+  private class CausalFactorCell extends GridCellTextEditor {
+
+    public CausalFactorCell(GridWrapper grid, String initialText, UUID uca,
+        boolean canDelete) {
+      super(grid, initialText, uca);
+      setShowDelete(canDelete);
+      setReadOnly(!canDelete);
+    }
+
+    @Override
+    public void delete() {
+      deleteEntry();
+    }
+
+    @Override
+    public void updateDataModel(String newValue) {
+      getDataModel().setUcaDescription(getUUID(), newValue);
+    }
+
+    @Override
+    protected void editorOpening() {
+      getDataModel().lockUpdate();
+    }
+
+    @Override
+    protected void editorClosing() {
+      getDataModel().releaseLockAndUpdate(new ObserverValue[] {});
+    }
+  }
+  
 }
