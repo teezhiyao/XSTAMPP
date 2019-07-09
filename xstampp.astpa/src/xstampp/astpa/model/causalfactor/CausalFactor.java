@@ -168,7 +168,7 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
   public String getDescription() {
     return getText();
   }
-
+  
   @Override
   public String getIdString() {
     return "CF-" + getNumber();
@@ -176,6 +176,7 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
 
   public String getIdString(String x) {
     String xsub = x.substring(3);
-    return "CF" + xsub + "."+ getNumber();
+    int y = getNumber() - 30;
+    return "CF" + xsub + "."+ y;
   }
 }
