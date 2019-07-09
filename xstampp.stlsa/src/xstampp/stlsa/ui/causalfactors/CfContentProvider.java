@@ -13,12 +13,15 @@
 
 package xstampp.stlsa.ui.causalfactors;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import messages.Messages;
 import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.causalfactor.CausalFactor;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
+import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
 import xstampp.stlsa.model.StlsaController;
@@ -59,6 +62,21 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
   @Override
   public List<ITableModel> getLinkedItems(final UUID itemId) {
     return getStlsaController().getLinkedCausalFactorOfUCA(itemId);
+  }
+  
+  @Override
+  public List<ITableModel> getAllLinkedItems() {
+    List<ITableModel> result = new ArrayList<ITableModel>();
+    for (ICorrespondingUnsafeControlAction uca : getStlsaController().getUCAList(null)) {
+      System.out.println("Reach here alr");
+    List<ITableModel> links = getStlsaController().getLinkedCausalFactorOfUCA(((UnsafeControlAction)uca).getId());
+    for(ITableModel link : links) {
+      System.out.println("Reach here alr also");
+
+      result.add(link);
+    }
+    }
+    return result;
   }
   
   public StlsaController getStlsaController() {

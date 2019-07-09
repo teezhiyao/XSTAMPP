@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Display;
 
 import xstampp.model.ITableEntry;
 import xstampp.ui.common.contentassist.ITableContentProvider;
+import xstampp.ui.common.contentassist.ITableModel;
 import xstampp.ui.common.grid.GridWrapper.NebulaGridRowWrapper;
 
 /**
@@ -143,7 +144,13 @@ public class SingleGridCellLinking<T extends ITableContentProvider<?>> extends A
     this.lines = 1;
     this.buttons = new ArrayList<>();
     if (canEdit) {
-      buttons.add(new CellButtonLinking<T>(grid, publicInterface, assignedId));
+      buttons.add(new CellButtonLinking<T>(grid, publicInterface, assignedId) {
+        @Override
+        public List<? extends ITableEntry> getLinkedItems() {
+          List<? extends ITableEntry> linkedItems = this.publicInterface.getAllLinkedItems();
+          return linkedItems;
+        }
+      });
     }
     this.buttonContainer = new CellButtonContainer();
   }

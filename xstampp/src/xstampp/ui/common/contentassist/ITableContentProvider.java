@@ -16,6 +16,7 @@ package xstampp.ui.common.contentassist;
 import java.util.List;
 import java.util.UUID;
 
+import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.model.ITableEntry;
 import xstampp.ui.common.grid.GridCellLinking;
 
@@ -84,5 +85,7 @@ public interface ITableContentProvider<T extends ITableEntry> {
    * @return a literal which is written in front of the linked entrys id number
    */
   String getPrefix();
+
+  List<T> getAllLinkedItems();
 
 }

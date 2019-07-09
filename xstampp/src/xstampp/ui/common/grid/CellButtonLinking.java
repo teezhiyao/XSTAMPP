@@ -44,7 +44,7 @@ public class CellButtonLinking<T extends ITableContentProvider<?>> extends CellB
     }
   }
 
-  private T publicInterface;
+  protected T publicInterface;
   private UUID assignedId;
   private GridWrapper grid;
 
@@ -60,7 +60,7 @@ public class CellButtonLinking<T extends ITableContentProvider<?>> extends CellB
 
   @Override
   public void onButtonDown(Point relativeMouse, Rectangle cellBounds) {
-    List<? extends ITableEntry> linkedItems = this.publicInterface.getLinkedItems(this.assignedId);
+    List<? extends ITableEntry> linkedItems = getLinkedItems();
     System.out.println("on Button Down");
 
     List<? extends ITableEntry> items = this.publicInterface.getAllItems();
@@ -94,5 +94,10 @@ public class CellButtonLinking<T extends ITableContentProvider<?>> extends CellB
       MessageDialog.openError(null, "Widget is disposed",
           "for some reason the Platform can't find a suficient display!");
     }
+  }
+  
+  public List<? extends ITableEntry> getLinkedItems() {
+    List<? extends ITableEntry> linkedItems = this.publicInterface.getLinkedItems(this.assignedId);
+    return linkedItems;
   }
 }
