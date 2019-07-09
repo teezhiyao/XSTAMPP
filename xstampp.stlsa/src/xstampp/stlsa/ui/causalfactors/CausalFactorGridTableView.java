@@ -17,8 +17,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Table;
 
 import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.causalfactor.CausalFactor;
@@ -30,6 +35,7 @@ import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
 import xstampp.astpa.ui.unsafecontrolaction.DeleteUcaAction;
 import xstampp.astpa.ui.unsafecontrolaction.UnsafeControlActionsView;
 import xstampp.model.IDataModel;
+import xstampp.model.ITableEntry;
 import xstampp.model.ObserverValue;
 import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.model.StlsaController;
@@ -39,6 +45,7 @@ import xstampp.ui.common.grid.DeleteGridEntryAction;
 import xstampp.ui.common.grid.GridCellLinking;
 import xstampp.ui.common.grid.GridCellText;
 import xstampp.ui.common.grid.GridRow;
+import xstampp.ui.common.grid.SingleGridCellLinking;
 import xstampp.usermanagement.api.AccessRights;
 
 /**
@@ -129,6 +136,15 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent,columns);
 		this.tableViewer = parent;
+//		this.tableViewer.addListener(PROP_INPUT, new Listener() {
+//	    public void handleEvent(Event e)
+//	    {
+//	        Table table = (Table)e.widget;
+//	        TableViewer tableViewer = (TableViewer)table.getData("tableViewer");
+//	         System.out.print("In Event");
+//	        System.out.println(e.toString());
+//	    }
+//	    });
     updateCausalFactors();
 	}
 	
@@ -148,101 +164,53 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 		if (list.isEmpty()) {
 			return;
 		}
-		boolean addControlAction;
 		for (ICorrespondingUnsafeControlAction cAction : list) {
-			//fiter by the title of the control action
+			//fiter by the title of the unsafecontrol action
 			if(isFiltered(cAction.getTitle(), CA_FILTER)){
 				continue;
 			}
 			GridRow controlActionRow = new GridRow(columns.length,3, new int[] { 0,1 }); 
 			//GridRow is not from a library, the last argument specify which column will only have 1 row. In this case, the first 2 columns only has 1 row.
-			addControlAction = false;
 			controlActionRow.addCell(0,new GridCellText(cAction.getIdString()));
 	    controlActionRow.addCell(1,new GridCellText(cAction.getDescription()));
-	    
-//      linkRow.addCell(columnIndex, new GridCellLinking<UcaContentProvider>(uca.getId(), this.ucaContentProvider, getGridWrapper(), canWrite));
 	    boolean canWrite = checkAccess(cAction.getId(), AccessRights.WRITE);
-	    controlActionRow.addCell(3, new GridCellLinking<CfContentProvider>(cAction.getId(), this.cfContentProvider, getGridWrapper(), canWrite));
-	    
-//
-//			List<IUnsafeControlAction> allNotGiven = cAction
-//					.getUnsafeControlActions(UnsafeControlActionType.NOT_GIVEN);
-//			List<IUnsafeControlAction> allIncorrect = cAction
-//					.getUnsafeControlActions(UnsafeControlActionType.GIVEN_INCORRECTLY);
-//			List<IUnsafeControlAction> allWrongTiming = cAction
-//					.getUnsafeControlActions(UnsafeControlActionType.WRONG_TIMING);
-//			List<IUnsafeControlAction> allTooSoon = cAction
-//					.getUnsafeControlActions(UnsafeControlActionType.STOPPED_TOO_SOON);
-//			int maxHeight = allNotGiven.size();
-//
-//      maxHeight = Math.max(maxHeight, allIncorrect.size());
-//      maxHeight = Math.max(maxHeight, allTooSoon.size());
-//      maxHeight = Math.max(maxHeight, allWrongTiming.size());
-//      boolean addUCA = false;
-// 			for (int i = 0; i <= maxHeight; i++) {
-// 			  addUCA = false;
-//				GridRow idRow = new GridRow(columns.length,3);
-//				GridRow ucaRow = new GridRow(columns.length,3);
-//				GridRow linkRow = new GridRow(columns.length,3);
-//				//addUCAEntry creates 3row x 1 column and adds it 
-//				addUCA |= addCFEntry(allNotGiven,
-//											    i, 2,
-//											    Messages.AddNotGivenUCA,
-//											    UnsafeControlActionType.NOT_GIVEN,
-//											    idRow,
-//											    ucaRow,
-//											    linkRow,
-//											    cAction);
-//				addUCA |= addCFEntry(allIncorrect,
-//												  i,
-//												  3,
-//											    Messages.AddGivenIncorrectlyUCA,
-//											    UnsafeControlActionType.GIVEN_INCORRECTLY,
-//											    idRow,
-//											    ucaRow,
-//											    linkRow,
-//											    cAction);
-//				
-//				addUCA |= addCFEntry(allWrongTiming,
-//											    i, 
-//											    4,
-//											    Messages.AddWrongTimingUCA,
-//											    UnsafeControlActionType.WRONG_TIMING,
-//											    idRow,
-//											    ucaRow,
-//											    linkRow,
-//											    cAction);
-//				addUCA |= addCFEntry(allTooSoon,
-//											    i, 
-//											    5,
-//											    Messages.AddStoppedTooSoonUCA,
-//											    UnsafeControlActionType.STOPPED_TOO_SOON,
-//											    idRow,
-//											    ucaRow,
-//											    linkRow,
-//											    cAction);
-//
-//        addControlAction |=addUCA;
-//        
-//				if(addUCA){ //if addUCA == true, add child 
-//	        controlActionRow.addChildRow(idRow);
-//	        controlActionRow.addChildRow(ucaRow);
-//	        controlActionRow.addChildRow(linkRow);
-//	        addControlAction |=addUCA;
-//				}else{
-//				  break;
-//				}
-//			}
-      getGridWrapper().addRow(controlActionRow);      
 
-//			if(addControlAction){
-//				getGridWrapper().addRow(controlActionRow);			
-//			}
+	    
+	    List<ITableModel> linkedItems = this.cfContentProvider.getLinkedItems(cAction.getId());
+	    int maxHeight = linkedItems.size();
+	    
+	    if(linkedItems.isEmpty()) {
+        GridRow cfRows = new GridRow(columns.length,3);
+        SingleGridCellLinking<CfContentProvider> cfGridCell = new SingleGridCellLinking<CfContentProvider>(cAction.getId(), this.cfContentProvider, getGridWrapper(), canWrite);     
+        cfRows.addCell(3, cfGridCell);
+        controlActionRow.addChildRow(cfRows);
+	    }
+	    else {
+      for (int i = 0; i < maxHeight; i++) {
+        GridRow cfRows = new GridRow(columns.length,3);
+        SingleGridCellLinking<CfContentProvider> cfGridCell = new SingleGridCellLinking<CfContentProvider>(cAction.getId(), this.cfContentProvider, getGridWrapper(), canWrite, i);     
+        addRows(linkedItems, cfRows, cfGridCell, i);
+        controlActionRow.addChildRow(cfRows);
+      }
+	    }
+      getGridWrapper().addRow(controlActionRow);      
 		}
 	}
 
 
-	
+	private void addRows(List<ITableModel> linkedItems,GridRow cfRows, SingleGridCellLinking<CfContentProvider> cfGridCell, int i) {
+//    while (linkedItems.size() > i ) {
+//      linkedItems.remove(i);
+//    }
+	  if(!linkedItems.isEmpty()) {
+	  ITableModel currentItem = linkedItems.get(i);
+    cfRows.addCell(2, new GridCellText(currentItem.getIdString()));}
+	  
+	  cfRows.addCell(3, cfGridCell);
+	  cfRows.addCell(4, new GridCellText("Hello"));
+	  cfRows.addCell(5, new GridCellText());
+
+	}
 	
 	@Override
 	public String getId() {
@@ -324,9 +292,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
   public void update(Observable dataModelController, Object updatedValue) {
 
     super.update(dataModelController, updatedValue);
-    ObserverValue type = (ObserverValue) updatedValue;
-    System.out.println("In Update for CF");
-    System.out.println(type.toString());
+    ObserverValue type = (ObserverValue) updatedValue;;
     switch (type) {
       case UNSAFE_CONTROL_ACTION:
       case CAUSAL_FACTOR:
