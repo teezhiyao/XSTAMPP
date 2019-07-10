@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
 import xstampp.astpa.model.interfaces.ITableModel;
+import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.controlaction.IControlActionController;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.extendedData.interfaces.IExtendedDataController;
@@ -40,7 +41,7 @@ import xstampp.model.AbstractNumberedEntry;
  * 
  */
 @XmlAccessorType(XmlAccessType.NONE)
-public class CausalFactor extends AbstractNumberedEntry implements ITableModel, IEntryWithNameId {
+public class CausalFactor extends ATableModel implements ITableModel, IEntryWithNameId {
 
   @XmlElement(name = "id")
   private UUID id;
@@ -151,7 +152,7 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
     prepareForSave();
   }
 
-  void prepareForSave() {
+  public void prepareForSave() {
     this.entries = null;
   }
 
@@ -172,8 +173,9 @@ public class CausalFactor extends AbstractNumberedEntry implements ITableModel, 
     return this.description;
   }
   
-  public void setDescription(String description) {
+  public String setDescription(String description) {
     this.description = description;
+    return this.description;
   }
   
   @Override
