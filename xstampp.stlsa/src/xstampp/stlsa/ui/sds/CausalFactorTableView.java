@@ -12,36 +12,23 @@
 package xstampp.stlsa.ui.sds;
 
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.TableItem;
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
-import xstampp.astpa.model.interfaces.ITableModel;
-import xstampp.astpa.model.linking.Link;
-import xstampp.astpa.model.linking.LinkingType;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.stlsa.model.controlaction.ControlAction;
 import xstampp.stlsa.ui.CausalFactorBaseView;
-import xstampp.stlsa.ui.UnsafeCAView;
-import xstampp.stlsa.ui.causalfactors.CausalFactorEnum;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
 import xstampp.model.ObserverValue;
 
@@ -78,11 +65,11 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
   public void createPartControl(Composite parent) {
     super.createPartControl(parent);
     
-    TableViewerColumn CFG = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-    CFG.getColumn().setText("Casual factor description"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(CFG.getColumn(), new ColumnWeightData(10, 300, true));
+    TableViewerColumn CFDescCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    CFDescCol.getColumn().setText("Casual factor description"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(CFDescCol.getColumn(), new ColumnWeightData(10, 300, true));
       
-    CFG.setLabelProvider(new ColumnLabelProvider() {
+    CFDescCol.setLabelProvider(new ColumnLabelProvider() {
       @Override
       public String getText(Object element) {
 
@@ -130,12 +117,12 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
     });
     
     // the Type column is for the unsafe control actions
-    TableViewerColumn typeColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-    typeColumn.getColumn().setText("Unintentional/ Intentional Type"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(typeColumn.getColumn(),
+    TableViewerColumn intentionCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    intentionCol.getColumn().setText("Unintentional/ Intentional Type"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(intentionCol.getColumn(),
         new ColumnWeightData(10, 100, true));
 
-    typeColumn.setLabelProvider(new ColumnLabelProvider() {
+    intentionCol.setLabelProvider(new ColumnLabelProvider() {
       
       @Override
       public String getText(Object element) {
@@ -147,12 +134,12 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
     });
     
 
-    TableViewerColumn IntentionColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-    IntentionColumn.getColumn().setText("UCA ID"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(IntentionColumn.getColumn(),
+    TableViewerColumn ucaIdCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    ucaIdCol.getColumn().setText("UCA ID"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(ucaIdCol.getColumn(),
         new ColumnWeightData(10, 100, true));
 
-    IntentionColumn.setLabelProvider(new ColumnLabelProvider() {
+    ucaIdCol.setLabelProvider(new ColumnLabelProvider() {
 
       @Override
       public String getText(Object element) {
@@ -165,12 +152,12 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
       }  
     });
         
-    TableViewerColumn CasualFactorID = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-    CasualFactorID.getColumn().setText("UCA Type"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(CasualFactorID.getColumn(),
+    TableViewerColumn ucaTypeCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    ucaTypeCol.getColumn().setText("UCA Type"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(ucaTypeCol.getColumn(),
         new ColumnWeightData(10, 100, true));
 
-    CasualFactorID.setLabelProvider(new ColumnLabelProvider() {
+    ucaTypeCol.setLabelProvider(new ColumnLabelProvider() {
 
       @Override
       public String getText(Object element) {
@@ -183,12 +170,12 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
       }  
     });
     
-    TableViewerColumn IntentionColumn2 = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-    IntentionColumn2.getColumn().setText("Control Action"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(IntentionColumn2.getColumn(),
+    TableViewerColumn controlActionCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    controlActionCol.getColumn().setText("Control Action"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(controlActionCol.getColumn(),
         new ColumnWeightData(10, 100, true));
 
-    IntentionColumn2.setLabelProvider(new ColumnLabelProvider() {
+    controlActionCol.setLabelProvider(new ColumnLabelProvider() {
 
       @Override
       public String getText(Object element) {
