@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
+import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.ATableModelController;
 import xstampp.astpa.model.BadReferenceModel;
 import xstampp.astpa.model.causalfactor.interfaces.ICausalComponent;
@@ -139,6 +140,15 @@ public class CausalFactorController extends ATableModelController implements ICa
     return new ArrayList<>(causalFactors);
   }
 
+//  public List<ATableModel> getModCausalFactors() {
+//    ArrayList<ATableModel> result = new ArrayList<ATableModel>();
+//    for(ITableModel CF : getCausalFactors()) {
+//      result.add((ATableModel) CF);
+//    }
+//    return result;
+////    return new ArrayList<>(causalFactors);
+//  }
+  
   @Override
   public boolean setCausalFactorText(UUID causalFactorId, String causalFactorText) {
     CausalFactor causalFactor = this.causalFactors.get(causalFactorId);

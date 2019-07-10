@@ -42,7 +42,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.window.DefaultToolTip;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -51,8 +50,6 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -77,8 +74,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import messages.Messages;
 import xstampp.astpa.Activator;
 import xstampp.astpa.model.ATableModel;
-import xstampp.astpa.model.controlaction.ControlActionController;
-import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.interfaces.ILinkModel;
 import xstampp.astpa.model.interfaces.ISeverityDataModel;
 import xstampp.astpa.model.interfaces.ISeverityEntry;
@@ -91,7 +86,6 @@ import xstampp.astpa.ui.linkingSupport.LinkSupport;
 import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
 import xstampp.preferences.IPreferenceConstants;
-import xstampp.stlsa.ui.sds.CausalFactorTableView;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.editors.StandartEditorPart;
 import xstampp.ui.editors.interfaces.IEditorBase;
@@ -660,7 +654,7 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
       nrColumn.getColumn().setResizable(true);
     }
     this.idColumn = new TableViewerColumn(this.getTableViewer(), SWT.NONE);
-    this.idColumn.getColumn().setText("Casual Factor ID");
+    this.idColumn.getColumn().setText("Causal Factor ID");
     final int idWeight = 5;
     final int idMinWidth = 45;
     tableColumnLayout.setColumnData(this.idColumn.getColumn(),
@@ -677,9 +671,9 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
       @Override
       public String getText(Object element) {
         System.out.println(element.getClass().toString());
-        if (element instanceof UnsafeControlAction) {
-          return ((UnsafeControlAction) element).getIdString();
-        }
+//        if (element instanceof UnsafeControlAction) {
+//          return ((UnsafeControlAction) element).getIdString();
+//        }
         return null;
       }
       @Override
@@ -694,7 +688,7 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
     
     
     this.titleColumn = new TableViewerColumn(this.getTableViewer(), SWT.None);
-    this.titleColumn.getColumn().setText("Casual factor Title");
+    this.titleColumn.getColumn().setText("Causal factor Title");
     final int titleWeight = 50;
     final int titleMinWidth = 50;
     tableColumnLayout.setColumnData(this.titleColumn.getColumn(),
@@ -715,15 +709,15 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
 
       @Override
       public String getText(Object element) {
+        return tableHeader;
 
-        System.out.println(((UnsafeControlAction) element).getDescription());
-        if (((UnsafeControlAction) element).getDescription().equals("")) {
-          return "Description not set";
-        }
-//        if (((UnsafeControlAction) element).getTitle().equals("") && canEdit(((ATableModel) element))) {
-//          return Messages.DoubleClickToEditTitle;
+//        if (((UnsafeControlAction) element).getDescription().equals("")) {
+//          return "Description not set";
 //        }
-        return ((UnsafeControlAction) element).getDescription();
+////        if (((UnsafeControlAction) element).getTitle().equals("") && canEdit(((ATableModel) element))) {
+////          return Messages.DoubleClickToEditTitle;
+////        }
+//        return ((UnsafeControlAction) element).getDescription();
       }
     });
 

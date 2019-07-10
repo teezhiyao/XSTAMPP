@@ -68,11 +68,8 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
   public List<ITableModel> getAllLinkedItems() {
     List<ITableModel> result = new ArrayList<ITableModel>();
     for (ICorrespondingUnsafeControlAction uca : getStlsaController().getUCAList(null)) {
-      System.out.println("Reach here alr");
     List<ITableModel> links = getStlsaController().getLinkedCausalFactorOfUCA(((UnsafeControlAction)uca).getId());
     for(ITableModel link : links) {
-      System.out.println("Reach here alr also");
-
       result.add(link);
     }
     }

@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Display;
 import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.controlaction.IControlActionController;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.extendedData.RefinedSafetyRule;
 import xstampp.astpa.model.hazacc.Hazard;
@@ -149,6 +150,17 @@ public class StlsaController extends DataModelController {
   
   public List<UUID> getCausalFactorsLinksOfUCA(UUID unsafeControlActionId) {
     return this.getLinkController().getLinksFor(LinkingType.UCA_CausalFactor_LINK, unsafeControlActionId);
+  }
+  
+  public List<ITableModel> getAllLinkedCausalFactor() {
+    List<ITableModel> result = new ArrayList<ITableModel>();
+    for (ICorrespondingUnsafeControlAction uca : this.getUCAList(null)) {
+    List<ITableModel> links = this.getLinkedCausalFactorOfUCA(((UnsafeControlAction)uca).getId());
+    for(ITableModel link : links) {
+      result.add(link);
+    }
+    }
+    return result;
   }
   
   public void setRefinedSecurityConstraint(UUID refinedRuleId, String text) {

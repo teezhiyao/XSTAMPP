@@ -32,7 +32,6 @@ import messages.Messages;
 import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
-import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.linking.Link;
@@ -104,13 +103,13 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
                 @Override
                 public void widgetSelected(SelectionEvent arg0) {
                     // change selection when an item is selected
-                    CCombo ccomboCell = ((CCombo) arg0.getSource());
-                    String selectedText = ccomboCell.getText();
-                    System.out.println(selectedText);
-                    System.out.println(element.getClass());
-                    UUID UcaID = ((UnsafeControlAction) element).getId();
-                    UUID CFID = CausalFactorTableView.this.createCausalFactor(selectedText);
-                    CausalFactorTableView.this.factorid = CausalFactorTableView.this.addCausalFactorToUca(CFID, UcaID);
+//                    CCombo ccomboCell = ((CCombo) arg0.getSource());
+//                    String selectedText = ccomboCell.getText();
+//                    System.out.println(selectedText);
+//                    System.out.println(element.getClass());
+//                    UUID UcaID = ((UnsafeControlAction) element).getId();
+//                    UUID CFID = CausalFactorTableView.this.createCausalFactor(selectedText);
+//                    CausalFactorTableView.this.factorid = CausalFactorTableView.this.addCausalFactorToUca(CFID, UcaID);
                 }   
               });
           editor.grabHorizontal = true;
@@ -130,14 +129,14 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
       
       @Override
       public String getText(Object element) {
-        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-        if (((UnsafeControlAction) element).getType().toString() != " ") {
-          return ((UnsafeControlAction) element).getType().toString();
-          }
-        else {
-          return "N.A";
-        }
-      }
+//        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
+//        if (((UnsafeControlAction) element).getType().toString() != " ") {
+//          return ((UnsafeControlAction) element).getType().toString();
+//          }
+//        else {
+//          return "N.A";
+//        }
+//      }
       return null;
       }
     });
@@ -152,14 +151,14 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
 
       @Override
       public String getText(Object element) {
-        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-        if (((UnsafeControlAction) element).getType().toString() != " ") {
-          return ((UnsafeControlAction) element).getType().toString();
-          }
-        else {
-          return "N.A";
-        }
-      }
+//        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
+//        if (((UnsafeControlAction) element).getType().toString() != " ") {
+//          return ((UnsafeControlAction) element).getType().toString();
+//          }
+//        else {
+//          return "N.A";
+//        }
+//      }
       return null;
       }
     });
@@ -173,16 +172,12 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
 
       @Override
       public String getText(Object element) {
-        UUID UcaID = ((UnsafeControlAction) element).getId();
-        StlsaController stlsaController = ((StlsaController) CausalFactorTableView.this.getDataInterface());
-        List<Link> CFlinks = stlsaController.getLinkController().getLinksFor(LinkingType.UCA_CausalFactor_LINK);
-        List<Link> CFlinkss = stlsaController.getLinkController().getLinksFor(LinkingType.UcaCfLink_Component_LINK);
-        List<UUID> CFlinksss = stlsaController.getLinksOfUCA(UcaID);
-        List<ITableModel> CFlinkssss = stlsaController.getCausalFactorController().getCausalFactors();
-        System.out.println(CFlinks.size());
-        System.out.println(CFlinkss.size());
-        System.out.println(CFlinksss.size());
-        System.out.println(CFlinkssss.size());
+//        UUID UcaID = ((UnsafeControlAction) element).getId();
+//        StlsaController stlsaController = ((StlsaController) CausalFactorTableView.this.getDataInterface());
+//        List<Link> CFlinks = stlsaController.getLinkController().getLinksFor(LinkingType.UCA_CausalFactor_LINK);
+//        List<Link> CFlinkss = stlsaController.getLinkController().getLinksFor(LinkingType.UcaCfLink_Component_LINK);
+//        List<UUID> CFlinksss = stlsaController.getLinksOfUCA(UcaID);
+//        List<ITableModel> CFlinkssss = stlsaController.getCausalFactorController().getCausalFactors();
 
         return null;
       }
@@ -197,14 +192,14 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
 
       @Override
       public String getText(Object element) {
-        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-        if (((UnsafeControlAction) element).getType().toString() != " ") {
-          return ((UnsafeControlAction) element).getType().toString();
-          }
-        else {
-          return "N.A";
-        }
-      }
+//        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
+//        if (((UnsafeControlAction) element).getType().toString() != " ") {
+//          return ((UnsafeControlAction) element).getType().toString();
+//          }
+//        else {
+//          return "N.A";
+//        }
+//      }
       return null;
       }
     });    
@@ -230,13 +225,18 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
   @Override
   public void updateTable() {
 
-    CausalFactorTableView.this.getTableViewer().setInput(getStlsaController().getCausalFactorController().getCausalFactors());
+    CausalFactorTableView.this.getTableViewer().setInput(getStlsaController().getAllLinkedCausalFactor());
   }
 
   
   public StlsaController getStlsaController() {
     return (StlsaController) this.getDataInterface();
   }
+  
+  public CausalFactorController getCfController() {
+    return (CausalFactorController) getStlsaController().getCausalFactorController();
+  }
+  
   
   @Override
   public void update(Observable dataModelController, Object updatedValue) {
