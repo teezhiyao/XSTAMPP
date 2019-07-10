@@ -91,7 +91,7 @@ import xstampp.astpa.ui.linkingSupport.LinkSupport;
 import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
 import xstampp.preferences.IPreferenceConstants;
-import xstampp.stlsa.ui.sds.CasualFactorTableView;
+import xstampp.stlsa.ui.sds.CausalFactorTableView;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.editors.StandartEditorPart;
 import xstampp.ui.editors.interfaces.IEditorBase;

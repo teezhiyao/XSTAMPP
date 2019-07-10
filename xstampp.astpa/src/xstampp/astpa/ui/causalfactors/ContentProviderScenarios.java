@@ -95,4 +95,10 @@ public class ContentProviderScenarios implements ITableContentProvider<AbstractL
     return "";
   }
 
+  @Override
+  public List<AbstractLTLProvider> getAllLinkedItems() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

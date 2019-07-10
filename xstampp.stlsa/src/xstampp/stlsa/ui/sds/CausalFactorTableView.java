@@ -11,7 +11,6 @@
 
 package xstampp.stlsa.ui.sds;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Observable;
@@ -34,7 +33,6 @@ import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
-import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.linking.Link;
@@ -49,20 +47,20 @@ import xstampp.model.ObserverValue;
  * @author Jarkko Heidenwag
  * 
  */
-public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataModel> {
+public class CausalFactorTableView extends UnsafeCAView<IControlActionViewDataModel> {
 
   /**
    * @author Jarkko Heidenwag
    * 
    */
-  public static final String ID = "stlsa.steps.step3_2"; //$NON-NLS-1$
+  public static final String ID = "stlsa.steps.step4_1"; //$NON-NLS-1$
   protected UUID factorid;
 
   /**
    * @author Jarkko Heidenwag
    * 
    */
-  public CasualFactorTableView() {
+  public CausalFactorTableView() {
     super(true);
     setUpdateValues(EnumSet.of(ObserverValue.CAUSAL_FACTOR));
   }
@@ -93,10 +91,10 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
         cell.setForeground(getForeground(element));
         cell.setFont(getFont(element));
         
-        TableItem[] items = CasualFactorTableView.this.getTableViewer().getTable().getItems();
+        TableItem[] items = CausalFactorTableView.this.getTableViewer().getTable().getItems();
         for (int i = 0; i < items.length; i++) {
-          TableEditor editor = new TableEditor(CasualFactorTableView.this.getTableViewer().getTable());
-          CCombo combo = new CCombo(CasualFactorTableView.this.getTableViewer().getTable(), SWT.CENTER);
+          TableEditor editor = new TableEditor(CausalFactorTableView.this.getTableViewer().getTable());
+          CCombo combo = new CCombo(CausalFactorTableView.this.getTableViewer().getTable(), SWT.CENTER);
           combo.setText("Casual Factor (Guide)");
           for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
             combo.add(CF.getLabel());
@@ -110,8 +108,8 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
                     System.out.println(selectedText);
                     System.out.println(element.getClass());
                     UUID UcaID = ((UnsafeControlAction) element).getId();
-                    UUID CFID = CasualFactorTableView.this.createCausalFactor(selectedText);
-                    CasualFactorTableView.this.factorid = CasualFactorTableView.this.addCausalFactorToUca(CFID, UcaID);
+                    UUID CFID = CausalFactorTableView.this.createCausalFactor(selectedText);
+                    CausalFactorTableView.this.factorid = CausalFactorTableView.this.addCausalFactorToUca(CFID, UcaID);
                 }   
               });
           editor.grabHorizontal = true;
@@ -175,7 +173,7 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
       @Override
       public String getText(Object element) {
         UUID UcaID = ((UnsafeControlAction) element).getId();
-        StlsaController stlsaController = ((StlsaController) CasualFactorTableView.this.getDataInterface());
+        StlsaController stlsaController = ((StlsaController) CausalFactorTableView.this.getDataInterface());
         List<Link> CFlinks = stlsaController.getLinkController().getLinksFor(LinkingType.UCA_CausalFactor_LINK);
         List<Link> CFlinkss = stlsaController.getLinkController().getLinksFor(LinkingType.UcaCfLink_Component_LINK);
         List<UUID> CFlinksss = stlsaController.getLinksOfUCA(UcaID);
@@ -210,7 +208,7 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
   @Override
   public void updateTable() {
 
-    CasualFactorTableView.this.getTableViewer().setInput(this.getDataInterface().getControlActionController().getUCAList(null));
+    CausalFactorTableView.this.getTableViewer().setInput(this.getDataInterface().getControlActionController().getUCAList(null));
   }
 
   @Override
@@ -228,7 +226,7 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
 
   @Override
   public String getId() {
-    return CasualFactorTableView.ID;
+    return CausalFactorTableView.ID;
   }
 
   @Override
@@ -253,7 +251,7 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
 
   @Override
   protected void updateDescription(UUID uuid, String description) {
-    CasualFactorTableView.this.getDataInterface().setControlActionDescription(uuid, description);
+    CausalFactorTableView.this.getDataInterface().setControlActionDescription(uuid, description);
   }
 
   @Override
@@ -263,16 +261,16 @@ public class CasualFactorTableView extends UnsafeCAView<IControlActionViewDataMo
   
   //Helper methods below 
   public void setCausalFactor(UUID CFID, String CFText) {
-    ((StlsaController) CasualFactorTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
+    ((StlsaController) CausalFactorTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
   }
   
   public UUID addCausalFactorToUca(UUID CFID, UUID UcaID) {
     System.out.println(CFID.toString());
-    UUID factorid = ((StlsaController) CasualFactorTableView.this.getDataInterface()).addCausalFactor(CFID, UcaID);
+    UUID factorid = ((StlsaController) CausalFactorTableView.this.getDataInterface()).addCausalFactor(CFID, UcaID);
     return factorid;
   }
   public UUID createCausalFactor(String selectedText) {
-  StlsaController dataController = ((StlsaController) CasualFactorTableView.this.getDataInterface());
+  StlsaController dataController = ((StlsaController) CausalFactorTableView.this.getDataInterface());
   CausalFactorController CFController = (CausalFactorController) dataController.getCausalFactorController();
   UUID CFID = CFController.addCausalFactor(new CausalFactor(selectedText));
   return CFID;

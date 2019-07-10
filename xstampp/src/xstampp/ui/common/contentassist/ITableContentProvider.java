@@ -16,7 +16,6 @@ package xstampp.ui.common.contentassist;
 import java.util.List;
 import java.util.UUID;
 
-import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.model.ITableEntry;
 import xstampp.ui.common.grid.GridCellLinking;
 

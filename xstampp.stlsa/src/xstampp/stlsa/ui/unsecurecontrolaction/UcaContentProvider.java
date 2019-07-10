@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.UUID;
 
 import xstampp.stlsa.messages.StlsaMessages;
-import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
 import xstampp.ui.common.contentassist.ITableContentProvider;
@@ -77,5 +76,11 @@ public class UcaContentProvider  implements ITableContentProvider<ITableModel> {
   @Override
   public String getEmptyMessage() {
     return StlsaMessages.NotVulnerable;
+  }
+
+  @Override
+  public List<ITableModel> getAllLinkedItems() {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

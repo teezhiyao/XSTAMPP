@@ -588,13 +588,22 @@
             name="%editor.name.CausalFactorsTable">
       </editor>
       <editor
+            class="xstampp.stlsa.ui.sds.CausalFactorTableView"
+            default="false"
+            icon="icons/buttons/navigation/STEP3_2(16).png"
+            id="stlsa.steps.step4_1"
+            name="%editor.name.CausalFactorsTable">
+      </editor>
+      
+      
+      <editor
             class="xstampp.stlsa.ui.STPAResultsTable"
             default="false"
             id="stpa.results.editor.ltl"
             name="%editor.name.STPAResults">
       </editor>
       <editor
-            class="xstampp.stlsa.ui.sds.CasualFactorTableView"
+            class="xstampp.stlsa.ui.sds.CausalFactorTableView"
             default="false"
             id="xstampp.stlsa.ui.causalScenarios"
             name="Causal Scenarios">

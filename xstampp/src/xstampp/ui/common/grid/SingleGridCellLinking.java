@@ -31,7 +31,6 @@ import org.eclipse.swt.widgets.Display;
 
 import xstampp.model.ITableEntry;
 import xstampp.ui.common.contentassist.ITableContentProvider;
-import xstampp.ui.common.contentassist.ITableModel;
 import xstampp.ui.common.grid.GridWrapper.NebulaGridRowWrapper;
 
 /**

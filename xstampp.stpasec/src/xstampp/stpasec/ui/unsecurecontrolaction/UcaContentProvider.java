@@ -71,4 +71,10 @@ public class UcaContentProvider  implements ITableContentProvider<ITableModel> {
   public String getEmptyMessage() {
     return SecMessages.NotVulnerable;
   }
+
+  @Override
+  public List<ITableModel> getAllLinkedItems() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
