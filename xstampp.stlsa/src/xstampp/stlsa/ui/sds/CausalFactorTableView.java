@@ -32,11 +32,13 @@ import messages.Messages;
 import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.linking.Link;
 import xstampp.astpa.model.linking.LinkingType;
 import xstampp.stlsa.model.StlsaController;
+import xstampp.stlsa.model.controlaction.ControlAction;
 import xstampp.stlsa.ui.CausalFactorBaseView;
 import xstampp.stlsa.ui.UnsafeCAView;
 import xstampp.stlsa.ui.causalfactors.CausalFactorEnum;
@@ -82,41 +84,49 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
       
     CFG.setLabelProvider(new ColumnLabelProvider() {
       @Override
-      public void update(ViewerCell cell) {
-        final Object element = cell.getElement();
-        cell.setText(getText(element));
-        Image image = getImage(element);
-        cell.setImage(image);
-        cell.setBackground(getBackground(element));
-        cell.setForeground(getForeground(element));
-        cell.setFont(getFont(element));
-        
-        TableItem[] items = CausalFactorTableView.this.getTableViewer().getTable().getItems();
-        for (int i = 0; i < items.length; i++) {
-          TableEditor editor = new TableEditor(CausalFactorTableView.this.getTableViewer().getTable());
-          CCombo combo = new CCombo(CausalFactorTableView.this.getTableViewer().getTable(), SWT.CENTER);
-          combo.setText("Casual Factor (Guide)");
-          for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
-            combo.add(CF.getLabel());
+      public String getText(Object element) {
+
+        if (element instanceof CausalFactor) {
+          return ((CausalFactor) element).getDescription();
         }
-          combo.addSelectionListener(new SelectionAdapter() {
-                @Override
-                public void widgetSelected(SelectionEvent arg0) {
-                    // change selection when an item is selected
-//                    CCombo ccomboCell = ((CCombo) arg0.getSource());
-//                    String selectedText = ccomboCell.getText();
-//                    System.out.println(selectedText);
-//                    System.out.println(element.getClass());
-//                    UUID UcaID = ((UnsafeControlAction) element).getId();
-//                    UUID CFID = CausalFactorTableView.this.createCausalFactor(selectedText);
-//                    CausalFactorTableView.this.factorid = CausalFactorTableView.this.addCausalFactorToUca(CFID, UcaID);
-                }   
-              });
-          editor.grabHorizontal = true;
-          editor.setEditor(combo, items[i], 2);
-          }
-        
-      }
+        return null;
+      }      
+//      @Override
+//      public void update(ViewerCell cell) {
+//        final Object element = cell.getElement();
+//        cell.setText(getText(element));
+//        Image image = getImage(element);
+//        cell.setImage(image);
+//        cell.setBackground(getBackground(element));
+//        cell.setForeground(getForeground(element));
+//        cell.setFont(getFont(element));
+//        
+//        TableItem[] items = CausalFactorTableView.this.getTableViewer().getTable().getItems();
+//        for (int i = 0; i < items.length; i++) {
+//          TableEditor editor = new TableEditor(CausalFactorTableView.this.getTableViewer().getTable());
+//          CCombo combo = new CCombo(CausalFactorTableView.this.getTableViewer().getTable(), SWT.CENTER);
+//          combo.setText("Casual Factor (Guide)");
+//          for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
+//            combo.add(CF.getLabel());
+//        }
+//          combo.addSelectionListener(new SelectionAdapter() {
+//                @Override
+//                public void widgetSelected(SelectionEvent arg0) {
+//                    // change selection when an item is selected
+////                    CCombo ccomboCell = ((CCombo) arg0.getSource());
+////                    String selectedText = ccomboCell.getText();
+////                    System.out.println(selectedText);
+////                    System.out.println(element.getClass());
+////                    UUID UcaID = ((UnsafeControlAction) element).getId();
+////                    UUID CFID = CausalFactorTableView.this.createCausalFactor(selectedText);
+////                    CausalFactorTableView.this.factorid = CausalFactorTableView.this.addCausalFactorToUca(CFID, UcaID);
+//                }   
+//              });
+//          editor.grabHorizontal = true;
+//          editor.setEditor(combo, items[i], 2);
+//          }
+//        
+//      }
     });
     
     // the Type column is for the unsafe control actions
@@ -129,16 +139,11 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
       
       @Override
       public String getText(Object element) {
-//        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-//        if (((UnsafeControlAction) element).getType().toString() != " ") {
-//          return ((UnsafeControlAction) element).getType().toString();
-//          }
-//        else {
-//          return "N.A";
-//        }
-//      }
-      return null;
-      }
+        if (element instanceof CausalFactor) {
+          return ((CausalFactor) element).getIntention();
+        }
+        return null;
+      }  
     });
     
 
@@ -151,16 +156,13 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
 
       @Override
       public String getText(Object element) {
-//        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-//        if (((UnsafeControlAction) element).getType().toString() != " ") {
-//          return ((UnsafeControlAction) element).getType().toString();
-//          }
-//        else {
-//          return "N.A";
-//        }
-//      }
-      return null;
-      }
+        if (element instanceof CausalFactor) {
+          UUID ucaId = ((CausalFactor) element).getParentUUID();
+          UnsafeControlAction uca = (UnsafeControlAction) CausalFactorTableView.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
+          return uca.getIdString();
+        }
+        return null;
+      }  
     });
         
     TableViewerColumn CasualFactorID = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
@@ -172,15 +174,13 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
 
       @Override
       public String getText(Object element) {
-//        UUID UcaID = ((UnsafeControlAction) element).getId();
-//        StlsaController stlsaController = ((StlsaController) CausalFactorTableView.this.getDataInterface());
-//        List<Link> CFlinks = stlsaController.getLinkController().getLinksFor(LinkingType.UCA_CausalFactor_LINK);
-//        List<Link> CFlinkss = stlsaController.getLinkController().getLinksFor(LinkingType.UcaCfLink_Component_LINK);
-//        List<UUID> CFlinksss = stlsaController.getLinksOfUCA(UcaID);
-//        List<ITableModel> CFlinkssss = stlsaController.getCausalFactorController().getCausalFactors();
-
+        if (element instanceof CausalFactor) {
+          UUID ucaId = ((CausalFactor) element).getParentUUID();
+          UnsafeControlAction uca = (UnsafeControlAction) CausalFactorTableView.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
+          return uca.getType().toString();
+        }
         return null;
-      }
+      }  
     });
     
     TableViewerColumn IntentionColumn2 = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
@@ -192,16 +192,13 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
 
       @Override
       public String getText(Object element) {
-//        if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
-//        if (((UnsafeControlAction) element).getType().toString() != " ") {
-//          return ((UnsafeControlAction) element).getType().toString();
-//          }
-//        else {
-//          return "N.A";
-//        }
-//      }
-      return null;
-      }
+        if (element instanceof CausalFactor) {
+          UUID ucaId = ((CausalFactor) element).getParentUUID();
+          ControlAction ca = (ControlAction) CausalFactorTableView.this.getStlsaController().getControlActionForUca(ucaId);
+          return ca.getTitle();
+        }
+        return null;
+      }  
     });    
     
     

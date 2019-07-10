@@ -66,6 +66,16 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
 
   private String description = "Description not set";
 
+  private String modId;
+  private UUID parentUUID;
+  public UUID getParentUUID() {
+    return parentUUID;
+  }
+
+  public void setParentUUID(UUID parentUUID) {
+    this.parentUUID = parentUUID;
+  }
+
   /**
    * Constructor of a causal factor
    * 
@@ -183,9 +193,14 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
     return "CF-" + getNumber();
   }
 
-  public String getIdString(String x) {
+  public String getIdString(boolean modified) {
+    return this.modId;
+  }
+  
+  public String setIdString(String x) {
     String xsub = x.substring(3);
     int y = getNumber() - 30;
+    this.modId = "CF" + xsub + "."+ y;
     return "CF" + xsub + "."+ y;
   }
 }

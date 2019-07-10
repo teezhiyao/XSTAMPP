@@ -218,7 +218,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 //    }
 	  if(!linkedItems.isEmpty()) {
 	  CausalFactor currentItem = (CausalFactor) linkedItems.get(i);
-    cfRows.addCell(2, new GridCellText(currentItem.getIdString(ucaNumber)));
+    cfRows.addCell(2, new GridCellText(currentItem.setIdString(ucaNumber)));
     CausalFactorCell editor = new CausalFactorCell(getGridWrapper(),currentItem.getDescription(), currentItem.getId(), true);
     cfRows.addCell(4,editor);
     cfRows.addCell(5, new GridCellText(currentItem.getIntention()));

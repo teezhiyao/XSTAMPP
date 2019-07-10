@@ -1179,8 +1179,12 @@ public class SecControlActionController implements IControlActionController {
   }
 
   @Override
-  public IUnsafeControlAction getUnsafeControlAction(UUID unsafeControlActionId) {
-    // TODO Auto-generated method stub
+  public IUnsafeControlAction getUnsafeControlAction(UUID wantedUcaId) {
+    for (ICorrespondingUnsafeControlAction uca : this.getUCAList(null)) {
+    if(uca.getId() == wantedUcaId) {
+      return (IUnsafeControlAction) uca;
+    }
+    }
     return null;
   }
 

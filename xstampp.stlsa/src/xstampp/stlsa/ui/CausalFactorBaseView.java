@@ -74,6 +74,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import messages.Messages;
 import xstampp.astpa.Activator;
 import xstampp.astpa.model.ATableModel;
+import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.interfaces.ILinkModel;
 import xstampp.astpa.model.interfaces.ISeverityDataModel;
 import xstampp.astpa.model.interfaces.ISeverityEntry;
@@ -671,9 +672,9 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
       @Override
       public String getText(Object element) {
         System.out.println(element.getClass().toString());
-//        if (element instanceof UnsafeControlAction) {
-//          return ((UnsafeControlAction) element).getIdString();
-//        }
+        if (element instanceof CausalFactor) {
+          return ((CausalFactor) element).getIdString(true);
+        }
         return null;
       }
       @Override
@@ -709,15 +710,11 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
 
       @Override
       public String getText(Object element) {
-        return tableHeader;
 
-//        if (((UnsafeControlAction) element).getDescription().equals("")) {
-//          return "Description not set";
-//        }
-////        if (((UnsafeControlAction) element).getTitle().equals("") && canEdit(((ATableModel) element))) {
-////          return Messages.DoubleClickToEditTitle;
-////        }
-//        return ((UnsafeControlAction) element).getDescription();
+        if (element instanceof CausalFactor) {
+          return ((CausalFactor) element).getTitle();
+        }
+        return null;
       }
     });
 
