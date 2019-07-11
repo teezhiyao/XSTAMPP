@@ -39,7 +39,7 @@ import xstampp.ui.common.grid.DeleteGridEntryAction;
 import xstampp.ui.common.grid.GridCellComposite;
 import xstampp.ui.common.grid.GridCellEditor;
 import xstampp.ui.common.grid.GridCellText;
-import xstampp.ui.common.grid.GridComboCellEditor;
+import xstampp.ui.common.grid.GridCellComboEditor;
 import xstampp.ui.common.grid.GridRow;
 import xstampp.ui.common.grid.GridWrapper;
 
@@ -63,7 +63,9 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   private static final String NOHAZ_FILTER = "not hazardous"; //$NON-NLS-1$
   private static final String HAZID_FILTER = "Hazard ID"; //$NON-NLS-1$
 
-  private String[] columns = null;
+  private String[] columns = new String[] {"Severity/Likelihood",
+      "Type", "Sub-Measurements","Scale",
+      "Details"};  
   private GridWrapper grid;
 
   /**
@@ -157,39 +159,24 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
 
   @Override
   protected void fillTable() throws SWTException {
-//    TableCombo tc = new TableCombo(group, SWT.BORDER | SWT.READ_ONLY);
-    List<ICorrespondingUnsafeControlAction> list = getDataModel().getUCAList(null);
-    GridRow controlActionRow = new GridRow(columns.length,3); 
-//    GridCellComposite x = new GridCellComposite(getGridWrapper(), SWT.FILL);
-//    x.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true)); 
-//    GridLayout layout = new GridLayout();
-//    layout.marginHeight = 0;
-//    layout.marginWidth = 0;
-//    x.setLayout(layout);
-//    controlActionRow.addCell(0,x); 
-////    System.out.println(controlActionRow.getColumnSpan().toString());
-//    final Combo intentionCombo2 = new Combo(x, SWT.READ_ONLY | SWT.FILL);
-//    intentionCombo2.setToolTipText("Set Intention here");
-//    intentionCombo2.add("Intentional");
-//    intentionCombo2.add("Unintentional");
-    
-    
-//    GridCellEditor y = new GridCellEditor(getGridWrapper(), "asdsad");
-//    controlActionRow.addCell(1, y);
-    GridComboCellEditor x = new GridComboCellEditor(getGridWrapper());
-    controlActionRow.addCell(2, x);
-//    GridData gridData = new GridData();
-//    gridData.horizontalAlignment = GridData.FILL;
-//    gridData.verticalAlignment = GridData.FILL;
-//    gridData.grabExcessHorizontalSpace = true;
-//    gridData.grabExcessVerticalSpace = true;
-//    gridData.
-    
-    
-    getGridWrapper().addRow(controlActionRow);;      
+    addRoww();
+    addRoww();
+
 
   }
 
+  
+  public void addRoww() {
+    GridRow controlActionRow = new GridRow(columns.length,3); 
+    GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), new String[]{"Severity", "Likelihood"});
+    controlActionRow.addCell(0, metric);
+    GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),
+        new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"});
+    controlActionRow.addCell(1, metricType);
+    getGridWrapper().addRow(controlActionRow);;      
+
+  }
+  
   @Override
   public String getId() {
     ProjectManager.getLOGGER().info("getID()"); //$NON-NLS-1$

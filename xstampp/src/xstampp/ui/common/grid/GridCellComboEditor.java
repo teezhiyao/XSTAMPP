@@ -41,7 +41,7 @@ import org.eclipse.swt.widgets.Text;
  * @author Patrick Wickenhaeuser, Benedikt Markt
  * 
  */
-public class GridComboCellEditor extends GridCellComposite {
+public class GridCellComboEditor extends GridCellComposite {
 
   /**
    * The default Text
@@ -52,7 +52,7 @@ public class GridComboCellEditor extends GridCellComposite {
 
   private GridWrapper grid = null;
   private Composite compositeArea = null;
-  private Combo description = null;
+  private Combo comboCell = null;
   private String currentText = ""; //$NON-NLS-1$
   private boolean hasFocus = false;
 
@@ -67,7 +67,7 @@ public class GridComboCellEditor extends GridCellComposite {
    *          the intitial text in the editor.
    * 
    */
-  public GridComboCellEditor(GridWrapper gridWrapper) {
+  public GridCellComboEditor(GridWrapper gridWrapper, String[] options) {
     super(gridWrapper, SWT.PUSH);
 
     this.grid = gridWrapper;
@@ -75,22 +75,24 @@ public class GridComboCellEditor extends GridCellComposite {
     this.compositeArea = new Composite(this, SWT.FILL);
     this.compositeArea.setLayout(new FillLayout(SWT.HORIZONTAL));
     // this.compositeArea.setRedraw(false);
-    this.description = new Combo(this.compositeArea, SWT.FILL);
-    this.description.add("Intentional");
-    this.description.add("Unintentional");
-//    this.description.setEditable(true);
+    this.comboCell = new Combo(this.compositeArea, SWT.FILL);
+    for(String option : options) {
+      this.comboCell.add(option);
+    }
+    
+    
     // redirect the mouse events
-    this.description.addMouseListener(new MouseListener() {
+    this.comboCell.addMouseListener(new MouseListener() {
 
       @Override
       public void mouseUp(MouseEvent e) {
-        GridComboCellEditor.this.onMouseUp(e);
+        GridCellComboEditor.this.onMouseUp(e);
       }
 
       @Override
       public void mouseDown(MouseEvent e) {
         // relative mouse position not known here
-        GridComboCellEditor.this.onMouseDown(e, null, null);
+        GridCellComboEditor.this.onMouseDown(e, null, null);
       }
 
       @Override
@@ -99,46 +101,46 @@ public class GridComboCellEditor extends GridCellComposite {
       }
     });
 
-    this.description.addModifyListener(new ModifyListener() {
+    this.comboCell.addModifyListener(new ModifyListener() {
 
       @Override
       public void modifyText(ModifyEvent e) {
-        GridComboCellEditor.this.currentText = GridComboCellEditor.this.description.getText();
+        GridCellComboEditor.this.currentText = GridCellComboEditor.this.comboCell.getText();
 
-        GridComboCellEditor.this.grid.resizeRows();
+        GridCellComboEditor.this.grid.resizeRows();
       }
     });
 
-    this.description.addListener(SWT.FocusOut, new Listener() {
+    this.comboCell.addListener(SWT.FocusOut, new Listener() {
 
       @Override
       public void handleEvent(Event event) {
-        GridComboCellEditor.this.onTextChanged(GridComboCellEditor.this.currentText);
-        GridComboCellEditor.this.hasFocus = false;
+        GridCellComboEditor.this.onTextChanged(GridCellComboEditor.this.currentText);
+        GridCellComboEditor.this.hasFocus = false;
       }
     });
 
-    this.description.addListener(SWT.FocusIn, new Listener() {
+    this.comboCell.addListener(SWT.FocusIn, new Listener() {
 
       @Override
       public void handleEvent(Event event) {
-        GridComboCellEditor.this.hasFocus = true;
-        GridComboCellEditor.this.onEditorFocus();
+        GridCellComboEditor.this.hasFocus = true;
+        GridCellComboEditor.this.onEditorFocus();
       }
     });
 
-    this.description.addListener(SWT.KeyUp, new Listener() {
+    this.comboCell.addListener(SWT.KeyUp, new Listener() {
 
       @Override
       public void handleEvent(Event event) {
         if (event.character == SWT.CR) {
-          GridComboCellEditor.this.description.traverse(SWT.TRAVERSE_TAB_NEXT);
+          GridCellComboEditor.this.comboCell.traverse(SWT.TRAVERSE_TAB_NEXT);
         }
       }
 
     });
 
-    this.description.addVerifyListener(new VerifyListener() {
+    this.comboCell.addVerifyListener(new VerifyListener() {
 
       @Override
       public void verifyText(VerifyEvent event) {
@@ -163,9 +165,9 @@ public class GridComboCellEditor extends GridCellComposite {
         renderer.getDrawBounds().height);
     this.compositeArea.setVisible(true);
     if (this.hasFocus) {
-      this.description.setBackground(new Color(Display.getCurrent(), 255, 255, 255));
+      this.comboCell.setBackground(new Color(Display.getCurrent(), 255, 255, 255));
     } else {
-      this.description.setBackground(this.getBackgroundColor(renderer, gc));
+      this.comboCell.setBackground(this.getBackgroundColor(renderer, gc));
     }
 
     super.paint(renderer, gc, item);
@@ -195,21 +197,21 @@ public class GridComboCellEditor extends GridCellComposite {
 
     // lower limit
     int minHeight = AbstractGridCell.DEFAULT_CELL_HEIGHT * 2;
-    if (this.description.isDisposed()) {
+    if (this.comboCell.isDisposed()) {
       return minHeight;
     }
-    int textSize = this.description.getSize().x;
+    int textSize = this.comboCell.getSize().x;
     if ((textSize == 0) && (this.grid.getGrid().getColumnCount() > 0)) {
-      this.description.setSize(new Point((this.grid.getGrid().getColumn(1).getWidth() - 33), 0));
+      this.comboCell.setSize(new Point((this.grid.getGrid().getColumn(1).getWidth() - 33), 0));
     }
 //    int preferredHeight = (this.description.getLineHeight() * this.description.getLineCount()) + AbstractGridCell.DEFAULT_CELL_HEIGHT;
-    this.description.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+    this.comboCell.computeSize(SWT.DEFAULT, SWT.DEFAULT);
     return Math.max(minHeight, minHeight);
   }
 
   @Override
   public void activate() {
-    this.description.setFocus();
+    this.comboCell.setFocus();
   }
 
   /**
@@ -245,7 +247,7 @@ public class GridComboCellEditor extends GridCellComposite {
    */
   public Combo getTextEditor() {
 
-    return this.description;
+    return this.comboCell;
   }
 
 }
