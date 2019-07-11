@@ -18,6 +18,8 @@ import org.eclipse.nebula.widgets.grid.Grid;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 
@@ -88,7 +90,6 @@ public abstract class CommonGridView<T extends IDataModel> extends AbstractFilte
     this.columnCount = columns.length;
     getGridWrapper().setSelectRow(false);
     getGrid().setVisible(true);
-
     getGrid().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
     this.reloadTable();
     this.deleteAction = getDeleteAction();
@@ -100,6 +101,35 @@ public abstract class CommonGridView<T extends IDataModel> extends AbstractFilte
       getGrid().setMenu(menu);
     }
   }
+  
+  public void createPartControl(Composite parent, String[] columns, int modify) {
+    this.setDataModelInterface(ProjectManager.getContainerInstance()
+        .getDataModel(this.getProjectID()));
+    super.createPartControl(parent);
+    parent.setLayout(new GridLayout(1, false));
+    Composite newComp = new Composite(parent, SWT.None);
+    newComp.setLayout(new GridLayout(8, false));
+    Button button1 = new Button(newComp, SWT.PUSH);
+    Grid grid = new Grid(newComp,SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+//    this.grid = new GridWrapper(parent, columns);
+//    this.columnCount = columns.length;
+//    getGridWrapper().setSelectRow(false);
+//    getGrid().setVisible(true);
+//
+//    getGrid().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+    
+    
+//    this.reloadTable();
+//    this.deleteAction = getDeleteAction();
+//    if (this.deleteAction != null) {
+//      MenuManager menuMgr = new MenuManager();
+//      Menu menu = menuMgr.createContextMenu(getGrid());
+//      menuMgr.addMenuListener(new ActionMenuListener(this.deleteAction));
+//      menuMgr.setRemoveAllWhenShown(true);
+//      getGrid().setMenu(menu);
+//    }
+  }
+  
   public int getColumnCount() {
     return columnCount;
   }

@@ -13,6 +13,7 @@
 
 package xstampp.ui.common.grid;
 
+import java.awt.Composite;
 import java.util.UUID;
 
 import org.eclipse.swt.events.MouseEvent;
@@ -28,7 +29,7 @@ import xstampp.ui.common.grid.GridWrapper.NebulaGridRowWrapper;
  * @author Patrick Wickenhaeuser, Benedikt Markt
  * 
  */
-public interface IGridCell {
+public interface IGridCell{
 
   /**
    * Paint function of the cell.

@@ -19,39 +19,22 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.UUID;
 
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWTException;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Table;
-
-import messages.Messages;
-import xstampp.astpa.model.DataModelController;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
-import xstampp.astpa.model.controlaction.UnsafeControlAction;
-import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
-import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
 import xstampp.astpa.ui.unsafecontrolaction.DeleteUcaAction;
 import xstampp.astpa.ui.unsafecontrolaction.UnsafeControlActionsView;
 import xstampp.model.IDataModel;
-import xstampp.model.ITableEntry;
 import xstampp.model.ObserverValue;
 import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.model.StlsaController;
-import xstampp.stlsa.ui.unsecurecontrolaction.UcaContentProvider;
-import xstampp.stlsa.ui.unsecurecontrolaction.UnsecureControlActionsView;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.common.grid.DeleteGridEntryAction;
-import xstampp.ui.common.grid.GridCellButton;
-import xstampp.ui.common.grid.GridCellLinking;
 import xstampp.ui.common.grid.GridCellText;
 import xstampp.ui.common.grid.GridCellTextEditor;
 import xstampp.ui.common.grid.GridRow;
@@ -245,49 +228,6 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 		return "Unsecure Control Actions Table"; //$NON-NLS-1$
 	}
 	
-	/**
-   * !isFiltered(this.getDataModel().getUCANumber(allWrongTiming.get(i).getId()),UCAID) &&
-   * !isFiltered(allWrongTiming.get(i).getDescription(),UCA)
-   * 
-	 * @param uca
-	 * @return true if the uca is filtered out and should not be used
-	 */
-	private boolean isUCAFiltered(IUnsafeControlAction uca){
-		switch (getActiveCategory()) {
-		case UCAID_FILTER:
-			return isFiltered(this.getDataModel().getUCANumber(uca.getId()),UCAID_FILTER);
-		case UCA_FILTER:
-			return isFiltered(uca.getDescription(),UCA_FILTER);
-		case HAZ_FILTER:
-			if(this.getDataModel().getLinkedHazardsOfUCA(uca.getId()).size() == 0){
-				return true;
-			}
-			for(ITableModel model : this.getDataModel().getLinkedHazardsOfUCA(uca.getId())){
-          if (!isFiltered(model.getTitle(), HAZ_FILTER)
-              || !isFiltered(model.getDescription(), HAZ_FILTER)) {
-					return false;
-				}
-				return true;
-			}
-		case NOHAZ_FILTER:
-			if(this.getDataModel().getLinkedHazardsOfUCA(uca.getId()).size() != 0){
-				return true;
-			}
-		case HAZID_FILTER:
-			if(this.getDataModel().getLinkedHazardsOfUCA(uca.getId()).size() == 0){
-				return true;
-			}
-			for(ITableModel model : this.getDataModel().getLinkedHazardsOfUCA(uca.getId())){
-				if(!isFiltered(model.getNumber(),HAZID_FILTER)){
-					return false;
-				}
-			}
-      return true;
-		default:
-			return isFiltered(uca.getDescription(),UCA_FILTER);
-		}
-	}
-
 	private void updateCausalFactors(){
 		String[] choices= new String[getCausalFactorController().getCausalFactors().size()];
 		String[] choiceIDs= new String[getCausalFactorController().getCausalFactors().size()];
