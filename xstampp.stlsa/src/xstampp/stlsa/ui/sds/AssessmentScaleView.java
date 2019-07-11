@@ -13,13 +13,17 @@ package xstampp.stlsa.ui.sds;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
 import org.eclipse.nebula.widgets.grid.Grid;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 
 import messages.Messages;
@@ -32,6 +36,12 @@ import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.common.grid.DeleteGridEntryAction;
+import xstampp.ui.common.grid.GridCellComposite;
+import xstampp.ui.common.grid.GridCellEditor;
+import xstampp.ui.common.grid.GridCellText;
+import xstampp.ui.common.grid.GridComboCellEditor;
+import xstampp.ui.common.grid.GridRow;
+import xstampp.ui.common.grid.GridWrapper;
 
 /**
  * View used to handle the unsafe control actions.
@@ -54,6 +64,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   private static final String HAZID_FILTER = "Hazard ID"; //$NON-NLS-1$
 
   private String[] columns = null;
+  private GridWrapper grid;
 
   /**
    * Constructs an AssessmentScaleView with a filter and the default set of column names
@@ -118,12 +129,12 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   public void createPartControl(Composite parent) {
     this.setDataModelInterface(ProjectManager.getContainerInstance()
         .getDataModel(this.getProjectID()));
-    super.createPartControl(parent, columns, 1);
-    Button button1 = new Button(parent, SWT.PUSH);
-    Grid grid = new Grid(parent,SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-//    this.getGridWrapper().setHeaderToolTip("x");
-//    updateHazards();
-//    reloadTable();
+    super.createPartControl(parent, columns);
+//    Button button1 = new Button(parent, SWT.PUSH);
+//    Grid grid = new Grid(parent,SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+    this.getGridWrapper().setHeaderToolTip("x");
+    updateHazards();
+    reloadTable();
   }
 
   @Override
@@ -147,6 +158,36 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   @Override
   protected void fillTable() throws SWTException {
 //    TableCombo tc = new TableCombo(group, SWT.BORDER | SWT.READ_ONLY);
+    List<ICorrespondingUnsafeControlAction> list = getDataModel().getUCAList(null);
+    GridRow controlActionRow = new GridRow(columns.length,3); 
+//    GridCellComposite x = new GridCellComposite(getGridWrapper(), SWT.FILL);
+//    x.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true)); 
+//    GridLayout layout = new GridLayout();
+//    layout.marginHeight = 0;
+//    layout.marginWidth = 0;
+//    x.setLayout(layout);
+//    controlActionRow.addCell(0,x); 
+////    System.out.println(controlActionRow.getColumnSpan().toString());
+//    final Combo intentionCombo2 = new Combo(x, SWT.READ_ONLY | SWT.FILL);
+//    intentionCombo2.setToolTipText("Set Intention here");
+//    intentionCombo2.add("Intentional");
+//    intentionCombo2.add("Unintentional");
+    
+    
+//    GridCellEditor y = new GridCellEditor(getGridWrapper(), "asdsad");
+//    controlActionRow.addCell(1, y);
+    GridComboCellEditor x = new GridComboCellEditor(getGridWrapper());
+    controlActionRow.addCell(2, x);
+//    GridData gridData = new GridData();
+//    gridData.horizontalAlignment = GridData.FILL;
+//    gridData.verticalAlignment = GridData.FILL;
+//    gridData.grabExcessHorizontalSpace = true;
+//    gridData.grabExcessVerticalSpace = true;
+//    gridData.
+    
+    
+    getGridWrapper().addRow(controlActionRow);;      
+
   }
 
   @Override
