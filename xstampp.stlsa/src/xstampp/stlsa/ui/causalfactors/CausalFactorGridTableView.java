@@ -257,8 +257,8 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
   
   @Override
   public void update(Observable dataModelController, Object updatedValue) {
-
     super.update(dataModelController, updatedValue);
+    System.out.println("updatedValue in CFGridTable: " + updatedValue.toString());
     ObserverValue type = (ObserverValue) updatedValue;;
     switch (type) {
       case UNSAFE_CONTROL_ACTION:

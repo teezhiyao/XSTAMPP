@@ -101,15 +101,15 @@ public class GridCellComboEditor extends GridCellComposite {
       }
     });
 
-    this.comboCell.addModifyListener(new ModifyListener() {
-
-      @Override
-      public void modifyText(ModifyEvent e) {
-        GridCellComboEditor.this.currentText = GridCellComboEditor.this.comboCell.getText();
-
-        GridCellComboEditor.this.grid.resizeRows();
-      }
-    });
+//    this.comboCell.addModifyListener(new ModifyListener() {
+//
+//      @Override
+//      public void modifyText(ModifyEvent e) {
+//        GridCellComboEditor.this.currentText = GridCellComboEditor.this.comboCell.getText();
+//
+//        GridCellComboEditor.this.grid.resizeRows();
+//      }
+//    });
 
     this.comboCell.addListener(SWT.FocusOut, new Listener() {
 

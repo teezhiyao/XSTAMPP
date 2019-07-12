@@ -589,6 +589,7 @@ public class GridWrapper {
       for (IGridCell c : r.getCells()) {
         if (c.getUUID() != null) {
           if (c.getUUID().equals(uuid)) {
+            System.out.println("activateRecursive: "+ c.getClass());
             GridWrapper.LOGGER.info("Activating: " + uuid); //$NON-NLS-1$
             c.activate();
             return;

@@ -13,17 +13,11 @@ package xstampp.stlsa.ui.sds;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-
-import org.eclipse.nebula.widgets.grid.Grid;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 
 import messages.Messages;
@@ -34,14 +28,16 @@ import xstampp.astpa.ui.CommonGridView;
 import xstampp.astpa.ui.unsafecontrolaction.DeleteUcaAction;
 import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
+import xstampp.stlsa.ui.causalfactors.CfContentProvider;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.common.grid.DeleteGridEntryAction;
-import xstampp.ui.common.grid.GridCellComposite;
-import xstampp.ui.common.grid.GridCellEditor;
-import xstampp.ui.common.grid.GridCellText;
+import xstampp.ui.common.grid.GridCellBlank;
+import xstampp.ui.common.grid.GridCellButton;
 import xstampp.ui.common.grid.GridCellComboEditor;
+import xstampp.ui.common.grid.GridCellEditor;
 import xstampp.ui.common.grid.GridRow;
 import xstampp.ui.common.grid.GridWrapper;
+import xstampp.ui.common.grid.SingleGridCellLinking;
 
 /**
  * View used to handle the unsafe control actions.
@@ -165,17 +161,62 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
 
   }
 
+  boolean row1 = false;
   
   public void addRoww() {
-    GridRow controlActionRow = new GridRow(columns.length,3); 
-    GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), new String[]{"Severity", "Likelihood"});
-    controlActionRow.addCell(0, metric);
-    GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),
-        new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"});
-    controlActionRow.addCell(1, metricType);
+      GridRow controlActionRow = new GridRow(columns.length,3,new int[] {0,1}); 
+      
+      GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), new String[]{"Severity", "Likelihood"});
+      controlActionRow.addCell(0, metric);
+      
+      GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),
+          new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"});
+      controlActionRow.addCell(1, metricType);
+    controlActionRow.addCell(2, new addSubButton(controlActionRow));
+
+//      GridRow subMeas = new GridRow(columns.length,3,new int[] {2,3});
+//      subMeas.addCell(2, new GridCellButton());
+//      controlActionRow.addChildRow(subMeas);
+//      GridRow subMeas2 = new GridRow(columns.length,3);
+//      subMeas.addCell(3, new GridCellBlank(true));
+//      controlActionRow.addChildRow(subMeas2);
+      
+//    if(!row1) {
+//    controlActionRow.addCell(2, new addSubButton(controlActionRow));
+//    }
+//    else {
+//      GridRow subMeas = new GridRow(2);
+//      GridCellComboEditor test = new GridCellComboEditor(getGridWrapper(), new String[]{"Severity", "Likelihood"});
+//      subMeas.addCell(0, test);        
+//      controlActionRow.addChildRow(subMeas);
+//    }
     getGridWrapper().addRow(controlActionRow);;      
 
   }
+  
+  private class addSubButton extends GridCellButton {
+    
+    private GridRow controlActionRow;
+
+    public addSubButton(GridRow controlActionRow) {
+      this.controlActionRow = controlActionRow;
+    }
+
+    @Override
+    public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
+        Rectangle cellBounds) {
+      if(e.button == 1){
+        GridRow subMeas = new GridRow(columns.length,3,new int[] {2,3});
+        GridCellEditor x = new GridCellEditor(getGridWrapper(), "aaa");
+        subMeas.addCell(2, x);
+        controlActionRow.addChildRow(subMeas);
+        reloadTable();
+        ProjectManager.getLOGGER().debug("Add new Sub Measurement");
+      }
+      
+    }
+  }
+  
   
   @Override
   public String getId() {
@@ -219,6 +260,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
 
   @Override
   public void update(Observable dataModelController, Object updatedValue) {
+    System.out.println("updatedValue in assessment: " + updatedValue.toString());
     if (!getGridWrapper().fetchUpdateLock()) {
       super.update(dataModelController, updatedValue);
       ObserverValue type = (ObserverValue) updatedValue;

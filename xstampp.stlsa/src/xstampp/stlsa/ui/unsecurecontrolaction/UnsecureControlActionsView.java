@@ -164,7 +164,6 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 
     public AddUcaButton(IControlAction parentItem, String text, UnsafeControlActionType type) {
 			super(text);
-
 			this.parentControlAction = parentItem;
 			this.ucaType = type;
 		}
