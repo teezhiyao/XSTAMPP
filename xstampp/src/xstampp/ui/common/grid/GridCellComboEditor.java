@@ -67,7 +67,7 @@ public class GridCellComboEditor extends GridCellComposite {
    *          the intitial text in the editor.
    * 
    */
-  public GridCellComboEditor(GridWrapper gridWrapper, String[] options) {
+  public GridCellComboEditor(GridWrapper gridWrapper, String[] options, boolean readOnly) {
     super(gridWrapper, SWT.PUSH);
 
     this.grid = gridWrapper;
@@ -75,7 +75,12 @@ public class GridCellComboEditor extends GridCellComposite {
     this.compositeArea = new Composite(this, SWT.FILL);
     this.compositeArea.setLayout(new FillLayout(SWT.HORIZONTAL));
     // this.compositeArea.setRedraw(false);
-    this.comboCell = new Combo(this.compositeArea, SWT.FILL);
+    if(readOnly) {
+    this.comboCell = new Combo(this.compositeArea,  SWT.READ_ONLY | SWT.FILL);}
+    else {
+      this.comboCell = new Combo(this.compositeArea,  SWT.READ_ONLY);
+      }
+    
     for(String option : options) {
       this.comboCell.add(option);
     }

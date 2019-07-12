@@ -166,13 +166,18 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   public void addRoww() {
       GridRow controlActionRow = new GridRow(columns.length,3,new int[] {0,1}); 
       
-      GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), new String[]{"Severity", "Likelihood"});
+      String[] metricOptions = new String[]{"Severity", "Likelihood"};
+      GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), metricOptions, true);
       controlActionRow.addCell(0, metric);
       
-      GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),
-          new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"});
+      String[] metricTypeOptions = new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"};
+
+      GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),metricTypeOptions, true);
       controlActionRow.addCell(1, metricType);
-    controlActionRow.addCell(2, new addSubButton(controlActionRow));
+      
+      
+      
+//      controlActionRow.addCell(2, new addSubButton(controlActionRow));
 
 //      GridRow subMeas = new GridRow(columns.length,3,new int[] {2,3});
 //      subMeas.addCell(2, new GridCellButton());
