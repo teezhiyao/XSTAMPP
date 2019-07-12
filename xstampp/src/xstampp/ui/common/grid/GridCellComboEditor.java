@@ -21,6 +21,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
@@ -53,6 +55,20 @@ public class GridCellComboEditor extends GridCellComposite {
   private GridWrapper grid = null;
   private Composite compositeArea = null;
   private Combo comboCell = null;
+  
+  
+  
+  public Combo getComboCell() {
+//  comboCell.addSelectionListener(new SelectionAdapter() {
+//  @Override
+//  public void widgetSelected(SelectionEvent e) {
+//    System.out.println("Selection: " + comboCell.getItem(comboCell.getSelectionIndex()));
+//  }
+//});
+//Get the Combo and add selection listener to get the selected Text
+    return comboCell;
+  }
+
   private String currentText = ""; //$NON-NLS-1$
   private boolean hasFocus = false;
 
@@ -81,6 +97,7 @@ public class GridCellComboEditor extends GridCellComposite {
       this.comboCell = new Combo(this.compositeArea,  SWT.READ_ONLY);
       }
     
+
     for(String option : options) {
       this.comboCell.add(option);
     }

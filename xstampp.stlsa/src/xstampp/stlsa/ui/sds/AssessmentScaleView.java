@@ -172,7 +172,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
       
       String[] metricTypeOptions = new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"};
 
-      GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),metricTypeOptions, true);
+      GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),metricTypeOptions, false);
       controlActionRow.addCell(1, metricType);
       
       
