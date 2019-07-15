@@ -113,11 +113,11 @@ public class SubMeasurementController extends ATableModelController implements I
   }
 
   @Override
-  public UUID addCausalFactor() {
-    return this.addCausalFactor(new SubMeasurement(""));
+  public UUID addSubMeasurement() {
+    return this.addSubMeasurement(new SubMeasurement(""));
   }
   @Override
-  public UUID addCausalFactor(SubMeasurement factor) {
+  public UUID addSubMeasurement(SubMeasurement factor) {
     if (this.causalFactors.add(factor)) {
       setChanged();
       notifyObservers(new UndoAddSubMeasurement(this, factor, linkController));
@@ -126,7 +126,7 @@ public class SubMeasurementController extends ATableModelController implements I
     return null;
   }
 
-  public ITableModel getCausalFactor(UUID causalFactorId) {
+  public ITableModel getSubMeasurement(UUID causalFactorId) {
     Optional<SubMeasurement> first = this.causalFactors.stream().filter((factor) -> factor.getId().equals(causalFactorId))
         .findFirst();
     if(first.isPresent()) {
@@ -150,7 +150,7 @@ public class SubMeasurementController extends ATableModelController implements I
 //  }
   
   @Override
-  public boolean setCausalFactorText(UUID causalFactorId, String causalFactorText) {
+  public boolean setSubMeasurementText(UUID causalFactorId, String causalFactorText) {
     SubMeasurement causalFactor = this.causalFactors.get(causalFactorId);
     if (causalFactor != null) {
 
@@ -158,7 +158,7 @@ public class SubMeasurementController extends ATableModelController implements I
       if (causalFactor.setText(causalFactorText)) {
         UndoTextChange textChange = new UndoTextChange(oldText, causalFactorText,
             ObserverValue.CAUSAL_FACTOR);
-        textChange.setConsumer((text) -> setCausalFactorText(causalFactorId, text));
+        textChange.setConsumer((text) -> setSubMeasurementText(causalFactorId, text));
         setChanged();
         notifyObservers(textChange);
         return true;
@@ -169,7 +169,7 @@ public class SubMeasurementController extends ATableModelController implements I
   }
 
   @Override
-  public boolean removeCausalFactor(UUID causalFactor) {
+  public boolean removeSubMeasurement(UUID causalFactor) {
     Optional<SubMeasurement> removeOptional = this.causalFactors.stream()
         .filter(factor -> factor.getId().equals(causalFactor)).findFirst();
     if (removeOptional.isPresent() && this.causalFactors.remove(removeOptional.get())) {
@@ -239,7 +239,7 @@ public class SubMeasurementController extends ATableModelController implements I
       Link ucaCFLink = linkController.getLinkObjectFor(LinkingType.UCA_CausalFactor_LINK,
           link.getLinkA());
       try {
-        ITableModel factor = getCausalFactor(ucaCFLink.getLinkB());
+        ITableModel factor = getSubMeasurement(ucaCFLink.getLinkB());
         if (!ucaCfLink_Component_ToCFmap.containsKey(factor)) {
           ucaCfLink_Component_ToCFmap.put(factor, new ArrayList<>());
         }
@@ -422,11 +422,11 @@ public class SubMeasurementController extends ATableModelController implements I
     this.useScenarios = controller.useScenarios;
     this.switchUCAsPerFactorToFactorsPerUCA = controller.switchUCAsPerFactorToFactorsPerUCA;
     for (SubMeasurement other : controller.causalFactors) {
-      ITableModel own = getCausalFactor(other.getId());
+      ITableModel own = getSubMeasurement(other.getId());
       if (own instanceof BadReferenceModel) {
-        addCausalFactor(other);
+        addSubMeasurement(other);
       } else {
-        setCausalFactorText(other.getId(), other.getText());
+        setSubMeasurementText(other.getId(), other.getText());
       }
     }
     for (SubMeasurementSafetyConstraint otherReq : controller.causalSafetyConstraints) {

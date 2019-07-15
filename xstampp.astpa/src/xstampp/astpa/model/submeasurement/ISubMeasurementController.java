@@ -40,8 +40,8 @@ public interface ISubMeasurementController {
    * 
    * @return the {@link UUID} of the {@link ITableModel}
    */
-  UUID addCausalFactor();
-  UUID addCausalFactor(SubMeasurement causalFactor);
+  UUID addSubMeasurement();
+  UUID addSubMeasurement(SubMeasurement causalFactor);
 
   /**
    * 
@@ -52,9 +52,9 @@ public interface ISubMeasurementController {
    * @return <b style="color:blue">true</b> if the given id is valid and the text is different to
    *         the current <br> <b style="color:blue">false</b> otherwise
    */
-  boolean setCausalFactorText(UUID causalFactorId, String causalFactorText);
+  boolean setSubMeasurementText(UUID causalFactorId, String causalFactorText);
 
-  boolean removeCausalFactor(UUID causalFactor);
+  boolean removeSubMeasurement(UUID causalFactor);
 
   void prepareForExport(IHazAccController hazAccController, IRectangleComponent root,
       IExtendedDataController extendedDataController, IControlActionController caController,
@@ -109,7 +109,7 @@ public interface ISubMeasurementController {
    * @return the {@link ITableModel} for the given id or a singleton instance of
    *         {@link BadReferenceModel} if no {@link ITableModel} was found with the given id
    */
-  ITableModel getCausalFactor(UUID causalFactorId);
+  ITableModel getSubMeasurement(UUID causalFactorId);
 
   /**
    * @return a list containing all causalFactors as {@link ITableModel}s, changes to this list

@@ -28,13 +28,13 @@ public class UndoAddSubMeasurement extends UndoAddLinkedComponent {
 
   @Override
   public void undo() {
-    this.causalController.removeCausalFactor(this.factor.getId());
+    this.causalController.removeSubMeasurement(this.factor.getId());
   }
 
   @Override
   public void redo() {
     super.redo();
-    this.causalController.addCausalFactor(this.factor);
+    this.causalController.addSubMeasurement(this.factor);
   }
 
   @Override
