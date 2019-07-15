@@ -26,6 +26,7 @@ import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.ui.common.contentassist.ITableContentProvider;
+import xstampp.ui.common.grid.CausalFactorEnum;
 
 /**
  * 
@@ -56,7 +57,7 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
         }
       ((DataModelController)this.cfInterface).getCausalFactorController().setAddedCF(true);
     }
-    return ((DataModelController)this.cfInterface).getCausalFactorController().getCausalFactors();
+    return ((DataModelController) this.cfInterface).getCausalFactorController().getCausalFactors();
   }
 
   @Override
@@ -84,11 +85,9 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
   
   @Override
   public void addLink(final UUID ucaId, final UUID cfId) {
-    CausalFactor templateCf = (CausalFactor) getStlsaController().getCausalFactor(cfId);
-    CausalFactor newCf = new CausalFactor(templateCf.getTitle(), templateCf.getIntention());
-    UUID newCFId = getStlsaController().getCausalFactorController().addCausalFactor(newCf);
+    CausalFactor newCf = (CausalFactor) getStlsaController().getCausalFactor(cfId);
     newCf.setParentUUID(ucaId);
-    getStlsaController().addUCACausalFactorLink(ucaId, newCFId);
+    getStlsaController().addUCACausalFactorLink(ucaId, cfId);
     
   }
 
@@ -106,5 +105,12 @@ public class CfContentProvider implements ITableContentProvider<ITableModel> {
   @Override
   public String getEmptyMessage() {
     return "Not Selected";
+  }
+  
+  @Override
+  public UUID createNewCf(String title) {
+    CausalFactor newCf = new CausalFactor(title);
+    return newCf.getId();
+    
   }
 }

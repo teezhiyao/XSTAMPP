@@ -14,7 +14,14 @@
 package xstampp.ui.common.grid;
 
 import messages.Messages;
+import xstampp.model.ITableEntry;
+import xstampp.ui.common.contentassist.ITableContentProvider;
+import xstampp.ui.common.contentassist.LinkProposal;
 import xstampp.ui.common.grid.GridWrapper.NebulaGridRowWrapper;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -43,7 +50,7 @@ import org.eclipse.swt.widgets.Text;
  * @author Patrick Wickenhaeuser, Benedikt Markt
  * 
  */
-public class GridCellComboEditor extends GridCellComposite {
+public class GridCellComboEditor<T extends ITableContentProvider<?>> extends GridCellComposite {
 
   /**
    * The default Text
@@ -55,7 +62,7 @@ public class GridCellComboEditor extends GridCellComposite {
   private GridWrapper grid = null;
   private Composite compositeArea = null;
   private Combo comboCell = null;
-  
+  private String type;
   
   
   public Combo getComboCell() {
@@ -70,7 +77,13 @@ public class GridCellComboEditor extends GridCellComposite {
   }
 
   private String currentText = ""; //$NON-NLS-1$
+  private boolean newGrid = true;; //$NON-NLS-1$
   private boolean hasFocus = false;
+
+  private T publicInterface;
+
+  private UUID ucaId;
+  private UUID cfUuid;
 
   /**
    * Ctor.
@@ -83,7 +96,7 @@ public class GridCellComboEditor extends GridCellComposite {
    *          the intitial text in the editor.
    * 
    */
-  public GridCellComboEditor(GridWrapper gridWrapper, String[] options, boolean readOnly) {
+  public GridCellComboEditor(GridWrapper gridWrapper, List<String> options, boolean readOnly) {
     super(gridWrapper, SWT.PUSH);
 
     this.grid = gridWrapper;
@@ -96,11 +109,25 @@ public class GridCellComboEditor extends GridCellComposite {
     else {
       this.comboCell = new Combo(this.compositeArea,  SWT.READ_ONLY);
       }
+    if(!newGrid) {
+    comboCell.setText(currentText);
+    }
+  this.cfUuid = this.publicInterface.createNewCf(this.currentText);
+  this.publicInterface.addLink(this.ucaId, this.cfUuid);
     
-
     for(String option : options) {
       this.comboCell.add(option);
     }
+    
+  comboCell.addSelectionListener(new SelectionAdapter() {
+  @Override
+  public void widgetSelected(SelectionEvent e) {
+    System.out.println("Selection: " + comboCell.getItem(comboCell.getSelectionIndex()));
+    
+    
+    
+  }
+});
     
     
     // redirect the mouse events
@@ -123,20 +150,35 @@ public class GridCellComboEditor extends GridCellComposite {
       }
     });
 
-//    this.comboCell.addModifyListener(new ModifyListener() {
-//
-//      @Override
-//      public void modifyText(ModifyEvent e) {
-//        GridCellComboEditor.this.currentText = GridCellComboEditor.this.comboCell.getText();
-//
-//        GridCellComboEditor.this.grid.resizeRows();
-//      }
-//    });
+    this.comboCell.addModifyListener(new ModifyListener() {
+
+      @Override
+      public void modifyText(ModifyEvent e) {
+        GridCellComboEditor.this.currentText = GridCellComboEditor.this.comboCell.getText();
+        GridCellComboEditor.this.grid.resizeRows();
+        System.out.println("Current Text" + currentText);
+        if(GridCellComboEditor.this.type == "CausalFactor") {
+//          if(GridCellComboEditor.this.newGrid) {
+//            GridCellComboEditor.this.cfUuid = GridCellComboEditor.this.publicInterface.createNewCf(GridCellComboEditor.this.currentText);
+//            GridCellComboEditor.this.publicInterface.addLink(GridCellComboEditor.this.ucaId, GridCellComboEditor.this.cfUuid);
+//          }
+//          else {
+            
+//          }
+        }
+//        for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
+//          if(CF.getLabel() == GridCellComboEditor.this.currentText) {
+//            
+//          }
+//        }
+      }
+    });
 
     this.comboCell.addListener(SWT.FocusOut, new Listener() {
 
       @Override
       public void handleEvent(Event event) {
+        System.out.println(event.toString());
         GridCellComboEditor.this.onTextChanged(GridCellComboEditor.this.currentText);
         GridCellComboEditor.this.hasFocus = false;
       }
@@ -174,6 +216,17 @@ public class GridCellComboEditor extends GridCellComposite {
     });
   }
 
+  public GridCellComboEditor(GridWrapper gridWrapper, String[] strings, boolean readOnly) {
+    this(gridWrapper, Arrays.asList(strings),readOnly);
+  }
+
+  public GridCellComboEditor(GridWrapper gridWrapper, T publicInterface, String[] strings,UUID ucaId, boolean readOnly,String type) {
+    this(gridWrapper, Arrays.asList(strings),readOnly);
+    this.publicInterface = publicInterface;
+    this.ucaId = ucaId;
+    this.type = type;
+  }
+
   @Override
   public void paint(GridCellRenderer renderer, GC gc, NebulaGridRowWrapper item) {
     if (this.isDisposed()) {
@@ -199,7 +252,15 @@ public class GridCellComboEditor extends GridCellComposite {
   @Override
   public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
       Rectangle cellBounds) {
+    System.out.println("OnMouseDown");
+    
+
     this.activate();
+  }
+
+  public List<? extends ITableEntry> getLinkedItems() {
+    List<? extends ITableEntry> linkedItems = this.publicInterface.getLinkedItems(this.ucaId);
+    return linkedItems;
   }
 
   /**
@@ -247,6 +308,8 @@ public class GridCellComboEditor extends GridCellComposite {
    */
   public void onTextChanged(String newText) {
     // intentionally empty
+    System.out.println("new Text:" + newText);
+    
   }
 
   /**

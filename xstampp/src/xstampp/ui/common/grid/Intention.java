@@ -1,4 +1,4 @@
-package xstampp.stlsa.ui.causalfactors;
+package xstampp.ui.common.grid;
 
 public enum Intention implements CausalFactorInterface {
 

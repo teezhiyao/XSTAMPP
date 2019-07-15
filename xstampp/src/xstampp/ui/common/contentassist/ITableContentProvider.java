@@ -87,4 +87,6 @@ public interface ITableContentProvider<T extends ITableEntry> {
 
   List<T> getAllLinkedItems();
 
+  UUID createNewCf(String title);
+
 }

@@ -585,6 +585,7 @@ public class GridWrapper {
    *          the UUID to search for
    */
   private void activateRecursive(List<GridRow> cellRows, UUID uuid) {
+    System.out.println("activate Recursive...");
     for (GridRow r : cellRows) {
       for (IGridCell c : r.getCells()) {
         if (c.getUUID() != null) {
