@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.UUID;
 
 import xstampp.astpa.model.DataModelController;
-import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;
+import xstampp.astpa.model.submeasurement.SubMeasurement;
 import xstampp.astpa.model.interfaces.ISubMeasurementDataModel;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.ui.common.contentassist.ITableContentProvider;
@@ -49,25 +49,25 @@ public class SubMeasurementContentProvider implements ITableContentProvider<ITab
   public List<ITableModel> getAllItems() {
     System.out.println("Get all Items");
     System.out.println(this.cfInterface.toString());
-    if(!((DataModelController)this.cfInterface).getCausalFactorController().isAddedCF()) {
-      for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
-        ((DataModelController)this.cfInterface).getCausalFactorController().addCausalFactor(new CausalFactor(CF.getLabel(), CF.getDisplayableType()));
-        }
-      ((DataModelController)this.cfInterface).getCausalFactorController().setAddedCF(true);
-    }
-    return ((DataModelController)this.cfInterface).getCausalFactorController().getCausalFactors();
+//    if(!((DataModelController)this.cfInterface).getSubMeasurementController().isAddedCF()) {
+//      for (SubMeasurementEnum CF : SubMeasurementEnum.values()) { 
+//        ((DataModelController)this.cfInterface).getSubMeasurementController().addSubMeasurement(new SubMeasurement(CF.getLabel(), CF.getDisplayableType()));
+//        }
+//      ((DataModelController)this.cfInterface).getSubMeasurementController().setAddedCF(true);
+//    }
+    return ((DataModelController)this.cfInterface).getSubMeasurementController().getSubMeasurement();
   }
 
   @Override
   public List<ITableModel> getLinkedItems(final UUID itemId) {
-    return getStlsaController().getLinkedCausalFactorOfUCA(itemId);
+    return getStlsaController().getLinkedSubMeasurementOfUCA(itemId);
   }
   
   @Override
   public List<ITableModel> getAllLinkedItems() {
     List<ITableModel> result = new ArrayList<ITableModel>();
     for (ICorrespondingUnsafeControlAction uca : getStlsaController().getUCAList(null)) {
-    List<ITableModel> links = getStlsaController().getLinkedCausalFactorOfUCA(((UnsafeControlAction)uca).getId());
+    List<ITableModel> links = getStlsaController().getLinkedSubMeasurementOfUCA(((UnsafeControlAction)uca).getId());
     for(ITableModel link : links) {
       result.add(link);
     }
@@ -83,18 +83,18 @@ public class SubMeasurementContentProvider implements ITableContentProvider<ITab
   
   @Override
   public void addLink(final UUID ucaId, final UUID cfId) {
-    CausalFactor templateCf = (CausalFactor) getStlsaController().getCausalFactor(cfId);
-    CausalFactor newCf = new CausalFactor(templateCf.getTitle(), templateCf.getIntention());
-    UUID newCFId = getStlsaController().getCausalFactorController().addCausalFactor(newCf);
+    SubMeasurement templateCf = (SubMeasurement) getStlsaController().getSubMeasurement(cfId);
+    SubMeasurement newCf = new SubMeasurement(templateCf.getTitle(), templateCf.getIntention());
+    UUID newCFId = getStlsaController().getSubMeasurementController().addSubMeasurement(newCf);
     newCf.setParentUUID(ucaId);
-    getStlsaController().addUCACausalFactorLink(ucaId, newCFId);
+    getStlsaController().addUCASubMeasurementLink(ucaId, newCFId);
     
   }
 
   @Override
   public void removeLink(final UUID item, final UUID removeItem) {
-    getStlsaController().removeUCACausalFactorLink(item, removeItem);
-    getStlsaController().getCausalFactorController().removeCausalFactor(removeItem);
+    getStlsaController().removeUCASubMeasurementLink(item, removeItem);
+    getStlsaController().getSubMeasurementController().removeSubMeasurement(removeItem);
   }
 
   @Override

@@ -13,8 +13,11 @@ package xstampp.stlsa.ui.sds;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.UUID;
+
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Rectangle;
@@ -24,10 +27,13 @@ import messages.Messages;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
+import xstampp.astpa.model.submeasurement.SubMeasurement;
+import xstampp.astpa.model.submeasurement.SubMeasurementController;
 import xstampp.astpa.ui.CommonGridView;
 import xstampp.astpa.ui.unsafecontrolaction.DeleteUcaAction;
 import xstampp.model.IDataModel;
 import xstampp.model.ObserverValue;
+import xstampp.stlsa.model.StlsaController;
 import xstampp.stlsa.ui.causalfactors.CfContentProvider;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.common.grid.DeleteGridEntryAction;
@@ -35,6 +41,7 @@ import xstampp.ui.common.grid.GridCellBlank;
 import xstampp.ui.common.grid.GridCellButton;
 import xstampp.ui.common.grid.GridCellComboEditor;
 import xstampp.ui.common.grid.GridCellEditor;
+import xstampp.ui.common.grid.GridCellText;
 import xstampp.ui.common.grid.GridRow;
 import xstampp.ui.common.grid.GridWrapper;
 import xstampp.ui.common.grid.SingleGridCellLinking;
@@ -60,7 +67,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   private static final String HAZID_FILTER = "Hazard ID"; //$NON-NLS-1$
 
   private String[] columns = new String[] {"Severity/Likelihood",
-      "Type", "Sub-Measurements","Scale",
+      "Type","Sub-Measurement ID", "Sub-Measurements","Scale",
       "Details"};  
   /**
    * Constructs an AssessmentScaleView with a filter and the default set of column names
@@ -152,46 +159,72 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   }
   @Override
   protected void fillTable() throws SWTException {
-    for(int i = 0; i < 2; i++) {
-    GridRow controlActionRow = new GridRow(columns.length,3,new int[] {0,1}); 
-    addRoww(controlActionRow);
-  }
+    List<ITableModel> list = getSubMeasurementController().getSubMeasurement();
+    System.out.println("sizee of submeasurement list" + list.size());
+    
+    for(int i = 0; i <= list.size(); i++) {
 
+    //Drop down for Severity & Type in 0th and 1st column
+    GridRow controlActionRow = new GridRow(columns.length,3,new int[] {0,1}); 
+    String[] metricOptions = new String[]{"Severity", "Likelihood"};
+    GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), metricOptions, true);
+    controlActionRow.addCell(0, metric);
+    String[] metricTypeOptions = new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"};
+    GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),metricTypeOptions, false);
+    controlActionRow.addCell(1, metricType);
+
+    
+      for(int y = 0; y <= list.size(); y++) {
+        SubMeasurement tempSubMeasurement = new SubMeasurement("Likelihood", "Unintentional Causal Scenario", "N.A", 4);
+        UUID tempSubUUID = tempSubMeasurement.getId();
+        GridCellText subMeasId = new GridCellText(tempSubUUID.toString());
+        
+        //Add Rows for Submeasurement according to size 
+        GridRow subMeas = new GridRow(columns.length,3,new int[] {0,1});
+        GridCellEditor subMeasDesc = new GridCellEditor(getGridWrapper(), "N.A");
+        subMeas.addCell(2, subMeasId);
+        subMeas.addCell(3, subMeasDesc);
+        
+        if(y == 0) {
+          controlActionRow.addCell(2, subMeasId);
+          controlActionRow.addCell(3, subMeasDesc);
+        }
+        else {
+        controlActionRow.addChildRow(subMeas);
+        }
+      }
+      
+    addSubMeasurementRow(controlActionRow); 
+  }
+    GridRow addingRow = new GridRow(columns.length,3); 
+
+    addingRow.addCell(0, new addNewFullRowButton(addingRow));
+    getGridWrapper().addRow(addingRow);;      
+
+    
   }
 
   boolean row1 = false;
   
-  public void addRoww(GridRow controlActionRow) {
+  public void addSubMeasurementRow(GridRow controlActionRow) {
       
-      String[] metricOptions = new String[]{"Severity", "Likelihood"};
-      GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), metricOptions, true);
-      controlActionRow.addCell(0, metric);
-      
-      String[] metricTypeOptions = new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"};
-
-      GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),metricTypeOptions, false);
-      controlActionRow.addCell(1, metricType);
-     
-      GridRow subMeas = new GridRow(columns.length,3,new int[] {2});
-      subMeas.addCell(2, new GridCellEditor(getGridWrapper(), "N.A"));
-      subMeas.addCell(2, new addSubButton(controlActionRow));
-      
-      GridRow details = new GridRow(columns.length,3,new int[] {0,1,2});
-      details.addCell(4, new GridCellEditor(getGridWrapper(), "N.A"));
-      subMeas.addChildRow(details);
-      controlActionRow.addChildRow(subMeas);
-      
-      
-      
-    getGridWrapper().addRow(controlActionRow);;      
+      GridRow addSubMeas = new GridRow(columns.length,3,new int[] {0,1});
+      addSubMeas.addCell(3, new addNewFullRowButton(controlActionRow));
+      controlActionRow.addChildRow(addSubMeas);
+      getGridWrapper().addRow(controlActionRow);;      
 
   }
   
-  private class addSubButton extends GridCellButton {
+  public SubMeasurementController getSubMeasurementController() {
+    return (SubMeasurementController) ((StlsaController) getDataModel()).getSubMeasurementController();
+  }
+  
+  private class addNewFullRowButton extends GridCellButton {
     
     private GridRow controlActionRow;
 
-    public addSubButton(GridRow controlActionRow) {
+    public addNewFullRowButton(GridRow controlActionRow) {
+      super("Add New Severity/Type Column");
       this.controlActionRow = controlActionRow;
     }
 
@@ -199,11 +232,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
         Rectangle cellBounds) {
       if(e.button == 1){
-        GridRow subMeas = new GridRow(columns.length,3,new int[] {2});
-        GridCellEditor x = new GridCellEditor(getGridWrapper(), "aaa");
-        subMeas.addCell(3, x);
-        controlActionRow.addChildRow(subMeas);
-//        getGridWrapper().addRow(controlActionRow);;      
+        getSubMeasurementController().addSubMeasurement(new SubMeasurement("Likelihood", "Unintentional Causal Scenario", "N.A", 4));
         reloadTable();
         ProjectManager.getLOGGER().debug("Add new Sub Measurement");
       }

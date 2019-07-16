@@ -38,6 +38,7 @@ import xstampp.astpa.model.hazacc.Hazard;
 import xstampp.astpa.model.hazacc.IHazAccController;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.linking.LinkingType;
+import xstampp.astpa.model.submeasurement.SubMeasurement;
 import xstampp.model.AbstractLTLProvider;
 import xstampp.model.ObserverValue;
 import xstampp.stlsa.Activator;
@@ -265,6 +266,26 @@ public class StlsaController extends DataModelController {
       return true;
     }
     return false;
+  }
+
+  public List<ITableModel> getLinkedSubMeasurementOfUCA(UUID itemId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public SubMeasurement getSubMeasurement(UUID cfId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public void addUCASubMeasurementLink(UUID ucaId, UUID newCFId) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  public void removeUCASubMeasurementLink(UUID item, UUID removeItem) {
+    // TODO Auto-generated method stub
+    
   }
   
 }

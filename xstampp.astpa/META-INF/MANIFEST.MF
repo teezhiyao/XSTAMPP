@@ -149,6 +149,7 @@ Export-Package: xstampp.astpa;uses:="org.osgi.framework,org.eclipse.jface.resour
  xstampp.astpa.model.projectdata;uses:="javax.xml.bind.annotation.adapters,org.eclipse.swt.custom",
  xstampp.astpa.model.sds;uses:="xstampp.model,xstampp.astpa.model.hazacc",
  xstampp.astpa.model.service,
+ xstampp.astpa.model.submeasurement,
  xstampp.astpa.ui;uses:="org.eclipse.swt.widgets,xstampp.ui.editors",
  xstampp.astpa.ui.acchaz,
  xstampp.astpa.ui.causalScenarios;

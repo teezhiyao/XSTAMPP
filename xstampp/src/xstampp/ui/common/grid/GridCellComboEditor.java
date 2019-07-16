@@ -247,6 +247,8 @@ public class GridCellComboEditor extends GridCellComposite {
    */
   public void onTextChanged(String newText) {
     // intentionally empty
+    System.out.println("newText: " + newText);
+    System.out.println("Combo Text: "+ this.getComboCell().getText());
   }
 
   /**

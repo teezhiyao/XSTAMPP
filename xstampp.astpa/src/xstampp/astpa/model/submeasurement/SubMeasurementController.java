@@ -13,6 +13,7 @@ package xstampp.astpa.model.submeasurement;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -74,7 +75,8 @@ public class SubMeasurementController extends ATableModelController implements I
   @XmlElementWrapper(name = "causalFactors")
   @XmlElement(name = "causalFactor")
   private NumberedArrayList<SubMeasurement> causalFactors;
-
+  private Map<String, String> typeCount;  
+//      new HashMap<String, Map<String, String>>();
   private LinkController linkController;
 
   @XmlElementWrapper(name = "componentsList")
@@ -103,6 +105,8 @@ public class SubMeasurementController extends ATableModelController implements I
   public SubMeasurementController(boolean testable) {
     this.causalSafetyConstraints = new NumberedArrayList<>();
     this.causalFactors = new NumberedArrayList<>();
+    this.typeCount = new HashMap<String,String>();
+
     if (!testable) {
       this.setUseScenarios(ASTPADefaultConfig.getInstance().USE_CAUSAL_SCENARIO_ANALYSIS);
       this.setAnalyseFactorsPerUCA(ASTPADefaultConfig.getInstance().USE_FACTORS_PER_UCA);
@@ -118,6 +122,13 @@ public class SubMeasurementController extends ATableModelController implements I
   }
   @Override
   public UUID addSubMeasurement(SubMeasurement factor) {
+//    if(!this.typeCount.containsKey(factor.getSeverityLikelihood())) {
+//      this.typeCount.put(factor.getSeverityLikelihood(), factor.getType());
+//      }
+//      else if(this.typeCount.get(factor.getSeverityLikelihood()) != factor.getType()) {
+//        
+//      }
+    
     if (this.causalFactors.add(factor)) {
       setChanged();
       notifyObservers(new UndoAddSubMeasurement(this, factor, linkController));

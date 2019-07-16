@@ -61,13 +61,50 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
   @XmlElement
   private UUID constraintId;
 
-  private String intention;
-  private String title;
-
   private String description = "Description not set";
 
   private String modId;
   private UUID parentUUID;
+
+  private String severityLikelihood;
+
+  public String getSeverityLikelihood() {
+    return severityLikelihood;
+  }
+
+  public void setSeverityLikelihood(String severityLikelihood) {
+    this.severityLikelihood = severityLikelihood;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public String getSubMeasurement() {
+    return subMeasurement;
+  }
+
+  public void setSubMeasurement(String subMeasurement) {
+    this.subMeasurement = subMeasurement;
+  }
+
+  public int getScale() {
+    return scale;
+  }
+
+  public void setScale(int scale) {
+    this.scale = scale;
+  }
+
+  private String type;
+
+  private String subMeasurement;
+
+  private int scale;
   public UUID getParentUUID() {
     return parentUUID;
   }
@@ -86,22 +123,17 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
    */
   public SubMeasurement(String title) {
     this.id = UUID.randomUUID();
-    this.title = title;
   }
 
-  public SubMeasurement(String title, String intention) {
+  public SubMeasurement(String severityLikelihood, String type, String subMeasurement, int scale) {
     this.id = UUID.randomUUID();
-    this.title = title;
-    this.intention = intention;
+    this.severityLikelihood = severityLikelihood;
+    this.type = type;
+    this.subMeasurement = subMeasurement;
+    this.scale = scale;
+
   }
   
-  public String getIntention() {
-    return intention;
-  }
-
-  public void setIntention(String intention) {
-    this.intention = intention;
-  }
 
   /**
    * Empty constructor used for JAXB. Do not use it!
@@ -171,11 +203,6 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
       this.entries = new ArrayList<>();
     }
     return this.entries;
-  }
-
-  @Override
-  public String getTitle() {
-    return this.title;
   }
 
   @Override
