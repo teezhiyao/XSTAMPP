@@ -115,7 +115,7 @@ public interface ISubMeasurementController {
    * @return a list containing all causalFactors as {@link ITableModel}s, changes to this list
    *         doesn't affect the causal factors list
    */
-  List<ITableModel> getCausalFactors();
+  List<ITableModel> getSubMeasurement();
 
   /**
    * 

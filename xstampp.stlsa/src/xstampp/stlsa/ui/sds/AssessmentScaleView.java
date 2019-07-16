@@ -62,8 +62,6 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   private String[] columns = new String[] {"Severity/Likelihood",
       "Type", "Sub-Measurements","Scale",
       "Details"};  
-  private GridWrapper grid;
-
   /**
    * Constructs an AssessmentScaleView with a filter and the default set of column names
    * defined in the STPA
@@ -152,19 +150,18 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     return new DeleteUcaAction(getGridWrapper(), getDataModel(), Messages.UnsafeControlActions,
         UCA1);
   }
-
   @Override
   protected void fillTable() throws SWTException {
-    addRoww();
-    addRoww();
-
+    for(int i = 0; i < 2; i++) {
+    GridRow controlActionRow = new GridRow(columns.length,3,new int[] {0,1}); 
+    addRoww(controlActionRow);
+  }
 
   }
 
   boolean row1 = false;
   
-  public void addRoww() {
-      GridRow controlActionRow = new GridRow(columns.length,3,new int[] {0,1}); 
+  public void addRoww(GridRow controlActionRow) {
       
       String[] metricOptions = new String[]{"Severity", "Likelihood"};
       GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), metricOptions, true);
@@ -174,27 +171,18 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
 
       GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),metricTypeOptions, false);
       controlActionRow.addCell(1, metricType);
+     
+      GridRow subMeas = new GridRow(columns.length,3,new int[] {2});
+      subMeas.addCell(2, new GridCellEditor(getGridWrapper(), "N.A"));
+      subMeas.addCell(2, new addSubButton(controlActionRow));
+      
+      GridRow details = new GridRow(columns.length,3,new int[] {0,1,2});
+      details.addCell(4, new GridCellEditor(getGridWrapper(), "N.A"));
+      subMeas.addChildRow(details);
+      controlActionRow.addChildRow(subMeas);
       
       
       
-//      controlActionRow.addCell(2, new addSubButton(controlActionRow));
-
-//      GridRow subMeas = new GridRow(columns.length,3,new int[] {2,3});
-//      subMeas.addCell(2, new GridCellButton());
-//      controlActionRow.addChildRow(subMeas);
-//      GridRow subMeas2 = new GridRow(columns.length,3);
-//      subMeas.addCell(3, new GridCellBlank(true));
-//      controlActionRow.addChildRow(subMeas2);
-      
-//    if(!row1) {
-//    controlActionRow.addCell(2, new addSubButton(controlActionRow));
-//    }
-//    else {
-//      GridRow subMeas = new GridRow(2);
-//      GridCellComboEditor test = new GridCellComboEditor(getGridWrapper(), new String[]{"Severity", "Likelihood"});
-//      subMeas.addCell(0, test);        
-//      controlActionRow.addChildRow(subMeas);
-//    }
     getGridWrapper().addRow(controlActionRow);;      
 
   }
@@ -211,10 +199,11 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
         Rectangle cellBounds) {
       if(e.button == 1){
-        GridRow subMeas = new GridRow(columns.length,3,new int[] {2,3});
+        GridRow subMeas = new GridRow(columns.length,3,new int[] {2});
         GridCellEditor x = new GridCellEditor(getGridWrapper(), "aaa");
-        subMeas.addCell(2, x);
+        subMeas.addCell(3, x);
         controlActionRow.addChildRow(subMeas);
+//        getGridWrapper().addRow(controlActionRow);;      
         reloadTable();
         ProjectManager.getLOGGER().debug("Add new Sub Measurement");
       }

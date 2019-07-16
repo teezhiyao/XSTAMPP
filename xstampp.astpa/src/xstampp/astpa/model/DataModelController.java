@@ -85,6 +85,7 @@ import xstampp.astpa.model.interfaces.INavigationViewDataModel;
 import xstampp.astpa.model.interfaces.ISTPADataModel;
 import xstampp.astpa.model.interfaces.ISafetyConstraintViewDataModel;
 import xstampp.astpa.model.interfaces.IStatusLineDataModel;
+import xstampp.astpa.model.interfaces.ISubMeasurementDataModel;
 import xstampp.astpa.model.interfaces.ISystemDescriptionViewDataModel;
 import xstampp.astpa.model.interfaces.ISystemGoalViewDataModel;
 import xstampp.astpa.model.interfaces.ITableModel;
@@ -98,6 +99,8 @@ import xstampp.astpa.model.sds.ISDSController;
 import xstampp.astpa.model.sds.SDSController;
 import xstampp.astpa.model.sds.SystemGoal;
 import xstampp.astpa.model.service.UndoTextChange;
+import xstampp.astpa.model.submeasurement.ISubMeasurementController;
+import xstampp.astpa.model.submeasurement.SubMeasurementController;
 import xstampp.astpa.usermanagement.AstpaCollaborationSystem;
 import xstampp.astpa.util.jobs.SaveJob;
 import xstampp.model.AbstractDataModel;
@@ -131,7 +134,7 @@ public class DataModelController extends AbstractDataModel
     ISystemDescriptionViewDataModel, IAccidentViewDataModel, IHazardViewDataModel,
     IStatusLineDataModel, IDesignRequirementViewDataModel, ISafetyConstraintViewDataModel,
     ISystemGoalViewDataModel, IControlActionViewDataModel, IControlStructureEditorDataModel,
-    IUnsafeControlActionDataModel, ICausalFactorDataModel, ICorrespondingSafetyConstraintDataModel,
+    IUnsafeControlActionDataModel, ICausalFactorDataModel, ICorrespondingSafetyConstraintDataModel, ISubMeasurementDataModel,
     IExtendedDataModel, IUserProject, Observer, ISTPADataModel {
 
   private static final String HAZ = "haz";
@@ -175,6 +178,9 @@ public class DataModelController extends AbstractDataModel
   @XmlElement(name = "causalfactor")
   private CausalFactorController causalFactorController;
 
+  @XmlElement(name = "submeasurement")
+  private SubMeasurementController subMeasurementController;
+  
   @XmlElement(name = "extendedData")
   private ExtendedDataController extendedDataController;
 
@@ -1985,6 +1991,16 @@ public class DataModelController extends AbstractDataModel
     return this.causalFactorController;
   }
 
+  @Override
+  public ISubMeasurementController getSubMeasurementController() {
+    if (this.subMeasurementController == null) {
+      this.subMeasurementController = new SubMeasurementController();
+    }
+    this.subMeasurementController.addObserver(this);
+    this.subMeasurementController.setLinkController(getLinkController());
+    return this.subMeasurementController;
+  }
+  
   @Override
   public IExtendedDataController getExtendedDataController() {
     if (this.extendedDataController == null) {

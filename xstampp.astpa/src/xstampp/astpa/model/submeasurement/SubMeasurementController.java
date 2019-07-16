@@ -136,7 +136,7 @@ public class SubMeasurementController extends ATableModelController implements I
     }
   }
 
-  public List<ITableModel> getCausalFactors() {
+  public List<ITableModel> getSubMeasurement() {
     return new ArrayList<>(causalFactors);
   }
 
