@@ -75,7 +75,7 @@ public class SubMeasurementController extends ATableModelController implements I
   @XmlElementWrapper(name = "causalFactors")
   @XmlElement(name = "causalFactor")
   private NumberedArrayList<SubMeasurement> causalFactors;
-  private Map<String, String> typeCount;  
+  private Map<String, List<String>> typeCount;  
 //      new HashMap<String, Map<String, String>>();
   private LinkController linkController;
 
@@ -122,12 +122,25 @@ public class SubMeasurementController extends ATableModelController implements I
   }
   @Override
   public UUID addSubMeasurement(SubMeasurement factor) {
-//    if(!this.typeCount.containsKey(factor.getSeverityLikelihood())) {
+    String factorKey = factor.getSeverityLikelihood();
+    String factorType = factor.getType();
+    if(!this.typeCount.containsKey(factorKey)) {
+      List<String> typeList = new ArrayList<String>();
+      typeList.add(factorType);
+      this.typeCount.put(factorKey, typeList);
+      }
+    else{
+      List<String> typeList = this.typeCount.get(factorKey);
+      if(!typeList.contains(factorType)) {
+        typeList.add(factorType);
+      }
+    }
+      
+   
 //      this.typeCount.put(factor.getSeverityLikelihood(), factor.getType());
 //      }
 //      else if(this.typeCount.get(factor.getSeverityLikelihood()) != factor.getType()) {
 //        
-//      }
     
     if (this.causalFactors.add(factor)) {
       setChanged();
