@@ -150,6 +150,12 @@ public class SubMeasurementController extends ATableModelController implements I
     return null;
   }
 
+  public Map<String, List<String>> getTypeCount() {
+    return typeCount;
+  }
+  public void setTypeCount(Map<String, List<String>> typeCount) {
+    this.typeCount = typeCount;
+  }
   public ITableModel getSubMeasurement(UUID causalFactorId) {
     Optional<SubMeasurement> first = this.causalFactors.stream().filter((factor) -> factor.getId().equals(causalFactorId))
         .findFirst();
