@@ -75,7 +75,7 @@ public class SubMeasurementController extends ATableModelController implements I
   @XmlElementWrapper(name = "causalFactors")
   @XmlElement(name = "causalFactor")
   private NumberedArrayList<SubMeasurement> causalFactors;
-  private Map<String, List<String>> typeCount;  
+  private List<String> typeCount;  
 //      new HashMap<String, Map<String, String>>();
   private LinkController linkController;
 
@@ -83,6 +83,11 @@ public class SubMeasurementController extends ATableModelController implements I
   @XmlElement(name = "component")
   private List<SubMeasurementCSComponent> componentsList;
   private boolean addedCF = false;
+
+  private int excessCount;
+  public int getExcessCount() {
+    return excessCount;
+  }
   @Override
   public boolean isAddedCF() {
     return addedCF;
@@ -105,8 +110,8 @@ public class SubMeasurementController extends ATableModelController implements I
   public SubMeasurementController(boolean testable) {
     this.causalSafetyConstraints = new NumberedArrayList<>();
     this.causalFactors = new NumberedArrayList<>();
-    this.typeCount = new HashMap<String,String>();
-
+    this.typeCount = new ArrayList<String>();
+    this.excessCount = 0;
     if (!testable) {
       this.setUseScenarios(ASTPADefaultConfig.getInstance().USE_CAUSAL_SCENARIO_ANALYSIS);
       this.setAnalyseFactorsPerUCA(ASTPADefaultConfig.getInstance().USE_FACTORS_PER_UCA);
@@ -124,17 +129,24 @@ public class SubMeasurementController extends ATableModelController implements I
   public UUID addSubMeasurement(SubMeasurement factor) {
     String factorKey = factor.getSeverityLikelihood();
     String factorType = factor.getType();
-    if(!this.typeCount.containsKey(factorKey)) {
-      List<String> typeList = new ArrayList<String>();
-      typeList.add(factorType);
-      this.typeCount.put(factorKey, typeList);
-      }
-    else{
-      List<String> typeList = this.typeCount.get(factorKey);
-      if(!typeList.contains(factorType)) {
-        typeList.add(factorType);
-      }
+    String combString = factorKey + "," + factorType;
+    if(this.typeCount.contains(combString)) {
+      
     }
+    else {
+      this.typeCount.add(combString);
+    }
+//    if(!this.typeCount.containsKey(factorKey)) {
+//      List<String> typeList = new ArrayList<String>();
+//      typeList.add(factorType);
+//      this.typeCount.put(factorKey, typeList);
+//      }
+//    else{
+//      List<String> typeList = this.typeCount.get(factorKey);
+//      if(!typeList.contains(factorType)) {
+//        typeList.add(factorType);
+//      }
+//    }
       
    
 //      this.typeCount.put(factor.getSeverityLikelihood(), factor.getType());
@@ -150,10 +162,13 @@ public class SubMeasurementController extends ATableModelController implements I
     return null;
   }
 
-  public Map<String, List<String>> getTypeCount() {
+  public void addExcessRow() {
+    this.excessCount +=1;
+  }
+  public List<String> getTypeCount() {
     return typeCount;
   }
-  public void setTypeCount(Map<String, List<String>> typeCount) {
+  public void setTypeCount(List<String> typeCount) {
     this.typeCount = typeCount;
   }
   public ITableModel getSubMeasurement(UUID causalFactorId) {
@@ -378,6 +393,20 @@ public class SubMeasurementController extends ATableModelController implements I
     }
     Collections.sort(componentsList);
     return new ArrayList<>(componentsList);
+  }
+  
+  public List<SubMeasurement> getSubMeasurement(int row){
+    List<ITableModel> allSubMeas = getSubMeasurement();
+    List<SubMeasurement> filter = new ArrayList<SubMeasurement>();
+    for(ITableModel subMeasurement: allSubMeas) {
+      SubMeasurement tempSub = (SubMeasurement) subMeasurement;
+      if(tempSub.getRow() == row) {
+        filter.add((SubMeasurement) subMeasurement);
+
+      }
+    }
+    return filter;
+    
   }
 
   @Override

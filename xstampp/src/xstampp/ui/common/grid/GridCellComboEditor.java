@@ -101,7 +101,7 @@ public class GridCellComboEditor extends GridCellComposite {
     for(String option : options) {
       this.comboCell.add(option);
     }
-    
+    comboCell.setText("Default");
     
     // redirect the mouse events
     this.comboCell.addMouseListener(new MouseListener() {

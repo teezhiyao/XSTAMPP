@@ -105,6 +105,8 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
   private String subMeasurement;
 
   private int scale;
+
+  private int row;
   public UUID getParentUUID() {
     return parentUUID;
   }
@@ -125,15 +127,19 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
     this.id = UUID.randomUUID();
   }
 
-  public SubMeasurement(String severityLikelihood, String type, String subMeasurement, int scale) {
+  public SubMeasurement(String severityLikelihood, String type, String subMeasurement, int scale,int row) {
     this.id = UUID.randomUUID();
     this.severityLikelihood = severityLikelihood;
     this.type = type;
     this.subMeasurement = subMeasurement;
     this.scale = scale;
-
+    this.row = row;
   }
   
+
+  public int getRow() {
+    return row;
+  }
 
   /**
    * Empty constructor used for JAXB. Do not use it!
