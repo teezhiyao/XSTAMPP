@@ -235,13 +235,27 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
             }            
           }
         };       
-
         subMeas.addCell(3, subMeasDesc);
         
+        int subMeasurementscale = corresSub.get(y).getScale();
+        GridCellEditor scaleEditor = new GridCellEditor(getGridWrapper(), Integer.toString(subMeasurementscale)) {
+          @Override
+          public void onTextChanged(String newText) {
+            System.out.println("newText" + newText);
+            UUID rowUuid = this.getGridRow().getCells().get(2).getUUID();
+            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(rowUuid);
+            if(tempSub instanceof SubMeasurement) {
+              ((SubMeasurement) tempSub).setScale(Integer.parseInt(newText));;
+            }            
+          }
+        };       
+        subMeas.addCell(4, scaleEditor);
         
         if(y == 0) {
           controlActionRow.addCell(2, subMeasId);
-          controlActionRow.addCell(3, subMeasDesc);}
+          controlActionRow.addCell(3, subMeasDesc);
+          controlActionRow.addCell(4, scaleEditor);
+          }
         else {controlActionRow.addChildRow(subMeas);}
       }
       addSubMeasurementRow(controlActionRow, i); 
@@ -284,7 +298,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
         Rectangle cellBounds) {
       if(e.button == 1){
-        getSubMeasurementController().addSubMeasurement(new SubMeasurement("new", "new", "N.A", 4, this.currentSub));
+        getSubMeasurementController().addSubMeasurement(new SubMeasurement("new", "new", "N.A", 6, this.currentSub));
         reloadTable();
         ProjectManager.getLOGGER().debug("Add new Sub Measurement");
       }
