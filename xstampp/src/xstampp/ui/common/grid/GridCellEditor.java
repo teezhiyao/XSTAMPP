@@ -228,6 +228,8 @@ public class GridCellEditor extends GridCellComposite {
    */
   public void onTextChanged(String newText) {
     // intentionally empty
+    System.out.println("newText" + newText);
+    System.out.println(GridCellEditor.this.currentText);
   }
 
   /**

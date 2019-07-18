@@ -159,8 +159,8 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   }
   @Override
   protected void fillTable() throws SWTException {
-    List<ITableModel> list = getSubMeasurementController().getSubMeasurement();
-    List<String> typeCount = getSubMeasurementController().getTypeCount();
+//    List<ITableModel> list = getSubMeasurementController().getSubMeasurement();
+//    List<String> typeCount = getSubMeasurementController().getTypeCount();
     
     for(int i = 0; i < getSubMeasurementController().getExcessCount(); i++) {
   
@@ -221,9 +221,23 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         
         //Add Rows for Submeasurement according to size 
         GridRow subMeas = new GridRow(columns.length,3,new int[] {0,1});
-        GridCellEditor subMeasDesc = new GridCellEditor(getGridWrapper(), "N.A");
         subMeas.addCell(2, subMeasId);
+        
+        String subMeasurementTitle = corresSub.get(y).getSubMeasurement();
+        GridCellEditor subMeasDesc = new GridCellEditor(getGridWrapper(), subMeasurementTitle) {
+          @Override
+          public void onTextChanged(String newText) {
+            System.out.println("newText" + newText);
+            UUID rowUuid = this.getGridRow().getCells().get(2).getUUID();
+            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(rowUuid);
+            if(tempSub instanceof SubMeasurement) {
+              ((SubMeasurement) tempSub).setSubMeasurement(newText);
+            }            
+          }
+        };       
+
         subMeas.addCell(3, subMeasDesc);
+        
         
         if(y == 0) {
           controlActionRow.addCell(2, subMeasId);
