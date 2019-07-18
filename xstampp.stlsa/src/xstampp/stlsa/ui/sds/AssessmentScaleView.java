@@ -162,7 +162,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     List<ITableModel> list = getSubMeasurementController().getSubMeasurement();
     List<String> typeCount = getSubMeasurementController().getTypeCount();
     
-    for(int i = 0; i < typeCount.size() + getSubMeasurementController().getExcessCount(); i++) {
+    for(int i = 0; i < getSubMeasurementController().getExcessCount(); i++) {
   
       //Drop down for Severity & Type in 0th and 1st column
       GridRow controlActionRow = new GridRow(columns.length,3,new int[] {0,1}); 
@@ -210,9 +210,13 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
       controlActionRow.addCell(1, metricType);
       
       List<SubMeasurement> corresSub = getSubMeasurementController().getSubMeasurement(i);
-      for(int y = 0; y <= corresSub.size(); y++) {
-        SubMeasurement tempSubMeasurement = new SubMeasurement("Likelihood", "Unintentional Causal Scenario", "N.A", 4, i);
-        UUID tempSubUUID = tempSubMeasurement.getId();
+      for(int y = 0; y < corresSub.size(); y++) {
+        if(y == 0) {
+        metric.getComboCell().setText(corresSub.get(0).getSeverityLikelihood());
+        metricType.getComboCell().setText(corresSub.get(0).getType());
+        }
+        
+        UUID tempSubUUID = corresSub.get(y).getId();
         GridCellText subMeasId = new GridCellText(tempSubUUID.toString(),tempSubUUID);
         
         //Add Rows for Submeasurement according to size 
@@ -223,23 +227,10 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         
         if(y == 0) {
           controlActionRow.addCell(2, subMeasId);
-          controlActionRow.addCell(3, subMeasDesc);
-        }
-        else {
-        controlActionRow.addChildRow(subMeas);
-        }
+          controlActionRow.addCell(3, subMeasDesc);}
+        else {controlActionRow.addChildRow(subMeas);}
       }
-        
       addSubMeasurementRow(controlActionRow, i); 
-      
-  //    System.out.println(metric.getGridRow().getCells().size());
-  //    System.out.println(metric.getGridRow().getChildren().size());
-  //  if(metric.getGridRow().getChildren().size() > 4) {
-  ////    metric.getComboCell().select(0);
-  ////    metric.getComboCell().setText("Severity");
-  //
-  //  }
-    
   }
     GridRow addingRow = new GridRow(columns.length,3); 
 
@@ -301,7 +292,6 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
         Rectangle cellBounds) {
       if(e.button == 1){
-//        getSubMeasurementController().addSubMeasurement(new SubMeasurement("new", "new", "N.A", 4));
         getSubMeasurementController().addExcessRow();
         reloadTable();
         ProjectManager.getLOGGER().debug("Add new Sub Measurement");
