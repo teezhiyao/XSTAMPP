@@ -105,7 +105,21 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
   private String subMeasurement;
 
   private int scale;
-
+  
+  private ArrayList<String> details;
+  
+  public ArrayList<String> getDetails() {
+    return details;
+  }
+  
+  public void addDetails(String newDetail) {
+    this.details.add(newDetail);
+  }
+  
+  public void modifyDetail(int x, String newDetail) {
+    this.details.set(x, newDetail);
+  }
+  
   private int row;
   public UUID getParentUUID() {
     return parentUUID;
@@ -134,6 +148,7 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
     this.subMeasurement = subMeasurement;
     this.scale = scale;
     this.row = row;
+    this.details = new ArrayList<String>();
   }
   
 

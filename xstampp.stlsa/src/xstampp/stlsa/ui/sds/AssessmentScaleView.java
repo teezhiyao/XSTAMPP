@@ -220,7 +220,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         GridCellText subMeasId = new GridCellText(tempSubUUID.toString(),tempSubUUID);
         
         //Add Rows for Submeasurement according to size 
-        GridRow subMeas = new GridRow(columns.length,3,new int[] {0,1});
+        GridRow subMeas = new GridRow(columns.length,3,new int[] {0,1,2,3,4});
         subMeas.addCell(2, subMeasId);
         
         String subMeasurementTitle = corresSub.get(y).getSubMeasurement();
@@ -251,13 +251,19 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         };       
         subMeas.addCell(4, scaleEditor);
         
+      addDetailsRow(corresSub.get(y), subMeas);
+
+        
         if(y == 0) {
           controlActionRow.addCell(2, subMeasId);
           controlActionRow.addCell(3, subMeasDesc);
           controlActionRow.addCell(4, scaleEditor);
+          addDetailsRow(corresSub.get(y), controlActionRow);
+
           }
         else {controlActionRow.addChildRow(subMeas);}
       }
+
       addSubMeasurementRow(controlActionRow, i); 
   }
     GridRow addingRow = new GridRow(columns.length,3); 
@@ -268,11 +274,50 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     
   }
 
+  private void addDetailsRow(SubMeasurement subMeasurement, GridRow subMeas) {
+    List<String> detailsLst = subMeasurement.getDetails();
+    for(int i = 0; i < detailsLst.size(); i++) {
+      final int index = i;
+      GridCellEditor detailEditor = new GridCellEditor(getGridWrapper(), detailsLst.get(i)) {
+        @Override
+        public void onTextChanged(String newText) {
+          System.out.println("newText" + newText);
+          UUID rowUuid;
+          if(index == 0) {
+          rowUuid = this.getGridRow().getCells().get(2).getUUID();
+          }
+          else {
+          rowUuid = this.getGridRow().getParentRow().getCells().get(2).getUUID();
+          }
+          ITableModel tempSub = getSubMeasurementController().getSubMeasurement(rowUuid);
+          System.out.println(tempSub.getClass());
+          if(tempSub instanceof SubMeasurement) {
+            System.out.println("Enter Here");
+            ((SubMeasurement) tempSub).getDetails().set(index, newText);
+          }
+          System.out.println(index);
+        }
+      }; 
+      
+      if(i == 0) {
+        subMeas.addCell(5, detailEditor);
+      }
+      else {
+        GridRow detailChild = new GridRow(columns.length,3,new int[] {0,1,2,3,4});
+        detailChild.addCell(5, detailEditor);
+        subMeas.addChildRow(detailChild);
+      }
+    }
+    GridRow addDetailRow = new GridRow(columns.length,3,new int[] {0,1,2,3,4});
+    addDetailRow.addCell(5, new addDetailButton(subMeasurement));
+    subMeas.addChildRow(addDetailRow);
+  }
+
   boolean row1 = false;
   
   public void addSubMeasurementRow(GridRow controlActionRow, int currentSub) {
       
-      GridRow addSubMeas = new GridRow(columns.length,3,new int[] {0,1});
+      GridRow addSubMeas = new GridRow(columns.length,3,new int[] {0,1,2,3,4});
       addSubMeas.addCell(3, new addNewSubMeasurementRowButton(controlActionRow, currentSub));
       controlActionRow.addChildRow(addSubMeas);
       getGridWrapper().addRow(controlActionRow);;      
@@ -328,6 +373,27 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     }
   }
   
+  private class addDetailButton extends GridCellButton {
+    
+
+    private SubMeasurement subMeasurement;
+
+    public addDetailButton(SubMeasurement subMeasurement) {
+      super("Add Detail");
+      this.subMeasurement = subMeasurement;
+    }
+
+    @Override
+    public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
+        Rectangle cellBounds) {
+      if(e.button == 1){
+        this.subMeasurement.addDetails(" ");
+        reloadTable();
+        ProjectManager.getLOGGER().debug("Add new Sub Measurement");
+      }
+      
+    }
+  }
   
   @Override
   public String getId() {
