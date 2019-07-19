@@ -684,7 +684,8 @@ public abstract class CommonTableView<T extends IDataModel> extends StandartEdit
       }
     });
     
- 
+    
+    
     this.titleColumn = new TableViewerColumn(this.getTableViewer(), SWT.None);
     this.titleColumn.getColumn().setText(Messages.Title);
     final int titleWeight = 50;

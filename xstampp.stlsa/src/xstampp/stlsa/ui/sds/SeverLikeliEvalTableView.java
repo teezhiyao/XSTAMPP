@@ -89,6 +89,10 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
     List<ITableModel> allSub = getSubMeasurementController().getSubMeasurement();
     for(int i = 0; i < allSub.size(); i++) {
       SubMeasurement currentSub = (SubMeasurement) allSub.get(i);
+      if(currentSub.getSubMeasurement() == "N.A") {
+
+      }
+      else {
       TableViewerColumn subMeasurementCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
       subMeasurementCol.getColumn().setText(currentSub.getSubMeasurement()); //$NON-NLS-1$
       getTableColumnLayout().setColumnData(subMeasurementCol.getColumn(),
@@ -106,6 +110,7 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
           return null;
         }  
       });
+      }
     }
     
     
