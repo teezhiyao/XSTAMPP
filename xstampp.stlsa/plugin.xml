@@ -601,7 +601,13 @@
             id="stlsa.steps.step4_2"
             name="%editor.name.CausalFactorsTable">
       </editor>     
-      
+       <editor
+            class="xstampp.stlsa.ui.sds.SeverLikeliEvalTableView"
+            default="false"
+            icon="icons/buttons/navigation/STEP3_2(16).png"
+            id="stlsa.steps.step4_3"
+            name="%editor.name.CausalFactorsTable">
+      </editor>        
       <editor
             class="xstampp.stlsa.ui.STPAResultsTable"
             default="false"
