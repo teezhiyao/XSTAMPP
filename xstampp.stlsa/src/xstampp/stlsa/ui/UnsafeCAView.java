@@ -173,19 +173,22 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
     @Override
     public void selectionChanged(SelectionChangedEvent event) {
       // if the selection is empty clear the label
+      System.out.println("Select: " + event.toString());
+//      System.out.println(getDescriptionWidget());
       if (event.getSelection().isEmpty()) {
         selectedEntry = null;
-        getDescriptionWidget().setText(""); //$NON-NLS-1$
-        getDescriptionWidget().setEnabled(false);
+//        getDescriptionWidget().setText(""); //$NON-NLS-1$
+//        getDescriptionWidget().setEnabled(false);
         return;
       }
       if (event.getSelection() instanceof IStructuredSelection) {
         IStructuredSelection selection = (IStructuredSelection) event.getSelection();
         if (selection.getFirstElement() instanceof ATableModel) {
+          System.out.println(selection.getFirstElement().getClass());
           selectedEntry = ((ATableModel) selection.getFirstElement());
           ATableModel entry = selectedEntry;
-          getDescriptionWidget()
-              .setText(selectedEntry.getDescription());
+//          getDescriptionWidget()
+//              .setText(selectedEntry.getDescription());
           if (deleteItemsButton != null) {
             deleteItemsButton.setEnabled(canEdit(entry, AccessRights.CREATE));
           }
@@ -195,7 +198,7 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
             severityButton.getControl().redraw();
             severityButton.setEnabled(canEdit);
           }
-          getDescriptionWidget().setEnabled(canEdit);
+//          getDescriptionWidget().setEnabled(canEdit);
           for (LinkSupport<?> linkSupport : linkFields) {
             linkSupport.update(getCurrentSelection());
           }
@@ -253,9 +256,10 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
    * 
    * @return the description widget
    */
-  public Text getDescriptionWidget() {
-    return this.descriptionWidget;
-  }
+//  public Text getDescriptionWidget() {
+//    System.out.println("print out description widget: " + this.descriptionWidget);
+//    return this.descriptionWidget;
+//  }
 
   /**
    * 
@@ -687,7 +691,7 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
         if(((ATableModel) element).getHasTemporaryId()) {
           return "The ID of this entry is not a final one and may be changed\n when this user file is merged in the main project";
         }
-        return super.getToolTipText(element);
+        return super.getToolTipText(element); 
       }
     });
     
@@ -985,7 +989,7 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
         linkSupport.update(getCurrentSelection());
       }
       if (!internalUpdate && selectedEntry != null) {
-        getDescriptionWidget().setText(selectedEntry.getDescription());
+//        getDescriptionWidget().setText(selectedEntry.getDescription());
       } else {
         internalUpdate = false;
       }
@@ -1026,7 +1030,7 @@ public abstract class UnsafeCAView<T extends IDataModel> extends StandartEditorP
         for (Object model : models) {
           deleteEntry(((ATableModel) model));
         }
-        this.getDescriptionWidget().setText(""); //$NON-NLS-1$
+//        this.getDescriptionWidget().setText(""); //$NON-NLS-1$
         getDataInterface().releaseLockAndUpdate(new ObserverValue[0]);
         updateTable();
         this.refreshView();

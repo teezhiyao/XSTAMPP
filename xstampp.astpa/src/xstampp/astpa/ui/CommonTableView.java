@@ -178,8 +178,7 @@ public abstract class CommonTableView<T extends IDataModel> extends StandartEdit
         if (selection.getFirstElement() instanceof ATableModel) {
           selectedEntry = ((ATableModel) selection.getFirstElement());
           ATableModel entry = selectedEntry;
-          getDescriptionWidget()
-              .setText(selectedEntry.getDescription());
+          getDescriptionWidget().setText(selectedEntry.getDescription());
           if (deleteItemsButton != null) {
             deleteItemsButton.setEnabled(canEdit(entry, AccessRights.CREATE));
           }
@@ -248,6 +247,8 @@ public abstract class CommonTableView<T extends IDataModel> extends StandartEdit
    * @return the description widget
    */
   public Text getDescriptionWidget() {
+    System.out.println("print out description widget: " + this.descriptionWidget);
+
     return this.descriptionWidget;
   }
 
@@ -683,17 +684,14 @@ public abstract class CommonTableView<T extends IDataModel> extends StandartEdit
       }
     });
     
-    
-    
+ 
     this.titleColumn = new TableViewerColumn(this.getTableViewer(), SWT.None);
     this.titleColumn.getColumn().setText(Messages.Title);
     final int titleWeight = 50;
     final int titleMinWidth = 50;
-    tableColumnLayout.setColumnData(this.titleColumn.getColumn(),
-        new ColumnWeightData(titleWeight, titleMinWidth, true));
+    tableColumnLayout.setColumnData(this.titleColumn.getColumn(), new ColumnWeightData(titleWeight, titleMinWidth, true));
     titleColumn.getColumn().setResizable(true);
     this.titleColumn.setLabelProvider(new ColumnLabelProvider() {
-
       @Override
       public Color getForeground(Object element) {
         if (!canEdit((ATableModel) element, AccessRights.WRITE)) {

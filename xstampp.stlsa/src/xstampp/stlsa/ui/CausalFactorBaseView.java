@@ -179,8 +179,7 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
         if (selection.getFirstElement() instanceof ATableModel) {
           selectedEntry = ((ATableModel) selection.getFirstElement());
           ATableModel entry = selectedEntry;
-          getDescriptionWidget()
-              .setText(selectedEntry.getDescription());
+          getDescriptionWidget().setText(selectedEntry.getDescription());
           if (deleteItemsButton != null) {
             deleteItemsButton.setEnabled(canEdit(entry, AccessRights.CREATE));
           }
@@ -690,7 +689,7 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
     
     this.titleColumn = new TableViewerColumn(this.getTableViewer(), SWT.None);
     this.titleColumn.getColumn().setText("Causal factor Title");
-    final int titleWeight = 50;
+    final int titleWeight = 5;
     final int titleMinWidth = 50;
     tableColumnLayout.setColumnData(this.titleColumn.getColumn(),
         new ColumnWeightData(titleWeight, titleMinWidth, true));
