@@ -16,9 +16,13 @@ import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
 
+import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import messages.Messages;
@@ -30,9 +34,11 @@ import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.submeasurement.SubMeasurement;
 import xstampp.astpa.model.submeasurement.SubMeasurementController;
+import xstampp.astpa.ui.CommonTableView;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.stlsa.model.controlaction.ControlAction;
 import xstampp.stlsa.ui.CausalFactorBaseView;
+import xstampp.usermanagement.api.AccessRights;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
 import xstampp.model.ObserverValue;
 
@@ -89,27 +95,75 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
     List<ITableModel> allSub = getSubMeasurementController().getSubMeasurement();
     for(int i = 0; i < allSub.size(); i++) {
       SubMeasurement currentSub = (SubMeasurement) allSub.get(i);
+      final String subMeasurementTitle = currentSub.getSubMeasurement();
       if(currentSub.getSubMeasurement() == "N.A") {
 
       }
       else {
       TableViewerColumn subMeasurementCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
       subMeasurementCol.getColumn().setText(currentSub.getSubMeasurement()); //$NON-NLS-1$
-      getTableColumnLayout().setColumnData(subMeasurementCol.getColumn(),
-          new ColumnWeightData(10, 100, true));
-  
+      getTableColumnLayout().setColumnData(subMeasurementCol.getColumn(), new ColumnWeightData(10, 100, true));
       subMeasurementCol.setLabelProvider(new ColumnLabelProvider() {
-  
         @Override
         public String getText(Object element) {
-//          if (element instanceof CausalFactor) {
-//            UUID ucaId = ((CausalFactor) element).getParentUUID();
-//            UnsafeControlAction uca = (UnsafeControlAction) SeverLikeliEvalTableView.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
-//            return uca.getIdString();
-//          }
+          if (element instanceof CausalFactor) {
+            int scale = ((CausalFactor)element).getSubMeasurements(subMeasurementTitle);
+            if(scale == -999) {
+              return "N.A";
+            }
+            else{
+              return Integer.toString(scale);
+            }
+          }
+          
           return null;
         }  
       });
+      
+      subMeasurementCol.setEditingSupport(new EditingSupport(getTableViewer())  {
+
+        @Override
+        protected boolean canEdit(Object element) {
+          return SeverLikeliEvalTableView.this.canEdit((ATableModel) element, AccessRights.WRITE);
+        }
+
+
+        @Override
+        protected CellEditor getCellEditor(Object element) {
+          return new TextCellEditor(getTableViewer().getTable());
+        }
+
+        @Override
+        protected Object getValue(Object element) {
+          if (element instanceof CausalFactor) {
+            int scale = ((CausalFactor)element).getSubMeasurements(subMeasurementTitle);
+            if(scale == -999) {
+              return "N.A";
+            }
+            else{
+              return Integer.toString(scale);
+            }
+          }
+          return getValue(((ATableModel) element).getTitle());
+        }
+
+        @Override
+        protected void setValue(Object element, Object value) {
+          System.out.println("element: " + element.getClass().toString());
+          System.out.println("value: " + value.toString());  
+          if (element instanceof CausalFactor) {
+            System.out.println(subMeasurementTitle);
+            ((CausalFactor)element).setSubMeasurements(subMeasurementTitle,Integer.parseInt(value.toString()));
+          }
+          //          UUID uuid = ((ATableModel) element).getId();
+//          updateTitle(uuid, String.valueOf(value));
+        }
+
+        protected Object getValue(String string) {
+          return string;
+        }
+      });
+
       }
     }
     

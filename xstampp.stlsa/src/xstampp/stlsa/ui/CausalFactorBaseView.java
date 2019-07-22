@@ -170,8 +170,8 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
       // if the selection is empty clear the label
       if (event.getSelection().isEmpty()) {
         selectedEntry = null;
-        getDescriptionWidget().setText(""); //$NON-NLS-1$
-        getDescriptionWidget().setEnabled(false);
+//        getDescriptionWidget().setText(""); //$NON-NLS-1$
+//        getDescriptionWidget().setEnabled(false);
         return;
       }
       if (event.getSelection() instanceof IStructuredSelection) {
@@ -179,7 +179,7 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
         if (selection.getFirstElement() instanceof ATableModel) {
           selectedEntry = ((ATableModel) selection.getFirstElement());
           ATableModel entry = selectedEntry;
-          getDescriptionWidget().setText(selectedEntry.getDescription());
+//          getDescriptionWidget().setText(selectedEntry.getDescription());
           if (deleteItemsButton != null) {
             deleteItemsButton.setEnabled(canEdit(entry, AccessRights.CREATE));
           }
@@ -189,7 +189,7 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
             severityButton.getControl().redraw();
             severityButton.setEnabled(canEdit);
           }
-          getDescriptionWidget().setEnabled(canEdit);
+//          getDescriptionWidget().setEnabled(canEdit);
           for (LinkSupport<?> linkSupport : linkFields) {
             linkSupport.update(getCurrentSelection());
           }
@@ -247,9 +247,9 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
    * 
    * @return the description widget
    */
-  public Text getDescriptionWidget() {
-    return this.descriptionWidget;
-  }
+//  public Text getDescriptionWidget() {
+//    return this.descriptionWidget;
+//  }
 
   /**
    * 
@@ -975,7 +975,7 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
         linkSupport.update(getCurrentSelection());
       }
       if (!internalUpdate && selectedEntry != null) {
-        getDescriptionWidget().setText(selectedEntry.getDescription());
+//        getDescriptionWidget().setText(selectedEntry.getDescription());
       } else {
         internalUpdate = false;
       }
@@ -1016,7 +1016,7 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
         for (Object model : models) {
           deleteEntry(((ATableModel) model));
         }
-        this.getDescriptionWidget().setText(""); //$NON-NLS-1$
+//        this.getDescriptionWidget().setText(""); //$NON-NLS-1$
         getDataInterface().releaseLockAndUpdate(new ObserverValue[0]);
         updateTable();
         this.refreshView();

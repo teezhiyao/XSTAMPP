@@ -12,6 +12,7 @@
 package xstampp.astpa.model.causalfactor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -68,6 +69,26 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
 
   private String modId;
   private UUID parentUUID;
+  private HashMap<String,Integer> subMeasurements;
+  
+  
+  public HashMap<String, Integer> getSubMeasurements() {
+    return subMeasurements;
+  }
+
+  public Integer getSubMeasurements(String subMeasurementTitle) {
+    if(subMeasurements.containsKey(subMeasurementTitle)) {
+      return subMeasurements.get(subMeasurementTitle);
+      }
+    else {
+      return -999;
+    }
+  }
+  
+  public void setSubMeasurements(String subMeasurementTitle, Integer scale) {
+    this.subMeasurements.put(subMeasurementTitle, scale);
+  }
+
   public UUID getParentUUID() {
     return parentUUID;
   }
@@ -87,12 +108,15 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
   public CausalFactor(String title) {
     this.id = UUID.randomUUID();
     this.title = title;
+    this.subMeasurements = new HashMap<String, Integer>();
   }
 
   public CausalFactor(String title, String intention) {
     this.id = UUID.randomUUID();
     this.title = title;
     this.intention = intention;
+    this.subMeasurements = new HashMap<String, Integer>();
+
   }
   
   public String getIntention() {
