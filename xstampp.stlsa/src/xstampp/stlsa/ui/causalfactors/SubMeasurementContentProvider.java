@@ -83,11 +83,11 @@ public class SubMeasurementContentProvider implements ITableContentProvider<ITab
   
   @Override
   public void addLink(final UUID ucaId, final UUID cfId) {
-    SubMeasurement templateCf = (SubMeasurement) getStlsaController().getSubMeasurement(cfId);
-    SubMeasurement newCf = new SubMeasurement(templateCf.getTitle(), templateCf.getIntention());
-    UUID newCFId = getStlsaController().getSubMeasurementController().addSubMeasurement(newCf);
-    newCf.setParentUUID(ucaId);
-    getStlsaController().addUCASubMeasurementLink(ucaId, newCFId);
+//    SubMeasurement templateCf = (SubMeasurement) getStlsaController().getSubMeasurement(cfId);
+//    SubMeasurement newCf = new SubMeasurement(templateCf.getTitle(), templateCf.getIntention());
+//    UUID newCFId = getStlsaController().getSubMeasurementController().addSubMeasurement(newCf);
+//    newCf.setParentUUID(ucaId);
+//    getStlsaController().addUCASubMeasurementLink(ucaId, newCFId);
     
   }
 
