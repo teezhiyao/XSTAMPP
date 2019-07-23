@@ -93,6 +93,7 @@
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="causalfactor" maxOccurs="1" minOccurs="0" type="haz:causalFactorController" />
+                <xs:element name="submeasurement" maxOccurs="1" minOccurs="0" type="haz:subMeasurementController" />
                 <xs:element name="extendedData" type="haz:extendedDataType" maxOccurs="1" minOccurs="0" />
 
                 <xs:element name="crc" maxOccurs="1" minOccurs="0">
@@ -238,10 +239,11 @@
             <xs:element type="xs:string" name="title" maxOccurs="1" minOccurs="1" />
             <xs:element type="xs:string" name="description" maxOccurs="1" minOccurs="1" />
             <xs:element type="xs:string" name="id" maxOccurs="1" minOccurs="1" />
-            <xs:element name="unsecurecontrolactions" maxOccurs="1" minOccurs="0">
+            <xs:element type="xs:boolean" name="isSafetyCritical" maxOccurs="1" minOccurs="1" />            
+            <xs:element name="unsafecontrolactions" maxOccurs="1" minOccurs="0">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="unsecurecontrolaction" maxOccurs="unbounded" minOccurs="0">
+                        <xs:element name="unsafecontrolaction" maxOccurs="unbounded" minOccurs="0">
                             <xs:complexType>
                                 <xs:all>
                                     <xs:element type="xs:boolean" name="privacyCritical" maxOccurs="1"
@@ -257,6 +259,7 @@
                                     <xs:element type="xs:string" name="id" />
                                     <xs:element type="xs:string" name="seclinks" maxOccurs="1" minOccurs="0" />
                                     <xs:element type="xs:string" name="type" />
+                                    <xs:element type="xs:string" name="title" />
                                 </xs:all>
                                 <xs:attribute name="severityType" type="xs:string" use="optional">
                                 </xs:attribute>

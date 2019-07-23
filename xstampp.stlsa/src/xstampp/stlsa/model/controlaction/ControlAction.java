@@ -133,6 +133,7 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
    */
   public ControlAction() {
     this.unsafeControlActions = new ArrayList<>();
+    this.isSecurityCritical = false;
     // empty constructor for JAXB
   }
 

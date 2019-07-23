@@ -72,8 +72,8 @@ public class SubMeasurementController extends ATableModelController implements I
   @XmlElement(name = "causalSafetyConstraint")
   private NumberedArrayList<SubMeasurementSafetyConstraint> causalSafetyConstraints;
 
-  @XmlElementWrapper(name = "causalFactors")
-  @XmlElement(name = "causalFactor")
+//  @XmlElementWrapper(name = "causalFactors")
+//  @XmlElement(name = "causalFactor")
   private NumberedArrayList<SubMeasurement> causalFactors;
   private List<String> typeCount;  
 //      new HashMap<String, Map<String, String>>();

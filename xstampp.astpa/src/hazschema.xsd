@@ -32,6 +32,11 @@
             <xs:element name="safetyConstraint" type="Q1:sdsType" maxOccurs="1" minOccurs="0"></xs:element>
             <xs:element name="note" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
             <xs:element name="hazardLinks" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+            <xs:element name="title" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+            <xs:element name="intention" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
+            <xs:element name="description" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
+            <xs:element name="number" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
+                      
             <xs:element name="causalEntries" maxOccurs="1" minOccurs="0">
                 <xs:complexType>
                     <xs:sequence>
@@ -140,6 +145,128 @@
         <xs:attribute name="switchUCAsPerFactorToFactorsPerUCA" type="xs:boolean" use="optional">
         </xs:attribute>
     </xs:complexType>
+
+    <xs:complexType name="subMeasurementType">
+        <xs:all>
+            <xs:element name="safetyConstraint" type="Q1:sdsType" maxOccurs="1" minOccurs="0"></xs:element>
+            <xs:element name="note" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+            <xs:element name="hazardLinks" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+            <xs:element name="title" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+            <xs:element name="intention" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
+            <xs:element name="description" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
+            <xs:element name="number" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
+                      
+            <xs:element name="causalEntries" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="causalEntry" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element name="hazardIds" maxOccurs="1" minOccurs="0" type="Q1:idList">
+
+                                    </xs:element>
+                                    <xs:element name="constraintText" type="xs:string" maxOccurs="1"
+                                        minOccurs="0">
+                                    </xs:element>
+                                    <xs:element name="note" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+                                    <xs:element name="ucaLink" type="xs:string" maxOccurs="1" minOccurs="0">
+                                    </xs:element>
+                                    <xs:element name="scenarioLinks" maxOccurs="1" minOccurs="0" type="Q1:idList">
+                                    </xs:element>
+                                    <xs:element name="constraintId" type="xs:string" maxOccurs="1" minOccurs="0">
+                                    </xs:element>
+                                </xs:all>
+                                <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="id" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>
+            <xs:element name="text" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+        </xs:all>
+        <xs:attribute name="number" use="optional" type="xs:int"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="subMeasurementController">
+        <xs:all>
+            <xs:element name="subMeasurementHazardLinks" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="subMeasurementHazardLink" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="subMeasurementId" type="xs:string" />
+                                    <xs:element name="hazardId" type="xs:string" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="causalComponents" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="entry" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="key" type="xs:string" maxOccurs="1" minOccurs="1">
+                                    </xs:element>
+                                    <xs:element name="value" maxOccurs="1" minOccurs="1">
+                                        <xs:complexType>
+                                            <xs:all>
+                                                <xs:element name="subMeasurement" maxOccurs="1" minOccurs="0">
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element name="factor" type="Q1:subMeasurementType"
+                                                                maxOccurs="unbounded" minOccurs="0">
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                                <xs:element name="title" type="xs:string" maxOccurs="1"
+                                                    minOccurs="0">
+                                                </xs:element>
+                                                <xs:element name="type" type="xs:string" maxOccurs="1"
+                                                    minOccurs="0">
+                                                </xs:element>
+                                            </xs:all>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="causalSafetyConstraints" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="causalSafetyConstraint" type="Q1:sdsType" maxOccurs="unbounded"
+                            minOccurs="0">
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="subMeasurements" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="subMeasurement" type="Q1:subMeasurementType" maxOccurs="unbounded"
+                            minOccurs="0">
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="useScenarios" type="xs:boolean" use="optional">
+        </xs:attribute>
+        <xs:attribute name="switchUCAsPerFactorToFactorsPerUCA" type="xs:boolean" use="optional">
+        </xs:attribute>
+    </xs:complexType>
+
+
+
 
     <xs:complexType name="linkController">
         <xs:sequence>

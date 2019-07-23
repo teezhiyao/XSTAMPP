@@ -50,6 +50,7 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
   @XmlElement(name = "text")
   private String text;
 
+  
   /**
    * This is only for representing the data in the export,
    * for reference of the causal factor model during runtime refere to
@@ -61,12 +62,19 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
 
   @XmlElement
   private UUID constraintId;
-
+  
+  @XmlElement(name = "intention")
   private String intention;
+  
+  @XmlElement(name = "title")
   private String title;
-
+  
+  @XmlElement(name = "description")
   private String description = "Description not set";
 
+  @XmlElement(name = "number")
+  private int number;
+  
   private String modId;
   private UUID parentUUID;
   private HashMap<String,Integer> subMeasurements;
@@ -106,9 +114,7 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
    *          the text of the new causal factor
    */
   public CausalFactor(String title) {
-    this.id = UUID.randomUUID();
-    this.title = title;
-    this.subMeasurements = new HashMap<String, Integer>();
+    this(title, "Not set");
   }
 
   public CausalFactor(String title, String intention) {
@@ -116,7 +122,7 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
     this.title = title;
     this.intention = intention;
     this.subMeasurements = new HashMap<String, Integer>();
-
+    this.number = 0;
   }
   
   public String getIntention() {
