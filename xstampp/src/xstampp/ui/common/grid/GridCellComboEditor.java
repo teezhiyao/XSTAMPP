@@ -16,6 +16,8 @@ package xstampp.ui.common.grid;
 import messages.Messages;
 import xstampp.ui.common.grid.GridWrapper.NebulaGridRowWrapper;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -94,7 +96,7 @@ public class GridCellComboEditor extends GridCellComposite {
     if(readOnly) {
     this.comboCell = new Combo(this.compositeArea,  SWT.READ_ONLY | SWT.FILL);}
     else {
-      this.comboCell = new Combo(this.compositeArea,  SWT.READ_ONLY);
+      this.comboCell = new Combo(this.compositeArea, SWT.FILL);
       }
     
 
@@ -174,6 +176,16 @@ public class GridCellComboEditor extends GridCellComposite {
     });
   }
 
+  public GridCellComboEditor(GridWrapper gridWrapper, ArrayList<String> options, boolean readOnly) {
+    this(gridWrapper,parseArrayListToArray(options), readOnly);
+
+    }
+
+  public static String[] parseArrayListToArray(ArrayList<String> options) {
+    String[] guideArr = new String[options.size()];
+    return options.toArray(guideArr);  
+  }
+  
   @Override
   public void paint(GridCellRenderer renderer, GC gc, NebulaGridRowWrapper item) {
     if (this.isDisposed()) {
