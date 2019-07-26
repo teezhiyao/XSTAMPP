@@ -203,6 +203,30 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
           }
         };
         cfChildRow.addCell(3, cfGuide);
+       
+        //Column 4 
+        String cfDescription = currentCf.getDescription();
+        GridCellEditor cfDescEditor = new GridCellEditor(getGridWrapper(), cfDescription) {
+          @Override
+          public void onTextChanged(String newText) {
+            System.out.println("newText" + newText);
+//            UUID rowUuid = this.getGridRow().getCells().get(2).getUUID();
+//            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(rowUuid);
+//            if(tempSub instanceof SubMeasurement) {
+//              ((SubMeasurement) tempSub).setSubMeasurement(newText);
+//            }            
+          }
+        };       
+        cfChildRow.addCell(4, cfDescEditor);
+        
+        //Column 5 
+        GridCellComboEditor cfIntention = new GridCellComboEditor(getGridWrapper(), new String[]{"Intentional", "Unintentional"}, true) {
+          @Override
+          public void onTextChanged(String newText) {
+            System.out.println("Combo Text: "+ this.getComboCell().getText());
+          }
+        };
+        cfChildRow.addCell(5, cfIntention);
         
         
         controlActionRow.addChildRow(cfChildRow);
