@@ -127,6 +127,7 @@ public class CausalFactorController extends ATableModelController implements ICa
   }
 
   public ITableModel getCausalFactor(UUID causalFactorId) {
+    System.out.println(causalFactorId.toString());
     Optional<CausalFactor> first = this.causalFactors.stream().filter((factor) -> factor.getId().equals(causalFactorId))
         .findFirst();
     if(first.isPresent()) {

@@ -13,6 +13,7 @@
 
 package xstampp.stlsa.ui.causalfactors;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,13 +21,17 @@ import java.util.Observable;
 import java.util.UUID;
 
 import org.eclipse.swt.SWTException;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.interfaces.IUnsafeControlActionDataModel;
+import xstampp.astpa.model.submeasurement.SubMeasurement;
 import xstampp.astpa.ui.unsafecontrolaction.DeleteUcaAction;
 import xstampp.astpa.ui.unsafecontrolaction.UnsafeControlActionsView;
 import xstampp.model.IDataModel;
@@ -35,6 +40,9 @@ import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.ui.common.ProjectManager;
 import xstampp.ui.common.grid.DeleteGridEntryAction;
+import xstampp.ui.common.grid.GridCellButton;
+import xstampp.ui.common.grid.GridCellComboEditor;
+import xstampp.ui.common.grid.GridCellEditor;
 import xstampp.ui.common.grid.GridCellText;
 import xstampp.ui.common.grid.GridCellTextEditor;
 import xstampp.ui.common.grid.GridRow;
@@ -161,40 +169,98 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 		if (list.isEmpty()) {
 			return;
 		}
-		for (ICorrespondingUnsafeControlAction cAction : list) {
+		for (ICorrespondingUnsafeControlAction uca : list) {
 			//fiter by the title of the unsafecontrol action
-			if(isFiltered(cAction.getTitle(), CA_FILTER)){
+			if(isFiltered(uca.getTitle(), CA_FILTER)){
 				continue;
 			}
 			GridRow controlActionRow = new GridRow(columns.length,3, new int[] { 0,1 }); 
 			//GridRow is not from a library, the last argument specify which column will only have 1 row. In this case, the first 2 columns only has 1 row.
-			controlActionRow.addCell(0,new GridCellText(cAction.getIdString()));
-	    controlActionRow.addCell(1,new GridCellText(cAction.getDescription()));
-	    boolean canWrite = checkAccess(cAction.getId(), AccessRights.WRITE);
+			controlActionRow.addCell(0,new GridCellText(uca.getIdString()));
+	    controlActionRow.addCell(1,new GridCellText(uca.getDescription()));
+	    boolean canWrite = checkAccess(uca.getId(), AccessRights.WRITE);
 
+	    List<UUID> corresCF = getStlsaController().getCausalFactorsLinksOfUCA(uca.getId());
 	    
-	    List<ITableModel> linkedItems = this.cfContentProvider.getLinkedItems(cAction.getId());
-	    int maxHeight = linkedItems.size();
-	    
-	    if(linkedItems.isEmpty()) {
-        GridRow cfRows = new GridRow(columns.length,3);
-        SingleGridCellLinking<CfContentProvider> cfGridCell = new SingleGridCellLinking<CfContentProvider>(cAction.getId(), this.cfContentProvider, getGridWrapper(), canWrite);     
-        cfRows.addCell(3, cfGridCell);
-        controlActionRow.addChildRow(cfRows);
-	    }
-	    else {
-      for (int i = 0; i < maxHeight; i++) {
-        GridRow cfRows = new GridRow(columns.length,3);
-        SingleGridCellLinking<CfContentProvider> cfGridCell = new SingleGridCellLinking<CfContentProvider>(cAction.getId(), this.cfContentProvider, getGridWrapper(), canWrite, i);     
-        addRows(linkedItems, cfRows, cfGridCell, i, cAction.getIdString());
-        controlActionRow.addChildRow(cfRows);
+      for(int y = 0; y < corresCF.size(); y++) {
+        UUID currentCFUUID = corresCF.get(y);
+        CausalFactor currentCf = (CausalFactor) getStlsaController().getCausalFactor(currentCFUUID);
+        GridRow cfChildRow = new GridRow(columns.length,3);
+        
+        //Column 2 
+        GridCellText cFId = new GridCellText(currentCf.getIdString(),currentCFUUID);
+        cfChildRow.addCell(2, cFId);
+        
+        //Column 3 
+        ArrayList<String> guideWords = new ArrayList<String>();
+        for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
+          guideWords.add(CF.getLabel());
+        }
+        GridCellComboEditor cfGuide = new GridCellComboEditor(getGridWrapper(), guideWords, false) {
+          @Override
+          public void onTextChanged(String newText) {
+            System.out.println("Combo Text: "+ this.getComboCell().getText());
+          }
+        };
+        cfChildRow.addCell(3, cfGuide);
+        
+        
+        controlActionRow.addChildRow(cfChildRow);
       }
-	    }
-      getGridWrapper().addRow(controlActionRow);      
+//	    List<ITableModel> linkedItems = this.cfContentProvider.getLinkedItems(cAction.getId());
+//	    int maxHeight = linkedItems.size();
+//	    
+//	    if(linkedItems.isEmpty()) {
+//        GridRow cfRows = new GridRow(columns.length,3);
+//        SingleGridCellLinking<CfContentProvider> cfGridCell = new SingleGridCellLinking<CfContentProvider>(cAction.getId(), this.cfContentProvider, getGridWrapper(), canWrite);     
+//        cfRows.addCell(3, cfGridCell);
+//        controlActionRow.addChildRow(cfRows);
+//	    }
+//	    else {
+//      for (int i = 0; i < maxHeight; i++) {
+//        GridRow cfRows = new GridRow(columns.length,3);
+//        SingleGridCellLinking<CfContentProvider> cfGridCell = new SingleGridCellLinking<CfContentProvider>(cAction.getId(), this.cfContentProvider, getGridWrapper(), canWrite, i);     
+//        addRows(linkedItems, cfRows, cfGridCell, i, cAction.getIdString());
+//        controlActionRow.addChildRow(cfRows);
+//      }
+//	    }
+	    addNewCausalFactorRow(controlActionRow, (UnsafeControlAction) uca);
 		}
 	}
 
+  public void addNewCausalFactorRow(GridRow controlActionRow, UnsafeControlAction uca) {
+    
+    GridRow addCausalFactorRow = new GridRow(columns.length,3);
+    addCausalFactorRow.addCell(2, new addNewCausalFactorRowButton(uca));
+    controlActionRow.addChildRow(addCausalFactorRow);
+    getGridWrapper().addRow(controlActionRow);;      
 
+}
+	
+  private class addNewCausalFactorRowButton extends GridCellButton {
+    
+    private UnsafeControlAction uca;
+
+    public addNewCausalFactorRowButton(UnsafeControlAction uca) {
+      super("Add New Causal Factor");
+      this.uca = uca;
+    }
+
+    @Override
+    public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
+        Rectangle cellBounds) {
+      if(e.button == 1){
+        CausalFactor newCF = new CausalFactor("new title", "new intention");
+        newCF.setParentUUID(this.uca.getId());
+        getCausalFactorController().addCausalFactor(newCF);
+        getStlsaController().addUCACausalFactorLink(uca.getId(), newCF.getId());
+        reloadTable();
+        ProjectManager.getLOGGER().debug("Add new Sub Measurement");
+      }
+      
+    }
+  }
+	
 	private void addRows(List<ITableModel> linkedItems,GridRow cfRows, SingleGridCellLinking<CfContentProvider> cfGridCell, int i, String ucaNumber) {
 //    while (linkedItems.size() > i ) {
 //      linkedItems.remove(i);
@@ -245,6 +311,10 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 		this.addChoiceValues(HAZ_FILTER,choiceValues);
 	}
 
+  public StlsaController getStlsaController() {
+    return ((StlsaController) getDataModel());
+  }
+  
   private CausalFactorController getCausalFactorController() {
     return (CausalFactorController) ((StlsaController) getDataModel()).getCausalFactorController();
   }
