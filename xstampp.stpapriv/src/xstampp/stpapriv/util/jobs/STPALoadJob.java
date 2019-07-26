@@ -25,7 +25,6 @@ public class STPALoadJob extends xstampp.astpa.util.jobs.STPALoadJob {
 
   @Override
   protected InputStream[] getSchema() throws SAXException {
-    System.out.println("I can load sec");
     InputStream schemaFile = getClass().getResourceAsStream("/secschema.xsd"); //$NON-NLS-1$
     InputStream mainSchemaFile = xstampp.astpa.Activator.class.getResourceAsStream("/hazschema.xsd"); //$NON-NLS-1$
     return new InputStream[] { mainSchemaFile, schemaFile };

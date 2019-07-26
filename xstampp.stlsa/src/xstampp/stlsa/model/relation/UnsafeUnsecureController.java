@@ -17,7 +17,7 @@ import xstampp.astpa.model.interfaces.IExtendedDataModel;
 import xstampp.model.IValueCombie;
 import xstampp.model.ObserverValue;
 import xstampp.stlsa.model.StlsaController;
-import xstampp.stlsa.model.controlaction.ControlAction;
+import xstampp.astpa.model.controlaction.ControlAction;
 //import xstampp.stpapriv.model.PrivacyController;
 //import xstampp.stpapriv.model.controlaction.ControlAction;
 //import xstampp.stpapriv.model.controlaction.UnsecureControlAction;
