@@ -67,7 +67,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   private static final String HAZID_FILTER = "Hazard ID"; //$NON-NLS-1$
 
   private String[] columns = new String[] {"Severity/Likelihood",
-      "Type","Sub-Measurement ID", "Sub-Measurements","Scale",
+      "Type", "Sub-Measurements","Scale",
       "Details"};  
   /**
    * Constructs an AssessmentScaleView with a filter and the default set of column names
@@ -220,8 +220,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         GridCellText subMeasId = new GridCellText(tempSubUUID.toString(),tempSubUUID);
         
         //Add Rows for Submeasurement according to size 
-        GridRow subMeas = new GridRow(columns.length,3,new int[] {0,1,2,3,4});
-        subMeas.addCell(2, subMeasId);
+        GridRow subMeas = new GridRow(columns.length,3,new int[] {0,1,2,3});
         
         String subMeasurementTitle = corresSub.get(y).getSubMeasurement();
         GridCellEditor subMeasDesc = new GridCellEditor(getGridWrapper(), subMeasurementTitle) {
@@ -235,7 +234,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
             }            
           }
         };       
-        subMeas.addCell(3, subMeasDesc);
+        subMeas.addCell(2, subMeasDesc);
         
         int subMeasurementscale = corresSub.get(y).getScale();
         GridCellEditor scaleEditor = new GridCellEditor(getGridWrapper(), Integer.toString(subMeasurementscale)) {
@@ -249,15 +248,14 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
             }            
           }
         };       
-        subMeas.addCell(4, scaleEditor);
+        subMeas.addCell(3, scaleEditor);
         
       addDetailsRow(corresSub.get(y), subMeas);
 
         
         if(y == 0) {
-          controlActionRow.addCell(2, subMeasId);
-          controlActionRow.addCell(3, subMeasDesc);
-          controlActionRow.addCell(4, scaleEditor);
+          controlActionRow.addCell(2, subMeasDesc);
+          controlActionRow.addCell(3, scaleEditor);
           addDetailsRow(corresSub.get(y), controlActionRow);
 
           }
@@ -300,16 +298,16 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
       }; 
       
       if(i == 0) {
-        subMeas.addCell(5, detailEditor);
+        subMeas.addCell(4, detailEditor);
       }
       else {
-        GridRow detailChild = new GridRow(columns.length,3,new int[] {0,1,2,3,4});
-        detailChild.addCell(5, detailEditor);
+        GridRow detailChild = new GridRow(columns.length,3,new int[] {0,1,2,3});
+        detailChild.addCell(4, detailEditor);
         subMeas.addChildRow(detailChild);
       }
     }
-    GridRow addDetailRow = new GridRow(columns.length,3,new int[] {0,1,2,3,4});
-    addDetailRow.addCell(5, new addDetailButton(subMeasurement));
+    GridRow addDetailRow = new GridRow(columns.length,3,new int[] {0,1,2,3});
+    addDetailRow.addCell(4, new addDetailButton(subMeasurement));
     subMeas.addChildRow(addDetailRow);
   }
 
@@ -317,8 +315,8 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   
   public void addSubMeasurementRow(GridRow controlActionRow, int currentSub) {
       
-      GridRow addSubMeas = new GridRow(columns.length,3,new int[] {0,1,2,3,4});
-      addSubMeas.addCell(3, new addNewSubMeasurementRowButton(controlActionRow, currentSub));
+      GridRow addSubMeas = new GridRow(columns.length,3,new int[] {0,1,2,3});
+      addSubMeas.addCell(2, new addNewSubMeasurementRowButton(controlActionRow, currentSub));
       controlActionRow.addChildRow(addSubMeas);
       getGridWrapper().addRow(controlActionRow);;      
 
