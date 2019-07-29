@@ -218,7 +218,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 			addControlAction = false;
 			controlActionRow.addCell(0,new GridCellText(cAction.getIdString()));
 	    controlActionRow.addCell(1,new GridCellText(cAction.getTitle()));
-
+	    
 			List<IUnsafeControlAction> allNotGiven = cAction
 					.getUnsafeControlActions(UnsafeControlActionType.NOT_GIVEN);
 			List<IUnsafeControlAction> allIncorrect = cAction

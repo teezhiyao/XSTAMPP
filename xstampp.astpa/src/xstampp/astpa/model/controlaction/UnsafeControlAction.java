@@ -35,7 +35,7 @@ import xstampp.astpa.model.linking.LinkingType;
  * @author Fabian Toth
  * 
  */
-@XmlRootElement(name = "unsafecontrolaction")
+@XmlRootElement(name = "UnsafeControlAction")
 @XmlAccessorType(XmlAccessType.NONE)
 public class UnsafeControlAction extends ATableModel
     implements IUnsafeControlAction, ICorrespondingUnsafeControlAction, IEntryWithNameId {

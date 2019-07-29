@@ -97,6 +97,7 @@ public class SecControlAction extends ControlAction {
 		List<IUnsafeControlAction> result = new ArrayList<>();
 		for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
 			if (unsafeControlAction.getType().equals(unsafeControlActionType)) {
+		     System.out.println(unsafeControlAction.getIdString());
 				result.add(unsafeControlAction);
 			}
 		}
