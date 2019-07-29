@@ -47,38 +47,38 @@ public class ControlAction extends ATableModel implements IControlAction {
   protected List<UnsafeControlAction> unsafeControlActions;
 
   @XmlElement(name = "componentLink")
-  private UUID componentLink;
+  protected UUID componentLink;
 
   @XmlElement(name = "isSafetyCritical")
   private boolean isSafetyCritical;
 
   @XmlElementWrapper(name = "notProvidedPMVariables")
   @XmlElement(name = "variableID")
-  private List<UUID> notProvidedVariables;
+  protected List<UUID> notProvidedVariables;
 
   @XmlElementWrapper(name = "providedPMVariables")
   @XmlElement(name = "variableID")
-  private List<UUID> providedVariables;
+  protected List<UUID> providedVariables;
 
   @XmlElementWrapper(name = "PMCombisWhenNotProvided")
   @XmlElement(name = "combinationOfPMValues")
-  private List<NotProvidedValuesCombi> valuesWhenNotProvided;
+  protected List<NotProvidedValuesCombi> valuesWhenNotProvided;
 
   @XmlElementWrapper(name = "PMCombisWhenProvided")
   @XmlElement(name = "combinationOfPMValues")
-  private List<ProvidedValuesCombi> valuesWhenProvided;
+  protected List<ProvidedValuesCombi> valuesWhenProvided;
 
   @XmlElementWrapper(name = "dependenciesForNotProvided")
   @XmlElement(name = "variableName")
-  private List<String> notProvidedVariableNames;
+  protected List<String> notProvidedVariableNames;
 
   @XmlElementWrapper(name = "dependenciesForProvided")
   @XmlElement(name = "variableName")
-  private List<String> providedVariableNames;
+  protected List<String> providedVariableNames;
 
   @XmlElementWrapper(name = "rules")
   @XmlElement(name = "rule")
-  private List<RefinedSafetyRule> rules;
+  protected List<RefinedSafetyRule> rules;
 
   @XmlElementWrapper(name = "ruleIds")
   @XmlElement(name = "id")

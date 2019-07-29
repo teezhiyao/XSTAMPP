@@ -51,9 +51,9 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
 //  @XmlElement(name = "componentLink")
 //  private UUID componentLink;
 //
-//  @XmlElement(name = "isSecurityCritical")
-//  private boolean isSecurityCritical;
-//
+  @XmlElement(name = "isSecurityCritical")
+  private boolean isSecurityCritical;
+
 //  @XmlElementWrapper(name = "notProvidedPMVariables")
 //  @XmlElement(name = "variableID")
 //  private List<UUID> notProvidedVariables;
@@ -86,24 +86,20 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
 //  @XmlElement(name = "id")
 //  private List<UUID> ruleIds;
 //
-//  /**
-//   * @param componentLink
-//   *          the componentLink to set
-//   * @return
-//   */
-//  public boolean setComponentLink(UUID componentLink) {
-//    if (this.componentLink == null || !this.componentLink.equals(componentLink)) {
-//      this.componentLink = componentLink;
-//      return true;
-//    }
-//    return false;
-//  }
-//
-//  @Override
-//  public UUID getComponentLink() {
-//    return this.componentLink;
-//  }
-//
+  /**
+   * @param componentLink
+   *          the componentLink to set
+   * @return
+   */
+  public boolean setComponentLink(UUID componentLink) {
+    if (this.componentLink == null || !this.componentLink.equals(componentLink)) {
+      this.componentLink = componentLink;
+      return true;
+    }
+    return false;
+  }
+
+
   /**
    * Constructor of a control action
    * 
@@ -135,79 +131,8 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
     this.unsafeControlActions = new ArrayList<>();
     // empty constructor for JAXB
   }
-//
-//  @Override
-//  public List<IUnsafeControlAction> getUnsafeControlActions() {
-//    List<IUnsafeControlAction> result = new ArrayList<>();
-//    for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
-//      result.add(unsafeControlAction);
-//    }
-//    return result;
-//  }
-//
-//  @Override
-//  public IUnsafeControlAction getUnsafeControlAction(UUID ucaId) {
-//    for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
-//      if (unsafeControlAction.getId().equals(ucaId)) {
-//        return unsafeControlAction;
-//      }
-//    }
-//    return null;
-//  }
-//
-//  @Override
-//  public List<IUnsafeControlAction> getUnsafeControlActions(
-//      UnsafeControlActionType unsafeControlActionType) {
-//    List<IUnsafeControlAction> result = new ArrayList<>();
-//    for (UnsafeControlAction unsafeControlAction : this.unsafeControlActions) {
-//      if (unsafeControlAction.getType().equals(unsafeControlActionType)) {
-//        result.add(unsafeControlAction);
-//      }
-//    }
-//    return result;
-//  }
-//
-//  /**
-//   * Adds a unsafe control action to this control action
-//   * 
-//   * @param description
-//   *          the description of the new control action
-//   * @param unsafeControlActionType
-//   *          the type of the enw control action
-//   * @return the id of the new control action
-//   * 
-//   * @author Fabian Toth
-//   */
-//  public UUID addUnsafeControlAction(int number, String description,
-//      UnsafeControlActionType unsafeControlActionType) {
-//    UnsafeControlAction unsafeControlAction = new UnsafeControlAction(description,
-//        unsafeControlActionType);
-//    this.unsafeControlActions.add(unsafeControlAction);
-//    unsafeControlAction.setNumber(number);
-//    return unsafeControlAction.getId();
-//  }
-//
-//  /**
-//   * Adds a unsafe control action to this control action
-//   * 
-//   * @param description
-//   *          the description of the new control action
-//   * @param unsafeControlActionType
-//   *          the type of the enw control action
-//   * @return the id of the new control action
-//   * 
-//   * @author Fabian Toth
-//   */
-//  public UUID addUnsafeControlAction(int number, String description,
-//      UnsafeControlActionType unsafeControlActionType, UUID id) {
-//    UnsafeControlAction unsafeControlAction = new UnsafeControlAction(description,
-//        unsafeControlActionType);
-//    unsafeControlAction.setId(id);
-//    this.unsafeControlActions.add(unsafeControlAction);
-//    unsafeControlAction.setNumber(number);
-//    return unsafeControlAction.getId();
-//  }
-//
+
+
 //  /**
 //   * Searches the unsafe control action and removes it when it is in the list
 //   * 
@@ -226,16 +151,16 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
 //    return false;
 //  }
 //
-//  /**
-//   * Gets all unsafe control actions of this control action in an internal type
-//   * 
-//   * @return all unsafe control actions of this control action
-//   * 
-//   * @author Fabian Toth
-//   */
-//  public List<UnsafeControlAction> getInternalUnsafeControlActions() {
-//    return this.unsafeControlActions;
-//  }
+  /**
+   * Gets all unsafe control actions of this control action in an internal type
+   * 
+   * @return all unsafe control actions of this control action
+   * 
+   * @author Fabian Toth
+   */
+  public List<UnsafeControlAction> getInternalUnsafeControlActions() {
+    return this.unsafeControlActions;
+  }
 //
 //  /**
 //   * @return the valuesWhenNotProvided
@@ -313,13 +238,8 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
 //    return false;
 //  }
 //
-//  @Override
-//  public List<UUID> getNotProvidedVariables() {
-//    if (this.notProvidedVariables == null) {
-//      return new ArrayList<>();
-//    }
-//    return new ArrayList<>(this.notProvidedVariables);
-//  }
+
+  
 //
 //  /**
 //   * 
@@ -336,250 +256,136 @@ public class ControlAction extends xstampp.astpa.model.controlaction.ControlActi
 //    this.notProvidedVariables.add(notProvidedVariable);
 //  }
 //
-//  @Override
-//  public List<UUID> getProvidedVariables() {
-//    if (this.providedVariables == null) {
-//      this.providedVariables = new ArrayList<>();
-//    }
-//    ArrayList<UUID> list = new ArrayList<>(this.providedVariables);
-//    return list;
-//  }
-//
-//  /**
-//   * addds the uuid of a process variable component to the list of variables depending on this
-//   * control action when provided
-//   * 
-//   * @param providedVariable
-//   *          the providedVariable to add
-//   */
-//  public void addProvidedVariable(UUID providedVariable) {
-//    if (this.providedVariables == null) {
-//      this.providedVariables = new ArrayList<>();
-//    }
-//    if (!this.providedVariables.contains(providedVariable)) {
-//      this.providedVariables.add(providedVariable);
-//    }
-//  }
-//
-//  /**
-//   * 
-//   * remove the uuid of a process variable component from the list of variables depending on this
-//   * control action when not provided
-//   * 
-//   * @param notProvidedVariable
-//   *          the notProvidedVariables to remove
-//   * @return return whether the remove was successful or not, also returns false if the list is null
-//   *         or the uuid is not contained in the list
-//   */
-//  public boolean removeNotProvidedVariable(UUID notProvidedVariable) {
-//    if (this.notProvidedVariables == null) {
-//      return false;
-//    }
-//    if (this.notProvidedVariables.contains(notProvidedVariable)) {
-//      return this.notProvidedVariables.remove(notProvidedVariable);
-//    }
-//    return false;
-//  }
-//
-//  /**
-//   * 
-//   * remove the uuid of a process variable component from the list of variables depending on this
-//   * control action when provided
-//   * 
-//   * @param providedVariable
-//   *          the providedVariable to remove
-//   * @return return whether the remove was successful or not, also returns false if the list is null
-//   *         or the uuid is not contained in the list
-//   */
-//  public boolean removeProvidedVariable(UUID providedVariable) {
-//    if (this.providedVariables == null) {
-//      return false;
-//    }
-//    if (this.providedVariables.contains(providedVariable)) {
-//      return this.providedVariables.remove(providedVariable);
-//    }
-//    return false;
-//  }
-//
-//  public List<AbstractLTLProvider> getAllRefinedRules() {
-//    if (rules == null) {
-//      return new ArrayList<>();
-//    }
-//    ArrayList<AbstractLTLProvider> tmp = new ArrayList<>();
-//    for (RefinedSafetyRule refinedSafetyRule : rules) {
-//      tmp.add(refinedSafetyRule);
-//    }
-//    return tmp;
-//  }
-//
-//  /**
-//   * 
-//   * @param ruleId
-//   * 
-//   * @return
-//   */
-//  public boolean addRefinedRuleLink(UUID ruleId) {
-//    if (ruleId != null) {
-//      if (ruleIds == null) {
-//        this.ruleIds = new ArrayList<>();
-//      }
-//      return ruleIds.add(ruleId);
-//    }
-//    return false;
-//  }
-//
-//  /**
-//   * 
-//   * @param removeAll
-//   *          whether all currently stored RefinedSafetyRule objects should be deleted<br>
-//   *          when this is true than the ruleId will be ignored
-//   * @param ruleId
-//   *          an id of a RefinedSafetyRule object stored in a controlAction
-//   * 
-//   * @return whether the delete was successful or not, also returns false if the rule could not be
-//   *         found or the id was illegal
-//   */
-//  public boolean removeSafetyRule(boolean removeAll, UUID id) {
-//    if (removeAll) {
-//      this.rules.clear();
-//      this.ruleIds.clear();
-//      return true;
-//    }
-//    if (id != null && ruleIds != null) {
-//      return ruleIds.remove(id);
-//    }
-//    return false;
-//  }
-//
-//  /**
-//   * Prepares the control actions for the export
-//   * 
-//   * @author Fabian Toth, Lukas Balzer
-//   * 
-//   * @param hazAccController
-//   *          the hazAccController to get the Accidents as objects
-//   * 
-//   */
-//  public void prepareForExport(IExtendedDataController extendedData,
-//      ControlStructureController csController, String defaultLabel) {
-//
-//    rules = new ArrayList<>();
-//    for (AbstractLTLProvider refinedRule : extendedData.getAllScenarios(true, false, false)) {
-//      if (refinedRule.getRelatedControlActionID().equals(getId())) {
-//        rules.add((RefinedSafetyRule) refinedRule);
-//      }
-//    }
-//    List<UUID> trash = new ArrayList<>();
-//    if (notProvidedVariables != null) {
-//      notProvidedVariableNames = new ArrayList<>();
-//      for (UUID id : notProvidedVariables) {
-//        if (csController.getComponent(id) != null) {
-//          notProvidedVariableNames.add(csController.getComponent(id).getText());
-//        } else {
-//          trash.add(id);
-//        }
-//      }
-//      notProvidedVariables.removeAll(trash);
-//    }
-//    if (providedVariables != null) {
-//      trash.clear();
-//      providedVariableNames = new ArrayList<>();
-//      for (UUID id : providedVariables) {
-//        if (csController.getComponent(id) != null) {
-//          providedVariableNames.add(csController.getComponent(id).getText());
-//        } else {
-//          trash.add(id);
-//        }
-//      }
-//      providedVariables.removeAll(trash);
-//    }
-//    if (notProvidedVariableNames != null && !notProvidedVariableNames.isEmpty()
-//        && valuesWhenNotProvided != null) {
-//      for (NotProvidedValuesCombi combie : valuesWhenNotProvided) {
-//        if (combie.getPMValues().keySet().containsAll(notProvidedVariables)
-//            && combie.getValueList().size() == notProvidedVariableNames.size()) {
-//          ArrayList<String> list = new ArrayList<>();
-//          for (UUID id : combie.getValueList()) {
-//            if (csController.getComponent(id) != null) {
-//              list.add(csController.getComponent(id).getText());
-//            } else {
-//              list.add(defaultLabel);
-//            }
-//          }
-//          combie.setValueNames(list);
-//        } else {
-//          combie.setValueNames(null);
-//        }
-//      }
-//    }
-//    /*
-//     * if he valuesWhenProvided list has been created and there are linked variables than the list
-//     * is traversed
-//     */
-//    if (providedVariableNames != null && !providedVariableNames.isEmpty()
-//        && valuesWhenProvided != null) {
-//      for (ProvidedValuesCombi combie : valuesWhenProvided) {
-//        if (combie.getPMValues().keySet().containsAll(providedVariables)
-//            && combie.getValueList().size() == providedVariableNames.size()) {
-//          ArrayList<String> list = new ArrayList<>();
-//          for (UUID id : combie.getValueList()) {
-//            if (csController.getComponent(id) != null) {
-//              list.add(csController.getComponent(id).getText());
-//            } else {
-//              list.add(defaultLabel);
-//            }
-//          }
-//          combie.setValueNames(list);
-//        } else {
-//          combie.setValueNames(null);
-//        }
-//      }
-//    }
-//  }
-//
-//  /**
-//   * Prepares the control actions for save
-//   * 
-//   * @author Fabian Toth, Lukas Balzer
-//   * 
-//   */
-//  public void prepareForSave(ExtendedDataController extendedData) {
-//    notProvidedVariableNames = null;
-//    providedVariableNames = null;
-//
-//    if (valuesWhenNotProvided != null) {
-//      for (NotProvidedValuesCombi combie : valuesWhenNotProvided) {
-//        combie.setValueNames(null);
-//      }
-//    }
-//    if (valuesWhenProvided != null) {
-//      for (ProvidedValuesCombi combie : valuesWhenProvided) {
-//        combie.setValueNames(null);
-//      }
-//    }
-//    rules = null;
-//  }
-//
-//  public boolean intern_addRefinedRule(RefinedSafetyRule rule) {
-//    if (rule.getRelatedControlActionID().equals(getId())) {
-//      if (this.rules == null) {
-//        this.rules = new ArrayList<>();
-//      }
-//      this.rules.add(rule);
-//      return true;
-//    }
-//    return false;
-//  }
-//
-//  public boolean isSecurityCritical() {
-//    return isSecurityCritical;
-//  }
-//
-//  public boolean setSecurityCritical(boolean isSecurityCritical) {
-//    if (this.isSecurityCritical != isSecurityCritical) {
-//      this.isSecurityCritical = isSecurityCritical;
-//      return true;
-//    }
-//    return false;
-//  }
+
+  /**
+   * Prepares the control actions for the export
+   * 
+   * @author Fabian Toth, Lukas Balzer
+   * 
+   * @param hazAccController
+   *          the hazAccController to get the Accidents as objects
+   * 
+   */
+  public void prepareForExport(IExtendedDataController extendedData,
+      ControlStructureController csController, String defaultLabel) {
+
+    rules = new ArrayList<>();
+    for (AbstractLTLProvider refinedRule : extendedData.getAllScenarios(true, false, false)) {
+      if (refinedRule.getRelatedControlActionID().equals(getId())) {
+        rules.add((RefinedSafetyRule) refinedRule);
+      }
+    }
+    List<UUID> trash = new ArrayList<>();
+    if (notProvidedVariables != null) {
+      notProvidedVariableNames = new ArrayList<>();
+      for (UUID id : notProvidedVariables) {
+        if (csController.getComponent(id) != null) {
+          notProvidedVariableNames.add(csController.getComponent(id).getText());
+        } else {
+          trash.add(id);
+        }
+      }
+      notProvidedVariables.removeAll(trash);
+    }
+    if (providedVariables != null) {
+      trash.clear();
+      providedVariableNames = new ArrayList<>();
+      for (UUID id : providedVariables) {
+        if (csController.getComponent(id) != null) {
+          providedVariableNames.add(csController.getComponent(id).getText());
+        } else {
+          trash.add(id);
+        }
+      }
+      providedVariables.removeAll(trash);
+    }
+    if (notProvidedVariableNames != null && !notProvidedVariableNames.isEmpty()
+        && valuesWhenNotProvided != null) {
+      for (NotProvidedValuesCombi combie : valuesWhenNotProvided) {
+        if (combie.getPMValues().keySet().containsAll(notProvidedVariables)
+            && combie.getValueList().size() == notProvidedVariableNames.size()) {
+          ArrayList<String> list = new ArrayList<>();
+          for (UUID id : combie.getValueList()) {
+            if (csController.getComponent(id) != null) {
+              list.add(csController.getComponent(id).getText());
+            } else {
+              list.add(defaultLabel);
+            }
+          }
+          combie.setValueNames(list);
+        } else {
+          combie.setValueNames(null);
+        }
+      }
+    }
+    /*
+     * if he valuesWhenProvided list has been created and there are linked variables than the list
+     * is traversed
+     */
+    if (providedVariableNames != null && !providedVariableNames.isEmpty()
+        && valuesWhenProvided != null) {
+      for (ProvidedValuesCombi combie : valuesWhenProvided) {
+        if (combie.getPMValues().keySet().containsAll(providedVariables)
+            && combie.getValueList().size() == providedVariableNames.size()) {
+          ArrayList<String> list = new ArrayList<>();
+          for (UUID id : combie.getValueList()) {
+            if (csController.getComponent(id) != null) {
+              list.add(csController.getComponent(id).getText());
+            } else {
+              list.add(defaultLabel);
+            }
+          }
+          combie.setValueNames(list);
+        } else {
+          combie.setValueNames(null);
+        }
+      }
+    }
+  }
+
+  /**
+   * Prepares the control actions for save
+   * 
+   * @author Fabian Toth, Lukas Balzer
+   * 
+   */
+  public void prepareForSave(ExtendedDataController extendedData) {
+    notProvidedVariableNames = null;
+    providedVariableNames = null;
+
+    if (valuesWhenNotProvided != null) {
+      for (NotProvidedValuesCombi combie : valuesWhenNotProvided) {
+        combie.setValueNames(null);
+      }
+    }
+    if (valuesWhenProvided != null) {
+      for (ProvidedValuesCombi combie : valuesWhenProvided) {
+        combie.setValueNames(null);
+      }
+    }
+    rules = null;
+  }
+
+  public boolean intern_addRefinedRule(RefinedSafetyRule rule) {
+    if (rule.getRelatedControlActionID().equals(getId())) {
+      if (this.rules == null) {
+        this.rules = new ArrayList<>();
+      }
+      this.rules.add(rule);
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isSecurityCritical() {
+    return isSecurityCritical;
+  }
+
+  public boolean setSecurityCritical(boolean isSecurityCritical) {
+    if (this.isSecurityCritical != isSecurityCritical) {
+      this.isSecurityCritical = isSecurityCritical;
+      return true;
+    }
+    return false;
+  }
 }
