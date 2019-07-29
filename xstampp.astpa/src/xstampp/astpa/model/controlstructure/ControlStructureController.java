@@ -142,7 +142,6 @@ public class ControlStructureController extends Observable {
    */
   public UUID addComponent(UUID controlActionId, UUID parentId, Rectangle layout, String text,
       ComponentType type, Integer index) {
-    System.out.println("add new component" + text + "  " + type.toString());
     Component newComp = new Component(controlActionId, text, layout, type);
     IComponent parent = this.getInternalComponent(parentId);
     if (parent != null) {

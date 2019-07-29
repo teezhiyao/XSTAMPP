@@ -7,7 +7,7 @@ import java.util.UUID;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import xstampp.astpa.model.controlaction.ControlAction;
+import xstampp.stlsa.model.controlaction.ControlAction;
 
 
 public class ConstraintResult implements Comparable<ConstraintResult>{

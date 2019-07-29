@@ -18,6 +18,7 @@ import java.util.UUID;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewerColumn;
@@ -33,8 +34,9 @@ import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.submeasurement.SubMeasurement;
 import xstampp.astpa.model.submeasurement.SubMeasurementController;
+import xstampp.astpa.ui.CommonTableView;
 import xstampp.stlsa.model.StlsaController;
-import xstampp.astpa.model.controlaction.ControlAction;
+import xstampp.stlsa.model.controlaction.ControlAction;
 import xstampp.stlsa.ui.CausalFactorBaseView;
 import xstampp.usermanagement.api.AccessRights;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;

@@ -27,7 +27,7 @@ import xstampp.astpa.model.linking.LinkingType;
 import xstampp.model.AbstractLTLProvider;
 import xstampp.model.ObserverValue;
 import xstampp.stlsa.model.StlsaController;
-import xstampp.astpa.model.controlaction.ControlAction;
+import xstampp.stlsa.model.controlaction.ControlAction;
 
 public class ConstraintResultController extends Observable implements Observer {
   private StlsaController model;

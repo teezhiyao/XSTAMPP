@@ -27,7 +27,7 @@ import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.stlsa.model.StlsaController;
-import xstampp.astpa.model.controlaction.ControlAction;
+import xstampp.stlsa.model.controlaction.ControlAction;
 import xstampp.stlsa.ui.CausalFactorBaseView;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
 import xstampp.model.ObserverValue;

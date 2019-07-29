@@ -123,7 +123,6 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
     this.intention = intention;
     this.subMeasurements = new HashMap<String, Integer>();
     this.number = 0;
-    this.text = " ";
   }
   
   public String getIntention() {

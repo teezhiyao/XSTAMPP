@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyright (c) 2013-2017 A-STPA Stupro Team Uni Stuttgart (Lukas Balzer, Adam Grahovac, Jarkko
- * Heidenwag, Benedikt Markt, Jaqueline Patzek, Sebastian Sieber, Fabian Toth, Patrick
- * Wickenhäuser, Aliaksei Babkovich, Aleksander Zotov).
+ * Heidenwag, Benedikt Markt, Jaqueline Patzek, Sebastian Sieber, Fabian Toth, Patrick Wickenhäuser,
+ * Aliaksei Babkovich, Aleksander Zotov).
  * 
  * All rights reserved. This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@
  * 
  *******************************************************************************/
 
-package xstampp.astpa.model.controlaction;
+package xstampp.stlsa.model.controlaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
 
 import xstampp.astpa.model.ATableModel;
+import xstampp.astpa.model.controlaction.NotProvidedValuesCombi;
+import xstampp.astpa.model.controlaction.ProvidedValuesCombi;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
@@ -28,10 +31,9 @@ import xstampp.astpa.model.controlstructure.ControlStructureController;
 import xstampp.astpa.model.extendedData.ExtendedDataController;
 import xstampp.astpa.model.extendedData.RefinedSafetyRule;
 import xstampp.astpa.model.extendedData.interfaces.IExtendedDataController;
-import xstampp.astpa.model.interfaces.ISTPADataModel;
-import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.model.AbstractLTLProvider;
 import xstampp.model.IValueCombie;
+import xstampp.astpa.model.controlaction.UnsafeControlAction;
 
 /**
  * Class representing the control action objects
@@ -39,7 +41,8 @@ import xstampp.model.IValueCombie;
  * @author Fabian Toth, Lukas Balzer
  */
 @XmlAccessorType(XmlAccessType.NONE)
-public class ControlAction extends ATableModel implements IControlAction {
+@XmlType(name = "controlaction2")
+public class ControlAction extends xstampp.astpa.model.controlaction.ControlAction implements IControlAction {
 
   @XmlElementWrapper(name = "unsafecontrolactions")
   @XmlElement(name = "unsafecontrolaction")
@@ -48,8 +51,8 @@ public class ControlAction extends ATableModel implements IControlAction {
   @XmlElement(name = "componentLink")
   private UUID componentLink;
 
-  @XmlElement(name = "isSafetyCritical")
-  private boolean isSafetyCritical;
+  @XmlElement(name = "isSecurityCritical")
+  private boolean isSecurityCritical;
 
   @XmlElementWrapper(name = "notProvidedPMVariables")
   @XmlElement(name = "variableID")
@@ -91,7 +94,6 @@ public class ControlAction extends ATableModel implements IControlAction {
   public boolean setComponentLink(UUID componentLink) {
     if (this.componentLink == null || !this.componentLink.equals(componentLink)) {
       this.componentLink = componentLink;
-      setChanged();
       return true;
     }
     return false;
@@ -114,25 +116,13 @@ public class ControlAction extends ATableModel implements IControlAction {
    * 
    * @author Fabian Toth
    */
-  public ControlAction(String title, String description) {
-    super(title, description);
+  public ControlAction(String title, String description, int number) {
+    super(title, description, number);
     this.unsafeControlActions = new ArrayList<>();
   }
 
-  /**
-   * Constructor of a control action
-   * 
-   * @param title
-   *          the title of the new accident
-   * @param description
-   *          the description of the new accident
-   * @param number
-   *          the number of the new accident
-   * 
-   * @author Fabian Toth
-   */
-  public ControlAction(String title, String description, int number) {
-    super(title, description, number);
+  public ControlAction(String title, String description) {
+    super(title, description);
     this.unsafeControlActions = new ArrayList<>();
   }
 
@@ -143,16 +133,8 @@ public class ControlAction extends ATableModel implements IControlAction {
    */
   public ControlAction() {
     this.unsafeControlActions = new ArrayList<>();
+    this.isSecurityCritical = false;
     // empty constructor for JAXB
-  }
-
-  public ControlAction(ITableModel model) {
-    super(model, -1);
-    this.unsafeControlActions = new ArrayList<>();
-    if(model instanceof ControlAction) {
-      this.componentLink = ((ControlAction) model).componentLink;
-      this.isSafetyCritical = ((ControlAction) model).isSafetyCritical;
-    }
   }
 
   @Override
@@ -201,13 +183,8 @@ public class ControlAction extends ATableModel implements IControlAction {
       UnsafeControlActionType unsafeControlActionType) {
     UnsafeControlAction unsafeControlAction = new UnsafeControlAction(description,
         unsafeControlActionType);
-    setChanged(this.unsafeControlActions.add(unsafeControlAction));
+    this.unsafeControlActions.add(unsafeControlAction);
     unsafeControlAction.setNumber(number);
-    return unsafeControlAction.getId();
-  }
-  public UUID addUnsafeControlAction(IUnsafeControlAction otherUca) {
-    UnsafeControlAction unsafeControlAction = new UnsafeControlAction(otherUca);
-    setChanged(this.unsafeControlActions.add(unsafeControlAction));
     return unsafeControlAction.getId();
   }
 
@@ -227,7 +204,7 @@ public class ControlAction extends ATableModel implements IControlAction {
     UnsafeControlAction unsafeControlAction = new UnsafeControlAction(description,
         unsafeControlActionType);
     unsafeControlAction.setId(id);
-    setChanged(this.unsafeControlActions.add(unsafeControlAction));
+    this.unsafeControlActions.add(unsafeControlAction);
     unsafeControlAction.setNumber(number);
     return unsafeControlAction.getId();
   }
@@ -262,27 +239,6 @@ public class ControlAction extends ATableModel implements IControlAction {
   }
 
   /**
-   * @return the isSafetyCritical
-   */
-  public boolean isCASafetyCritical() {
-    return this.isSafetyCritical;
-  }
-
-  /**
-   * @param isSafetyCritical
-   *          the isSafetyCritical to set
-   * @return
-   */
-  public boolean setSafetyCritical(boolean isSafetyCritical) {
-    if (this.isSafetyCritical != isSafetyCritical) {
-      this.isSafetyCritical = isSafetyCritical;
-      setChanged();
-      return true;
-    }
-    return false;
-  }
-
-  /**
    * @return the valuesWhenNotProvided
    */
   public List<NotProvidedValuesCombi> getValuesAffectedWhenNotProvided() {
@@ -298,7 +254,6 @@ public class ControlAction extends ATableModel implements IControlAction {
    */
   public void setValuesWhenNotProvided(List<NotProvidedValuesCombi> valuesWhenNotProvided) {
     this.valuesWhenNotProvided = valuesWhenNotProvided;
-    setChanged();
   }
 
   /**
@@ -309,13 +264,13 @@ public class ControlAction extends ATableModel implements IControlAction {
     if (this.valuesWhenNotProvided == null) {
       this.valuesWhenNotProvided = new ArrayList<>();
     }
-    return setChanged(this.valuesWhenNotProvided.add(valueWhenNotProvided));
+    return this.valuesWhenNotProvided.add(valueWhenNotProvided);
   }
 
   public boolean removeValuesWhenNotProvided(UUID combieId) {
     for (IValueCombie combie : this.valuesWhenNotProvided) {
       if (combie.getCombieId().equals(combieId)) {
-        return setChanged(this.valuesWhenNotProvided.remove(combie));
+        return this.valuesWhenNotProvided.remove(combie);
       }
     }
     return false;
@@ -337,7 +292,6 @@ public class ControlAction extends ATableModel implements IControlAction {
    */
   public void setValuesWhenProvided(List<ProvidedValuesCombi> valuesWhenProvided) {
     this.valuesWhenProvided = valuesWhenProvided;
-    setChanged();
   }
 
   /**
@@ -348,21 +302,19 @@ public class ControlAction extends ATableModel implements IControlAction {
     if (this.valuesWhenNotProvided == null) {
       this.valuesWhenNotProvided = new ArrayList<>();
     }
-    return setChanged(this.valuesWhenProvided.add(valueWhenNotProvided));
+    return this.valuesWhenProvided.add(valueWhenNotProvided);
   }
 
   public boolean removeValueWhenProvided(UUID combieId) {
     for (ProvidedValuesCombi combie : this.valuesWhenProvided) {
       if (combie.getCombieId().equals(combieId)) {
-        return setChanged(this.valuesWhenProvided.remove(combie));
+        return this.valuesWhenProvided.remove(combie);
       }
     }
     return false;
   }
 
-  /**
-   * @return a copie of the the notProvidedVariables List
-   */
+  @Override
   public List<UUID> getNotProvidedVariables() {
     if (this.notProvidedVariables == null) {
       return new ArrayList<>();
@@ -382,12 +334,10 @@ public class ControlAction extends ATableModel implements IControlAction {
     if (this.notProvidedVariables == null) {
       this.notProvidedVariables = new ArrayList<>();
     }
-    setChanged(this.notProvidedVariables.add(notProvidedVariable));
+    this.notProvidedVariables.add(notProvidedVariable);
   }
 
-  /**
-   * @return a copie of the provided variables list
-   */
+  @Override
   public List<UUID> getProvidedVariables() {
     if (this.providedVariables == null) {
       this.providedVariables = new ArrayList<>();
@@ -408,7 +358,7 @@ public class ControlAction extends ATableModel implements IControlAction {
       this.providedVariables = new ArrayList<>();
     }
     if (!this.providedVariables.contains(providedVariable)) {
-      setChanged(this.providedVariables.add(providedVariable));
+      this.providedVariables.add(providedVariable);
     }
   }
 
@@ -474,7 +424,7 @@ public class ControlAction extends ATableModel implements IControlAction {
       if (ruleIds == null) {
         this.ruleIds = new ArrayList<>();
       }
-      return setChanged(ruleIds.add(ruleId));
+      return ruleIds.add(ruleId);
     }
     return false;
   }
@@ -506,19 +456,16 @@ public class ControlAction extends ATableModel implements IControlAction {
    * Prepares the control actions for the export
    * 
    * @author Fabian Toth, Lukas Balzer
-   * @param defaultLabel
-   *          TODO
+   * 
    * @param hazAccController
    *          the hazAccController to get the Accidents as objects
    * 
    */
-  public void prepareForExport(ISTPADataModel dataModel, String defaultLabel) {
-    super.prepareForExport();
-    for (UnsafeControlAction unsafeControlAction : unsafeControlActions) {
-      unsafeControlAction.prepareForExport(dataModel);
-    }
+  public void prepareForExport(IExtendedDataController extendedData,
+      ControlStructureController csController, String defaultLabel) {
+
     rules = new ArrayList<>();
-    for (AbstractLTLProvider refinedRule : dataModel.getExtendedDataController().getAllScenarios(true, false, false)) {
+    for (AbstractLTLProvider refinedRule : extendedData.getAllScenarios(true, false, false)) {
       if (refinedRule.getRelatedControlActionID().equals(getId())) {
         rules.add((RefinedSafetyRule) refinedRule);
       }
@@ -527,8 +474,8 @@ public class ControlAction extends ATableModel implements IControlAction {
     if (notProvidedVariables != null) {
       notProvidedVariableNames = new ArrayList<>();
       for (UUID id : notProvidedVariables) {
-        if (dataModel.getControlStructureController().getComponent(id) != null) {
-          notProvidedVariableNames.add(dataModel.getControlStructureController().getComponent(id).getText());
+        if (csController.getComponent(id) != null) {
+          notProvidedVariableNames.add(csController.getComponent(id).getText());
         } else {
           trash.add(id);
         }
@@ -539,8 +486,8 @@ public class ControlAction extends ATableModel implements IControlAction {
       trash.clear();
       providedVariableNames = new ArrayList<>();
       for (UUID id : providedVariables) {
-        if (dataModel.getControlStructureController().getComponent(id) != null) {
-          providedVariableNames.add(dataModel.getControlStructureController().getComponent(id).getText());
+        if (csController.getComponent(id) != null) {
+          providedVariableNames.add(csController.getComponent(id).getText());
         } else {
           trash.add(id);
         }
@@ -554,8 +501,8 @@ public class ControlAction extends ATableModel implements IControlAction {
             && combie.getValueList().size() == notProvidedVariableNames.size()) {
           ArrayList<String> list = new ArrayList<>();
           for (UUID id : combie.getValueList()) {
-            if (dataModel.getControlStructureController().getComponent(id) != null) {
-              list.add(dataModel.getControlStructureController().getComponent(id).getText());
+            if (csController.getComponent(id) != null) {
+              list.add(csController.getComponent(id).getText());
             } else {
               list.add(defaultLabel);
             }
@@ -577,8 +524,8 @@ public class ControlAction extends ATableModel implements IControlAction {
             && combie.getValueList().size() == providedVariableNames.size()) {
           ArrayList<String> list = new ArrayList<>();
           for (UUID id : combie.getValueList()) {
-            if (dataModel.getControlStructureController().getComponent(id) != null) {
-              list.add(dataModel.getControlStructureController().getComponent(id).getText());
+            if (csController.getComponent(id) != null) {
+              list.add(csController.getComponent(id).getText());
             } else {
               list.add(defaultLabel);
             }
@@ -591,9 +538,13 @@ public class ControlAction extends ATableModel implements IControlAction {
     }
   }
 
-  @Override
-  public void prepareForSave() {
-    super.prepareForSave();
+  /**
+   * Prepares the control actions for save
+   * 
+   * @author Fabian Toth, Lukas Balzer
+   * 
+   */
+  public void prepareForSave(ExtendedDataController extendedData) {
     notProvidedVariableNames = null;
     providedVariableNames = null;
 
@@ -608,9 +559,6 @@ public class ControlAction extends ATableModel implements IControlAction {
       }
     }
     rules = null;
-    for (UnsafeControlAction unsafeControlAction : unsafeControlActions) {
-      unsafeControlAction.prepareForSave();
-    }
   }
 
   public boolean intern_addRefinedRule(RefinedSafetyRule rule) {
@@ -624,29 +572,15 @@ public class ControlAction extends ATableModel implements IControlAction {
     return false;
   }
 
-  @Override
-  public String getIdString() {
-    return "CA-" + super.getIdString();
-  }
-
-  public void prepareForExport(IExtendedDataController extendedData,
-      ControlStructureController csController, String defaultLabel) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public void prepareForSave(ExtendedDataController extendedData) {
-    // TODO Auto-generated method stub
-    
-  }
-
   public boolean isSecurityCritical() {
-    // TODO Auto-generated method stub
-    return false;
+    return isSecurityCritical;
   }
 
   public boolean setSecurityCritical(boolean isSecurityCritical) {
-    // TODO Auto-generated method stub
+    if (this.isSecurityCritical != isSecurityCritical) {
+      this.isSecurityCritical = isSecurityCritical;
+      return true;
+    }
     return false;
   }
 }

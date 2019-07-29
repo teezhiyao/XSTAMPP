@@ -73,7 +73,8 @@ public class ControlActionView extends CommonTableView<IControlActionViewDataMod
       @Override
       public String getText(Object element) {
         if (element instanceof IControlAction) {
-          IRectangleComponent comp = ControlActionView.this.getDataInterface().getComponent(((IControlAction) element).getComponentLink());
+          IRectangleComponent comp = ControlActionView.this.getDataInterface()
+              .getComponent(((IControlAction) element).getComponentLink());
           if (comp == null) {
             return null;
           }
@@ -99,14 +100,11 @@ public class ControlActionView extends CommonTableView<IControlActionViewDataMod
 
       @Override
       public String getText(Object element) {
-        System.out.println("source: " + element.getClass().toString());
         if (element instanceof IControlAction) {
-          System.out.println(((IControlAction) element).getIdString() + ((IControlAction) element).getId());
-          System.out.println(((IControlAction) element).getComponentLink());
           IRectangleComponent comp = ControlActionView.this.getDataInterface()
               .getComponent(((IControlAction) element).getComponentLink());
           if (comp == null) {
-            return "Hi";
+            return null;
           }
           IConnection conn = ControlActionView.this.getDataInterface()
               .getConnection(comp.getRelative());

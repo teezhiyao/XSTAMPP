@@ -392,7 +392,6 @@ public class DataModelController extends AbstractDataModel
       String caTitle = getControlAction(controlActionId).getText();
       result = this.controlStructureController.addComponent(controlActionId, parentId, layout,
           caTitle, type, index);
-      System.out.println("In add component so added.");
       this.getControlActionController().setComponentLink(result, controlActionId);
     } else {
       result = this.controlStructureController.addComponent(parentId, layout, text, type, index);
