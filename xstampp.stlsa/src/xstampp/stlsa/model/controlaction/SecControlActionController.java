@@ -29,7 +29,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
-import xstampp.astpa.model.controlaction.ControlAction;
 import xstampp.astpa.model.controlaction.IControlActionController;
 import xstampp.astpa.model.controlaction.NotProvidedValuesCombi;
 import xstampp.astpa.model.controlaction.ProvidedValuesCombi;

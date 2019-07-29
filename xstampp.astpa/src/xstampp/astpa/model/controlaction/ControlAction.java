@@ -24,10 +24,7 @@ import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
 import xstampp.astpa.model.controlaction.interfaces.IUnsafeControlAction;
 import xstampp.astpa.model.controlaction.interfaces.UnsafeControlActionType;
-import xstampp.astpa.model.controlstructure.ControlStructureController;
-import xstampp.astpa.model.extendedData.ExtendedDataController;
 import xstampp.astpa.model.extendedData.RefinedSafetyRule;
-import xstampp.astpa.model.extendedData.interfaces.IExtendedDataController;
 import xstampp.astpa.model.interfaces.ISTPADataModel;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.model.AbstractLTLProvider;
@@ -257,7 +254,7 @@ public class ControlAction extends ATableModel implements IControlAction {
    * 
    * @author Fabian Toth
    */
-  public List<UnsafeControlAction> getInternalUnsafeControlActions() {
+  List<UnsafeControlAction> getInternalUnsafeControlActions() {
     return this.unsafeControlActions;
   }
 
@@ -627,26 +624,5 @@ public class ControlAction extends ATableModel implements IControlAction {
   @Override
   public String getIdString() {
     return "CA-" + super.getIdString();
-  }
-
-  public void prepareForExport(IExtendedDataController extendedData,
-      ControlStructureController csController, String defaultLabel) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public void prepareForSave(ExtendedDataController extendedData) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public boolean isSecurityCritical() {
-    // TODO Auto-generated method stub
-    return false;
-  }
-
-  public boolean setSecurityCritical(boolean isSecurityCritical) {
-    // TODO Auto-generated method stub
-    return false;
   }
 }
