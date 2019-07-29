@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
 
 import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.controlaction.interfaces.IControlAction;
@@ -40,7 +41,7 @@ public class ControlAction extends ATableModel implements IControlAction {
 
   @XmlElementWrapper(name = "unsafecontrolactions")
   @XmlElement(name = "unsafecontrolaction")
-  private List<UnsafeControlAction> unsafeControlActions;
+  protected List<UnsafeControlAction> unsafeControlActions;
 
   @XmlElement(name = "componentLink")
   private UUID componentLink;
@@ -86,6 +87,7 @@ public class ControlAction extends ATableModel implements IControlAction {
    * @return
    */
   public boolean setComponentLink(UUID componentLink) {
+    System.out.println("In set componentlink");
     if (this.componentLink == null || !this.componentLink.equals(componentLink)) {
       this.componentLink = componentLink;
       setChanged();

@@ -24,14 +24,8 @@ import org.eclipse.swt.widgets.Composite;
 
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
-import xstampp.astpa.model.DataModelController;
-import xstampp.astpa.model.controlaction.ControlAction;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
-import xstampp.astpa.model.controlaction.interfaces.IControlAction;
-import xstampp.astpa.model.controlstructure.interfaces.IConnection;
-import xstampp.astpa.model.controlstructure.interfaces.IRectangleComponent;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
-import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.stlsa.ui.UnsafeCAView;
 //import xstampp.stpapriv.model.controlaction.UnsafeControlAction;
