@@ -62,6 +62,71 @@ public class ControlActionView extends CommonTableView<IControlActionViewDataMod
   public void createPartControl(Composite parent) {
 
     super.createPartControl(parent);
+    createColumns();
+//    // the source column is for the unsafe control actions
+//    TableViewerColumn sourceColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+//    sourceColumn.getColumn().setText("Source"); //$NON-NLS-1$
+//    getTableColumnLayout().setColumnData(sourceColumn.getColumn(),
+//        new ColumnWeightData(10, 100, true));
+//
+//    sourceColumn.setLabelProvider(new ColumnLabelProvider() {
+//
+//      @Override
+//      public String getText(Object element) {
+//        if (element instanceof IControlAction) {
+//          IRectangleComponent comp = ControlActionView.this.getDataInterface().getComponent(((IControlAction) element).getComponentLink());
+//          if (comp == null) {
+//            return null;
+//          }
+//          IConnection conn = ControlActionView.this.getDataInterface()
+//              .getConnection(comp.getRelative());
+//          if (conn == null) {
+//            return null;
+//          }
+//          comp = ControlActionView.this.getDataInterface()
+//              .getComponent(conn.getSourceAnchor().getOwnerId());
+//          return comp.getText();
+//        }
+//        return null;
+//      }
+//    });
+//    // the target column is for the unsafe control actions
+//    TableViewerColumn distanceColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+//    distanceColumn.getColumn().setText("Destination");//$NON-NLS-1$
+//    getTableColumnLayout().setColumnData(distanceColumn.getColumn(),
+//        new ColumnWeightData(10, 100, true));
+//
+//    distanceColumn.setLabelProvider(new ColumnLabelProvider() {
+//
+//      @Override
+//      public String getText(Object element) {
+//        System.out.println("source: " + element.getClass().toString());
+//        if (element instanceof IControlAction) {
+//          System.out.println(((IControlAction) element).getIdString() + ((IControlAction) element).getId());
+//          System.out.println(((IControlAction) element).getComponentLink());
+//          IRectangleComponent comp = ControlActionView.this.getDataInterface()
+//              .getComponent(((IControlAction) element).getComponentLink());
+//          if (comp == null) {
+//            return "Hi";
+//          }
+//          IConnection conn = ControlActionView.this.getDataInterface()
+//              .getConnection(comp.getRelative());
+//          if (conn == null) {
+//            return null;
+//          }
+//          comp = ControlActionView.this.getDataInterface()
+//              .getComponent(conn.getTargetAnchor().getOwnerId());
+//          return comp.getText();
+//        }
+//        return null;
+//      }
+//    });
+    this.updateTable();
+    getAddNewItemButton().setEnabled(false);
+    getAddNewItemButton().setToolTipText(Messages.ControlActionView_1);
+  }
+
+  public void createColumns() {
     // the source column is for the unsafe control actions
     TableViewerColumn sourceColumn = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
     sourceColumn.getColumn().setText("Source"); //$NON-NLS-1$
@@ -120,11 +185,8 @@ public class ControlActionView extends CommonTableView<IControlActionViewDataMod
         return null;
       }
     });
-    this.updateTable();
-    getAddNewItemButton().setEnabled(false);
-    getAddNewItemButton().setToolTipText(Messages.ControlActionView_1);
   }
-
+  
   @Override
   protected void deleteEntry(ATableModel model) {
     resetCurrentSelection();

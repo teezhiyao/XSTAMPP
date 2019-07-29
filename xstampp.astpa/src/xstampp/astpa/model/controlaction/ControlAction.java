@@ -259,7 +259,7 @@ public class ControlAction extends ATableModel implements IControlAction {
    * 
    * @author Fabian Toth
    */
-  public List<UnsafeControlAction> getInternalUnsafeControlActions() {
+  List<UnsafeControlAction> getInternalUnsafeControlActions() {
     return this.unsafeControlActions;
   }
 

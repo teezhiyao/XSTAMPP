@@ -802,6 +802,7 @@ public class DataModelController extends AbstractDataModel
 
   @Override
   public IRectangleComponent getComponent(UUID componentId) {
+    System.out.println("DataModel getComponent");
     if ((componentId == null)) {
       return null;
     }
