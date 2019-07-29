@@ -163,7 +163,10 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
 //    List<String> typeCount = getSubMeasurementController().getTypeCount();
     
     for(int i = 0; i < getSubMeasurementController().getExcessCount(); i++) {
-  
+      //The same set of submeasurement
+      final List<SubMeasurement> corresSub = getSubMeasurementController().getSubMeasurement(i);
+      
+      
       //Drop down for Severity & Type in 0th and 1st column
       GridRow controlActionRow = new GridRow(columns.length,3,new int[] {0,1}); 
       String[] metricOptions = new String[]{"Severity", "Likelihood"};
@@ -172,9 +175,8 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         public void onTextChanged(String newText) {
           System.out.println("Combo Text: "+ this.getComboCell().getText());
           List<UUID> subMeasUuid = new ArrayList<UUID>();
-          subMeasUuid.add(this.getGridRow().getCells().get(2).getUUID());
-          for(GridRow childrow :this.getGridRow().getChildren()) {
-            subMeasUuid.add(childrow.getCells().get(2).getUUID());
+          for(SubMeasurement subMeasurement :corresSub) {
+            subMeasUuid.add(subMeasurement.getId());
           }
           
           for(UUID cellId : subMeasUuid) {
@@ -194,9 +196,8 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         public void onTextChanged(String newText) {
           System.out.println("Combo Text: "+ this.getComboCell().getText());
           List<UUID> subMeasUuid = new ArrayList<UUID>();
-          subMeasUuid.add(this.getGridRow().getCells().get(2).getUUID());
-          for(GridRow childrow :this.getGridRow().getChildren()) {
-            subMeasUuid.add(childrow.getCells().get(2).getUUID());
+          for(SubMeasurement subMeasurement :corresSub) {
+            subMeasUuid.add(subMeasurement.getId());
           }
           
           for(UUID cellId : subMeasUuid) {
@@ -209,15 +210,13 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
       };
       controlActionRow.addCell(1, metricType);
       
-      List<SubMeasurement> corresSub = getSubMeasurementController().getSubMeasurement(i);
       for(int y = 0; y < corresSub.size(); y++) {
         if(y == 0) {
         metric.getComboCell().setText(corresSub.get(0).getSeverityLikelihood());
         metricType.getComboCell().setText(corresSub.get(0).getType());
         }
         
-        UUID tempSubUUID = corresSub.get(y).getId();
-        GridCellText subMeasId = new GridCellText(tempSubUUID.toString(),tempSubUUID);
+        final UUID tempSubUUID = corresSub.get(y).getId();
         
         //Add Rows for Submeasurement according to size 
         GridRow subMeas = new GridRow(columns.length,3,new int[] {0,1,2,3});
@@ -227,8 +226,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
           @Override
           public void onTextChanged(String newText) {
             System.out.println("newText" + newText);
-            UUID rowUuid = this.getGridRow().getCells().get(2).getUUID();
-            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(rowUuid);
+            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(tempSubUUID);
             if(tempSub instanceof SubMeasurement) {
               ((SubMeasurement) tempSub).setSubMeasurement(newText);
             }            
@@ -241,8 +239,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
           @Override
           public void onTextChanged(String newText) {
             System.out.println("newText" + newText);
-            UUID rowUuid = this.getGridRow().getCells().get(2).getUUID();
-            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(rowUuid);
+            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(tempSubUUID);
             if(tempSub instanceof SubMeasurement) {
               ((SubMeasurement) tempSub).setScale(Integer.parseInt(newText));;
             }            
