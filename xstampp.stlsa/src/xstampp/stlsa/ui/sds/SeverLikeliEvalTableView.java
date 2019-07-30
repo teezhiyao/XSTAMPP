@@ -12,7 +12,9 @@
 package xstampp.stlsa.ui.sds;
 
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.UUID;
 
@@ -99,7 +101,7 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
       }
       else {
       TableViewerColumn subMeasurementCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-      subMeasurementCol.getColumn().setText(currentSub.getSubMeasurement()); //$NON-NLS-1$
+      subMeasurementCol.getColumn().setText(currentSub.getSeverityLikelihood() + "-" +currentSub.getSubMeasurement()); //$NON-NLS-1$
       getTableColumnLayout().setColumnData(subMeasurementCol.getColumn(), new ColumnWeightData(10, 100, true));
       subMeasurementCol.setLabelProvider(new ColumnLabelProvider() {
         @Override
@@ -153,6 +155,7 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
             System.out.println(subMeasurementTitle);
             ((CausalFactor)element).setSubMeasurements(subMeasurementTitle,Integer.parseInt(value.toString()));
           }
+          SeverLikeliEvalTableView.this.refreshView();
           //          UUID uuid = ((ATableModel) element).getId();
 //          updateTitle(uuid, String.valueOf(value));
         }
@@ -166,38 +169,46 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
     }
     
     
-    TableViewerColumn ucaTypeCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-    ucaTypeCol.getColumn().setText("UCA Type"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(ucaTypeCol.getColumn(),
+    TableViewerColumn severityCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    severityCol.getColumn().setText("Severity"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(severityCol.getColumn(),
         new ColumnWeightData(10, 100, true));
 
-    ucaTypeCol.setLabelProvider(new ColumnLabelProvider() {
+    severityCol.setLabelProvider(new ColumnLabelProvider() {
 
       @Override
       public String getText(Object element) {
         if (element instanceof CausalFactor) {
-          UUID ucaId = ((CausalFactor) element).getParentUUID();
-          UnsafeControlAction uca = (UnsafeControlAction) SeverLikeliEvalTableView.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
-          return uca.getType().toString();
-        }
+            HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
+            int severSum = 0;
+            for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+              if(pair.getKey() == "Severity")
+                severSum += pair.getValue();
+              }
+            return Integer.toString(severSum);
+            }
         return null;
       }  
     });
     
-    TableViewerColumn controlActionCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-    controlActionCol.getColumn().setText("Control Action"); //$NON-NLS-1$
-    getTableColumnLayout().setColumnData(controlActionCol.getColumn(),
+    TableViewerColumn likelihoodCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
+    likelihoodCol.getColumn().setText("Likelihood"); //$NON-NLS-1$
+    getTableColumnLayout().setColumnData(likelihoodCol.getColumn(),
         new ColumnWeightData(10, 100, true));
 
-    controlActionCol.setLabelProvider(new ColumnLabelProvider() {
+    likelihoodCol.setLabelProvider(new ColumnLabelProvider() {
 
       @Override
       public String getText(Object element) {
         if (element instanceof CausalFactor) {
-          UUID ucaId = ((CausalFactor) element).getParentUUID();
-          ControlAction ca = (ControlAction) SeverLikeliEvalTableView.this.getStlsaController().getControlActionForUca(ucaId);
-          return ca.getTitle();
-        }
+          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
+          int likeliSum = 0;
+          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+            if(pair.getKey() == "Likelihood")
+              likeliSum += pair.getValue();
+            }
+          return Integer.toString(likeliSum);
+          }
         return null;
       }  
     });    
