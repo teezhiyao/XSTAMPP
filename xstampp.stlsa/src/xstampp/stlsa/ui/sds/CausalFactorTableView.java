@@ -78,42 +78,7 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
         }
         return null;
       }      
-//      @Override
-//      public void update(ViewerCell cell) {
-//        final Object element = cell.getElement();
-//        cell.setText(getText(element));
-//        Image image = getImage(element);
-//        cell.setImage(image);
-//        cell.setBackground(getBackground(element));
-//        cell.setForeground(getForeground(element));
-//        cell.setFont(getFont(element));
-//        
-//        TableItem[] items = CausalFactorTableView.this.getTableViewer().getTable().getItems();
-//        for (int i = 0; i < items.length; i++) {
-//          TableEditor editor = new TableEditor(CausalFactorTableView.this.getTableViewer().getTable());
-//          CCombo combo = new CCombo(CausalFactorTableView.this.getTableViewer().getTable(), SWT.CENTER);
-//          combo.setText("Casual Factor (Guide)");
-//          for (CausalFactorEnum CF : CausalFactorEnum.values()) { 
-//            combo.add(CF.getLabel());
-//        }
-//          combo.addSelectionListener(new SelectionAdapter() {
-//                @Override
-//                public void widgetSelected(SelectionEvent arg0) {
-//                    // change selection when an item is selected
-////                    CCombo ccomboCell = ((CCombo) arg0.getSource());
-////                    String selectedText = ccomboCell.getText();
-////                    System.out.println(selectedText);
-////                    System.out.println(element.getClass());
-////                    UUID UcaID = ((UnsafeControlAction) element).getId();
-////                    UUID CFID = CausalFactorTableView.this.createCausalFactor(selectedText);
-////                    CausalFactorTableView.this.factorid = CausalFactorTableView.this.addCausalFactorToUca(CFID, UcaID);
-//                }   
-//              });
-//          editor.grabHorizontal = true;
-//          editor.setEditor(combo, items[i], 2);
-//          }
-//        
-//      }
+
     });
     
     // the Type column is for the unsafe control actions
