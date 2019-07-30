@@ -131,6 +131,7 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
   }
 
   public void setIntention(String intention) {
+    System.out.println("set intention");
     this.intention = intention;
   }
 
@@ -206,6 +207,12 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
 
   @Override
   public String getTitle() {
+    return this.title;
+  }
+  
+  @Override
+  public String setTitle(String title) {
+    this.title = title;
     return this.title;
   }
 
