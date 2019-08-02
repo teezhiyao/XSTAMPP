@@ -304,15 +304,15 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
     ((StlsaController) SeverLikeliEvalTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
   }
   
-  public UUID addCausalFactorToUca(UUID CFID, UUID UcaID) {
-    System.out.println(CFID.toString());
-    UUID factorid = ((StlsaController) SeverLikeliEvalTableView.this.getDataInterface()).addCausalFactor(CFID, UcaID);
-    return factorid;
-  }
-  public UUID createCausalFactor(String selectedText) {
-  StlsaController dataController = ((StlsaController) SeverLikeliEvalTableView.this.getDataInterface());
-  CausalFactorController CFController = (CausalFactorController) dataController.getCausalFactorController();
-  UUID CFID = CFController.addCausalFactor(new CausalFactor(selectedText));
-  return CFID;
-  }
+//  public UUID addCausalFactorToUca(UUID CFID, UUID UcaID) {
+//    System.out.println(CFID.toString());
+//    UUID factorid = ((StlsaController) SeverLikeliEvalTableView.this.getDataInterface()).addCausalFactor(CFID, UcaID);
+//    return factorid;
+//  }
+//  public UUID createCausalFactor(String selectedText) {
+//  StlsaController dataController = ((StlsaController) SeverLikeliEvalTableView.this.getDataInterface());
+//  CausalFactorController CFController = (CausalFactorController) dataController.getCausalFactorController();
+//  UUID CFID = CFController.addCausalFactor(new CausalFactor(selectedText));
+//  return CFID;
+//  }
 }
