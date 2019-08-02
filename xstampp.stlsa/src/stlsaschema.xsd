@@ -92,7 +92,7 @@
                         </xs:attribute>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="causalfactor" maxOccurs="1" minOccurs="0" type="haz:causalFactorController" />
+                <xs:element name="causalfactorController" maxOccurs="1" minOccurs="0" type="haz:causalFactorController" />
                 <xs:element name="submeasurement" maxOccurs="1" minOccurs="0" type="haz:subMeasurementController" />
                 <xs:element name="extendedData" type="haz:extendedDataType" maxOccurs="1" minOccurs="0" />
 

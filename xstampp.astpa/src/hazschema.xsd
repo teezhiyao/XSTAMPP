@@ -14,7 +14,7 @@
                 <xs:element name="controlstructure" maxOccurs="1" minOccurs="0" type="Q1:controlStructureController" />
                 <xs:element name="ignoreLTLValue" type="Q1:componentType" maxOccurs="1" minOccurs="0" />
                 <xs:element name="cac" maxOccurs="1" minOccurs="0" type="Q1:controlActionController" />
-                <xs:element name="causalfactor" maxOccurs="1" minOccurs="0" type="Q1:causalFactorController" />
+                <xs:element name="causalfactorController" maxOccurs="1" minOccurs="0" type="Q1:causalFactorController" />
                 <xs:element name="extendedData" type="Q1:extendedDataType" maxOccurs="1" minOccurs="0" />
                 <xs:element name="linkController" maxOccurs="1" minOccurs="0" type="Q1:linkController" />
             </xs:all>
@@ -32,7 +32,7 @@
             <xs:element name="safetyConstraint" type="Q1:sdsType" maxOccurs="1" minOccurs="0"></xs:element>
             <xs:element name="note" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
             <xs:element name="hazardLinks" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
-            <xs:element name="title" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+            <xs:element name="cftitle" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
             <xs:element name="intention" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
             <xs:element name="description" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
             <xs:element name="number" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
@@ -64,7 +64,7 @@
                 </xs:complexType>
             </xs:element>
 
-            <xs:element name="id" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>
+            <xs:element name="cfid" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>
             <xs:element name="text" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
         </xs:all>
         <xs:attribute name="number" use="optional" type="xs:int"></xs:attribute>
@@ -100,7 +100,7 @@
                                                 <xs:element name="causalFactors" maxOccurs="1" minOccurs="0">
                                                     <xs:complexType>
                                                         <xs:sequence>
-                                                            <xs:element name="factor" type="Q1:causalFactorType"
+                                                            <xs:element name="causalfactor" type="Q1:causalFactorType"
                                                                 maxOccurs="unbounded" minOccurs="0">
                                                             </xs:element>
                                                         </xs:sequence>
