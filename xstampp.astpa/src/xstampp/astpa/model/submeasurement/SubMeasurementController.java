@@ -72,9 +72,9 @@ public class SubMeasurementController extends ATableModelController implements I
   @XmlElement(name = "causalSafetyConstraint")
   private NumberedArrayList<SubMeasurementSafetyConstraint> causalSafetyConstraints;
 
-//  @XmlElementWrapper(name = "causalFactors")
-//  @XmlElement(name = "causalFactor")
-  private NumberedArrayList<SubMeasurement> causalFactors;
+  @XmlElementWrapper(name = "subMeasurements")
+  @XmlElement(name = "subMeasurement")
+  private NumberedArrayList<SubMeasurement> subMeasurement;
   private List<String> typeCount;  
 //      new HashMap<String, Map<String, String>>();
   private LinkController linkController;
@@ -109,7 +109,7 @@ public class SubMeasurementController extends ATableModelController implements I
 
   public SubMeasurementController(boolean testable) {
     this.causalSafetyConstraints = new NumberedArrayList<>();
-    this.causalFactors = new NumberedArrayList<>();
+    this.subMeasurement = new NumberedArrayList<>();
     this.typeCount = new ArrayList<String>();
     this.excessCount = 0;
     if (!testable) {
@@ -154,7 +154,7 @@ public class SubMeasurementController extends ATableModelController implements I
 //      else if(this.typeCount.get(factor.getSeverityLikelihood()) != factor.getType()) {
 //        
     
-    if (this.causalFactors.add(factor)) {
+    if (this.subMeasurement.add(factor)) {
       setChanged();
       notifyObservers(new UndoAddSubMeasurement(this, factor, linkController));
       return factor.getId();
@@ -172,7 +172,7 @@ public class SubMeasurementController extends ATableModelController implements I
     this.typeCount = typeCount;
   }
   public ITableModel getSubMeasurement(UUID causalFactorId) {
-    Optional<SubMeasurement> first = this.causalFactors.stream().filter((factor) -> factor.getId().equals(causalFactorId))
+    Optional<SubMeasurement> first = this.subMeasurement.stream().filter((factor) -> factor.getId().equals(causalFactorId))
         .findFirst();
     if(first.isPresent()) {
       return first.get();
@@ -182,7 +182,7 @@ public class SubMeasurementController extends ATableModelController implements I
   }
 
   public List<ITableModel> getSubMeasurement() {
-    return new ArrayList<>(causalFactors);
+    return new ArrayList<>(subMeasurement);
   }
 
 //  public List<ATableModel> getModCausalFactors() {
@@ -196,7 +196,7 @@ public class SubMeasurementController extends ATableModelController implements I
   
   @Override
   public boolean setSubMeasurementText(UUID causalFactorId, String causalFactorText) {
-    SubMeasurement causalFactor = this.causalFactors.get(causalFactorId);
+    SubMeasurement causalFactor = this.subMeasurement.get(causalFactorId);
     if (causalFactor != null) {
 
       String oldText = causalFactor.getText();
@@ -215,9 +215,9 @@ public class SubMeasurementController extends ATableModelController implements I
 
   @Override
   public boolean removeSubMeasurement(UUID causalFactor) {
-    Optional<SubMeasurement> removeOptional = this.causalFactors.stream()
+    Optional<SubMeasurement> removeOptional = this.subMeasurement.stream()
         .filter(factor -> factor.getId().equals(causalFactor)).findFirst();
-    if (removeOptional.isPresent() && this.causalFactors.remove(removeOptional.get())) {
+    if (removeOptional.isPresent() && this.subMeasurement.remove(removeOptional.get())) {
       setChanged();
       notifyObservers(new UndoRemoveSubMeasurement(this, removeOptional.get(), this.linkController));
       return true;
@@ -351,12 +351,12 @@ public class SubMeasurementController extends ATableModelController implements I
     if (this.causalComponents != null) {
       removeList.addAll(causalComponents.keySet());
       this.causalComponents.entrySet().forEach((comp) -> {
-        this.causalFactors
+        this.subMeasurement
             .addAll(comp.getValue().prepareForSave(comp.getKey(), hazAccController, allRefinedRules,
                 allUnsafeControlActions, getCausalSafetyConstraints(), linkController));
       });
     }
-    causalFactors.forEach(factor -> factor.prepareForSave());
+    subMeasurement.forEach(factor -> factor.prepareForSave());
     this.causalComponents = null;
     this.componentsList = null;
   }
@@ -468,8 +468,8 @@ public class SubMeasurementController extends ATableModelController implements I
   }
 
   void setCausalFactors(ArrayList<SubMeasurement> causalFactors) {
-    this.causalFactors.clear();
-    this.causalFactors.addAll(causalFactors);
+    this.subMeasurement.clear();
+    this.subMeasurement.addAll(causalFactors);
   }
 
   void setCausalSafetyConstraints(ArrayList<SubMeasurementSafetyConstraint> causalSafetyConstraints) {
@@ -480,7 +480,7 @@ public class SubMeasurementController extends ATableModelController implements I
   public void syncContent(SubMeasurementController controller) {
     this.useScenarios = controller.useScenarios;
     this.switchUCAsPerFactorToFactorsPerUCA = controller.switchUCAsPerFactorToFactorsPerUCA;
-    for (SubMeasurement other : controller.causalFactors) {
+    for (SubMeasurement other : controller.subMeasurement) {
       ITableModel own = getSubMeasurement(other.getId());
       if (own instanceof BadReferenceModel) {
         addSubMeasurement(other);
