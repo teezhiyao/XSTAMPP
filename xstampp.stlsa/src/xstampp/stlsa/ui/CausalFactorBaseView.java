@@ -670,7 +670,6 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
 
       @Override
       public String getText(Object element) {
-        System.out.println(element.getClass().toString());
         if (element instanceof CausalFactor) {
           return ((CausalFactor) element).getIdString();
         }
