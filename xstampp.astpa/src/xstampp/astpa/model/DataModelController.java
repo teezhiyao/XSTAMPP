@@ -175,7 +175,7 @@ public class DataModelController extends AbstractDataModel
   @XmlElement(name = "cac")
   private ControlActionController controlActionController;
 
-  @XmlElement(name = "causalfactor")
+  @XmlElement(name = "causalfactorController")
   private CausalFactorController causalFactorController;
 
   @XmlElement(name = "submeasurement")
@@ -802,7 +802,6 @@ public class DataModelController extends AbstractDataModel
 
   @Override
   public IRectangleComponent getComponent(UUID componentId) {
-    System.out.println("DataModel getComponent");
     if ((componentId == null)) {
       return null;
     }
@@ -914,7 +913,9 @@ public class DataModelController extends AbstractDataModel
     if (causalFactorId == null) {
       return null;
     }
+
     ITableModel causalFactor = this.getCausalFactorController().getCausalFactor(causalFactorId);
+    System.out.println(causalFactor.getClass().toString());
     if (!(causalFactor instanceof CausalFactor)) {
       return null;
     }

@@ -236,19 +236,19 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
   }
   
   //Helper methods below 
-  public void setCausalFactor(UUID CFID, String CFText) {
-    ((StlsaController) CausalFactorTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
-  }
-  
-  public UUID addCausalFactorToUca(UUID CFID, UUID UcaID) {
-    System.out.println(CFID.toString());
-    UUID factorid = ((StlsaController) CausalFactorTableView.this.getDataInterface()).addCausalFactor(CFID, UcaID);
-    return factorid;
-  }
-  public UUID createCausalFactor(String selectedText) {
-  StlsaController dataController = ((StlsaController) CausalFactorTableView.this.getDataInterface());
-  CausalFactorController CFController = (CausalFactorController) dataController.getCausalFactorController();
-  UUID CFID = CFController.addCausalFactor(new CausalFactor(selectedText));
-  return CFID;
-  }
+//  public void setCausalFactor(UUID CFID, String CFText) {
+//    ((StlsaController) CausalFactorTableView.this.getDataInterface()).setCausalFactorText(CFID, CFText);
+//  }
+//  
+//  public UUID addCausalFactorToUca(UUID CFID, UUID UcaID) {
+//    System.out.println(CFID.toString());
+//    UUID factorid = ((StlsaController) CausalFactorTableView.this.getDataInterface()).addCausalFactor(CFID, UcaID);
+//    return factorid;
+//  }
+//  public UUID createCausalFactor(String selectedText) {
+//  StlsaController dataController = ((StlsaController) CausalFactorTableView.this.getDataInterface());
+//  CausalFactorController CFController = (CausalFactorController) dataController.getCausalFactorController();
+//  UUID CFID = CFController.addCausalFactor(new CausalFactor(selectedText));
+//  return CFID;
+//  }
 }

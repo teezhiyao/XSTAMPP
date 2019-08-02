@@ -143,8 +143,10 @@ public class StlsaController extends DataModelController {
     }
     List<UUID> links = getCausalFactorsLinksOfUCA(unsafeControlActionId);
     List<ITableModel> result = new ArrayList<>();
-    for (UUID link : links) {
-      result.add(this.getCausalFactor(link));
+    System.out.println("In getLinkedCF");
+    for (UUID linkedCFid : links) {
+      System.out.println("In getLinkedCausalFactor: " + linkedCFid.toString());
+      result.add(this.getCausalFactor(linkedCFid));
     }
     return result;
   }

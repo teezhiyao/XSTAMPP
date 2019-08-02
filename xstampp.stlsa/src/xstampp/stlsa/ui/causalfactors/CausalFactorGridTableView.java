@@ -169,19 +169,22 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 			controlActionRow.addCell(0,new GridCellText(uca.getIdString()));
 	    controlActionRow.addCell(1,new GridCellText(uca.getDescription()));
 	    boolean canWrite = checkAccess(uca.getId(), AccessRights.WRITE);
-
-      List<ITableModel> ITablecorresCF = getStlsaController().getLinkedCausalFactorOfUCA(uca.getId());
-      List<UUID> corresCF = new ArrayList<>();
-      for(ITableModel cf : ITablecorresCF) {
-        corresCF.add(((CausalFactor)cf).getId());
-      }
+	    System.out.println("In fill table" + uca.getClass());
+      List<UUID> corresCF = getStlsaController().getCausalFactorsLinksOfUCA(uca.getId());
+//      List<UUID> corresCF = new ArrayList<>();
+//      for(ITableModel cf : ITablecorresCF) {
+//        corresCF.add(((CausalFactor)cf).getId());
+//      }
 	    
       for(int y = 0; y < corresCF.size(); y++) {
         final UUID currentCFUUID = corresCF.get(y);
-        CausalFactor currentCf = (CausalFactor) getStlsaController().getCausalFactor(corresCF.get(y));
-        
+        CausalFactor currentCf = (CausalFactor) getStlsaController().getCausalFactor(currentCFUUID);
+        System.out.println("Currentcf: " + currentCf);
+        System.out.println("Currentcf: " + currentCFUUID);
         GridRow cfChildRow = new GridRow(columns.length,3);
-        
+//        System.out.println("CausalFactor Size: " + getStlsaController().getCausalFactorController().getCausalFactors().size());
+//        System.out.println("CausalFactor Size: " + getStlsaController().getCausalFactorController().getCausalFactors().get(0).toString());
+//        System.out.println("CausalFactor Size: " + getStlsaController().getCausalFactorController().getCausalFactors().get(1).toString());
         //Column 2 - CausalFactor ID
         GridCellText cFId = new GridCellText(currentCf.getIdString(),currentCFUUID);
         cfChildRow.addCell(2, cFId);
@@ -260,9 +263,11 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
         Rectangle cellBounds) {
       if(e.button == 1){
         CausalFactor newCF = new CausalFactor("Manipulated Operation", "Intentional");
-        newCF.setParentUUID(this.uca.getId());
         getCausalFactorController().addCausalFactor(newCF);
-        getStlsaController().addUCACausalFactorLink(uca.getId(), newCF.getId());
+        System.out.println("get Id when mouse down: "+ newCF.getId());
+        getStlsaController().addUCACausalFactorLink(this.uca.getId(), newCF.getId());
+//        CausalFactorGridTableView.this.cfContentProvider.addLink(this.uca.getId(), newCF.getId());
+
         reloadTable();
         ProjectManager.getLOGGER().debug("Add new Sub Measurement");
       }
