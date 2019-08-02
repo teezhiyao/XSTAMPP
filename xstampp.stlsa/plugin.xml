@@ -607,7 +607,14 @@
             icon="icons/buttons/navigation/STEP3_2(16).png"
             id="stlsa.steps.step4_3"
             name="%editor.name.CausalFactorsTable">
-      </editor>        
+      </editor>     
+             <editor
+            class="xstampp.stlsa.ui.sds.AssessmentOverview"
+            default="false"
+            icon="icons/buttons/navigation/STEP3_2(16).png"
+            id="stlsa.steps.step5"
+            name="%editor.name.CausalFactorsTable">
+      </editor>    
       <editor
             class="xstampp.stlsa.ui.STPAResultsTable"
             default="false"
