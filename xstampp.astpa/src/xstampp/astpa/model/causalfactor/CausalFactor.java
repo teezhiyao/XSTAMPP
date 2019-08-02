@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.ATableModel;
@@ -33,7 +35,6 @@ import xstampp.astpa.model.linking.LinkController;
 import xstampp.astpa.model.linking.LinkingType;
 import xstampp.astpa.model.sds.ISDSController;
 import xstampp.model.AbstractLTLProvider;
-import xstampp.model.AbstractNumberedEntry;
 
 /**
  * A causal factor
@@ -42,9 +43,10 @@ import xstampp.model.AbstractNumberedEntry;
  * 
  */
 @XmlAccessorType(XmlAccessType.NONE)
+@XmlType(name = "causalfactor")
 public class CausalFactor extends ATableModel implements ITableModel, IEntryWithNameId {
 
-  @XmlElement(name = "id")
+  @XmlElement(name = "cfid")
   private UUID id;
 
   @XmlElement(name = "text")
@@ -60,13 +62,13 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
   @XmlElement(name = "causalEntry")
   private List<CausalFactorEntry> entries;
 
-  @XmlElement
-  private UUID constraintId;
+//  @XmlElement
+//  private UUID constraintId;
   
   @XmlElement(name = "intention")
   private String intention;
   
-  @XmlElement(name = "title")
+  @XmlElement(name = "cftitle")
   private String title;
   
   @XmlElement(name = "description")
@@ -142,10 +144,12 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
    */
   public CausalFactor() {
     this.text = "";
+    this.entries = null;
   }
 
   @Override
   public UUID getId() {
+    System.out.println("get Id CF" + this.id);
     return this.id;
   }
 
