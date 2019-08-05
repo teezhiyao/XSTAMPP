@@ -60,6 +60,6 @@ public class Loss extends Accident {
 
 	@Override
 	public String getIdString() {
-	  return "L-" +this.getNumber();
+	  return "A-" +this.getNumber();
 	}
 }
