@@ -264,6 +264,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
       if(e.button == 1){
         CausalFactor newCF = new CausalFactor("Manipulated Operation", "Intentional");
         getCausalFactorController().addCausalFactor(newCF);
+        newCF.setParentUUID(this.uca.getId());
         System.out.println("get Id when mouse down: "+ newCF.getId());
         getStlsaController().addUCACausalFactorLink(this.uca.getId(), newCF.getId());
 //        CausalFactorGridTableView.this.cfContentProvider.addLink(this.uca.getId(), newCF.getId());
