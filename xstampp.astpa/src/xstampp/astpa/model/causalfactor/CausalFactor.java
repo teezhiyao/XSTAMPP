@@ -77,8 +77,10 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
   @XmlElement(name = "number")
   private int number;
   
-  private String modId;
+  @XmlElement(name = "parentUUID")
   private UUID parentUUID;
+
+  private String modId;
   private HashMap<String,Integer> subMeasurements;
   
   
@@ -149,7 +151,6 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
 
   @Override
   public UUID getId() {
-    System.out.println("get Id CF" + this.id);
     return this.id;
   }
 

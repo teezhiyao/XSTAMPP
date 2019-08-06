@@ -36,7 +36,7 @@
             <xs:element name="intention" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
             <xs:element name="description" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
             <xs:element name="number" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
-                      
+            <xs:element name="parentUUID" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>                     
             <xs:element name="causalEntries" maxOccurs="1" minOccurs="0">
                 <xs:complexType>
                     <xs:sequence>
@@ -63,7 +63,6 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-
             <xs:element name="cfid" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>
             <xs:element name="text" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
         </xs:all>
@@ -148,14 +147,11 @@
 
     <xs:complexType name="subMeasurementType">
         <xs:all>
-            <xs:element name="safetyConstraint" type="Q1:sdsType" maxOccurs="1" minOccurs="0"></xs:element>
-            <xs:element name="note" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
-            <xs:element name="hazardLinks" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
             <xs:element name="title" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
-            <xs:element name="intention" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
-            <xs:element name="description" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
-            <xs:element name="number" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
-                      
+            <xs:element name="number" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>    
+            <xs:element name="smdescription" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
+            <xs:element name="smid" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>
+            <xs:element name="smtext" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
             <xs:element name="causalEntries" maxOccurs="1" minOccurs="0">
                 <xs:complexType>
                     <xs:sequence>
@@ -163,7 +159,6 @@
                             <xs:complexType>
                                 <xs:all>
                                     <xs:element name="hazardIds" maxOccurs="1" minOccurs="0" type="Q1:idList">
-
                                     </xs:element>
                                     <xs:element name="constraintText" type="xs:string" maxOccurs="1"
                                         minOccurs="0">
@@ -183,8 +178,6 @@
                 </xs:complexType>
             </xs:element>
 
-            <xs:element name="id" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>
-            <xs:element name="text" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
         </xs:all>
         <xs:attribute name="number" use="optional" type="xs:int"></xs:attribute>
     </xs:complexType>

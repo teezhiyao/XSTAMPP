@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
 
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.ATableModel;
@@ -41,13 +42,14 @@ import xstampp.model.AbstractNumberedEntry;
  * 
  */
 @XmlAccessorType(XmlAccessType.NONE)
+@XmlType(name = "submeasurement")
 public class SubMeasurement extends ATableModel implements ITableModel, IEntryWithNameId {
 
-  @XmlElement(name = "id")
+  @XmlElement(name = "smid")
   private UUID id;
 
-  @XmlElement(name = "text")
-  private String text;
+  @XmlElement(name = "smtext")
+  private String text = "";
 
   /**
    * This is only for representing the data in the export,
@@ -58,13 +60,13 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
   @XmlElement(name = "causalEntry")
   private List<SubMeasurementEntry> entries;
 
-  @XmlElement
-  private UUID constraintId;
-
+//  @XmlElement
+//  private UUID constraintId;
+//  
+  @XmlElement(name = "smdescription")
   private String description = "Description not set";
 
   private String modId;
-  private UUID parentUUID;
 
   private String severityLikelihood;
 
@@ -121,13 +123,13 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
   }
   
   private int row;
-  public UUID getParentUUID() {
-    return parentUUID;
-  }
-
-  public void setParentUUID(UUID parentUUID) {
-    this.parentUUID = parentUUID;
-  }
+//  public UUID getParentUUID() {
+//    return parentUUID;
+//  }
+//
+//  public void setParentUUID(UUID parentUUID) {
+//    this.parentUUID = parentUUID;
+//  }
 
   /**
    * Constructor of a causal factor

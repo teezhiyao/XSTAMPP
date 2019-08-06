@@ -338,7 +338,8 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
         Rectangle cellBounds) {
       if(e.button == 1){
-        getSubMeasurementController().addSubMeasurement(new SubMeasurement("new", "new", "N.A", 6, this.currentSub));
+        SubMeasurement newSubM = new SubMeasurement("new", "new", "N.A", 6, this.currentSub);
+        getSubMeasurementController().addSubMeasurement(newSubM);
         reloadTable();
         ProjectManager.getLOGGER().debug("Add new Sub Measurement");
       }
