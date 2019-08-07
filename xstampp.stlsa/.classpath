@@ -20,5 +20,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/poi-ooxml-3.14-20160307.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/poi-ooxml-schemas-3.14-20160307.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/opencsv-4.6.jar"/>
+	<classpathentry kind="lib" path="/xstampp/lib/opencsv-4.6.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

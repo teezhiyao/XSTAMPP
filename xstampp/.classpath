@@ -21,5 +21,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/xmlgraphics-commons-1.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jaxb-impl-2.0.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang3-3.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/opencsv-4.6.jar" sourcepath="lib/opencsv-4.6.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

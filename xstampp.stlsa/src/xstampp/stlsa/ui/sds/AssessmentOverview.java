@@ -11,8 +11,13 @@
 
 package xstampp.stlsa.ui.sds;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.UUID;
@@ -21,13 +26,19 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+
 import messages.Messages;
 import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
+import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.astpa.model.controlaction.ControlAction;
 import xstampp.stlsa.ui.EmptyBaseView;
@@ -191,6 +202,52 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
     getAddNewItemButton().setEnabled(false);
     getAddNewItemButton().setToolTipText(Messages.ControlActionView_1);
     
+    // the Button for exporting csv
+    Button exportButton = new Button(super.buttonComposite, SWT.PUSH);
+    GridData gridData = new GridData(SWT.NONE, SWT.NONE, false, false);
+    final int buttonSize = 46;
+    gridData.widthHint = buttonSize;
+    gridData.heightHint = buttonSize;
+    exportButton.setLayoutData(gridData);
+    exportButton.setImage(ADD);
+    exportButton.addListener(SWT.Selection, new Listener() {
+
+      @Override
+      public void handleEvent(Event event) {
+        List<ITableModel> cfList = getStlsaController().getAllLinkedCausalFactor();
+        System.out.println("test");
+        
+        List<List<String>> rows = Arrays.asList(
+            Arrays.asList("Jean", "author", "Java"),
+            Arrays.asList("David", "editor", "Python"),
+            Arrays.asList("Scott", "editor", "Node.js")
+        );
+
+        try {
+          System.out.println("Is a csv being made?");
+          FileWriter csvWriter = new FileWriter("makingnewcsvtotest.csv");
+          csvWriter.append("Name");
+          csvWriter.append(",");
+          csvWriter.append("Role");
+          csvWriter.append(",");
+          csvWriter.append("Topic");
+          csvWriter.append("\n");
+
+
+        for (List<String> rowData : rows) {
+            csvWriter.append(String.join(",", rowData));
+            csvWriter.append("\n");
+        }
+
+        csvWriter.flush();
+        csvWriter.close();
+        }
+       catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      }
+    });
     
   }
 

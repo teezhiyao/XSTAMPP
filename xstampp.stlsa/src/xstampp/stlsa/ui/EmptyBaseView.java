@@ -118,7 +118,7 @@ public abstract class EmptyBaseView<T extends IDataModel> extends StandartEditor
 
   private Composite tableContainer;
 
-  private Composite buttonComposite;
+  protected Composite buttonComposite;
   private Text descriptionWidget;
   private TableColumnLayout tableColumnLayout;
   private TableViewerColumn idColumn;
@@ -139,7 +139,7 @@ public abstract class EmptyBaseView<T extends IDataModel> extends StandartEditor
   private static final Image DELETE_ALL = Activator
       .getImageDescriptor("/icons/buttons/commontables/removeAll.png") //$NON-NLS-1$
       .createImage();
-  private static final Image ADD = Activator
+  protected static final Image ADD = Activator
       .getImageDescriptor("/icons/buttons/commontables/add.png") //$NON-NLS-1$
       .createImage();
   public static final Image ADD_SMALL = Activator.getImageDescriptor("/icons/buttons/plus.png") //$NON-NLS-1$
@@ -726,7 +726,7 @@ public abstract class EmptyBaseView<T extends IDataModel> extends StandartEditor
   private void createButtonBar() {
     // the add and delete buttons are arranged in a composite with a 2x1
     // GridLayout
-    this.buttonComposite.setLayout(new GridLayout(6, true));
+    this.buttonComposite.setLayout(new GridLayout(20, true));
     GridData gridData = new GridData(SWT.NONE, SWT.NONE, false, false);
     final int buttonSize = 46;
     gridData.widthHint = buttonSize;
@@ -808,6 +808,20 @@ public abstract class EmptyBaseView<T extends IDataModel> extends StandartEditor
       moveUp.setEnabled(false);
       deleteAllButton.setEnabled(false);
     }
+
+    
+    new Label(buttonComposite, SWT.NONE);
+    new Label(buttonComposite, SWT.NONE);
+    new Label(buttonComposite, SWT.NONE);
+    new Label(buttonComposite, SWT.NONE);    
+    new Label(buttonComposite, SWT.NONE);
+    new Label(buttonComposite, SWT.NONE);
+    new Label(buttonComposite, SWT.NONE);
+    new Label(buttonComposite, SWT.NONE);
+    new Label(buttonComposite, SWT.NONE);
+    new Label(buttonComposite, SWT.NONE);    
+
+    
   }
 
 
