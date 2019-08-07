@@ -224,13 +224,20 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
         );
 
         try {
-          System.out.println("Is a csv being made?");
           FileWriter csvWriter = new FileWriter("makingnewcsvtotest.csv");
-          csvWriter.append("Name");
+          csvWriter.append("Control Action");
           csvWriter.append(",");
-          csvWriter.append("Role");
+          csvWriter.append("UCA Type");
           csvWriter.append(",");
-          csvWriter.append("Topic");
+          csvWriter.append("UCA ID");
+          csvWriter.append(",");
+          csvWriter.append("Causal Factor ID");
+          csvWriter.append(",");
+          csvWriter.append("Intentional/Unintentional");
+          csvWriter.append(",");
+          csvWriter.append("Severity");
+          csvWriter.append(",");
+          csvWriter.append("Likelihood");
           csvWriter.append("\n");
 
 
