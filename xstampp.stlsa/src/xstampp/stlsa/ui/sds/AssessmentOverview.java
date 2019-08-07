@@ -14,6 +14,7 @@ package xstampp.stlsa.ui.sds;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -216,12 +217,46 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
       public void handleEvent(Event event) {
         List<ITableModel> cfList = getStlsaController().getAllLinkedCausalFactor();
         System.out.println("test");
-        
-        List<List<String>> rows = Arrays.asList(
-            Arrays.asList("Jean", "author", "Java"),
-            Arrays.asList("David", "editor", "Python"),
-            Arrays.asList("Scott", "editor", "Node.js")
-        );
+        List<List<String>> rows = new ArrayList<List<String>>();
+        for(ITableModel element : cfList) {
+          List<String> eachRow = new ArrayList<String>();
+          if (element instanceof CausalFactor) {
+
+          UUID ucaId = ((CausalFactor) element).getParentUUID();
+          ControlAction ca = (ControlAction) AssessmentOverview.this.getStlsaController().getControlActionForUca(ucaId);
+          eachRow.add(ca.getTitle());
+            
+          UnsafeControlAction uca = (UnsafeControlAction) AssessmentOverview.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
+          eachRow.add(uca.getType().toString());
+          
+          eachRow.add(uca.getIdString());
+
+          eachRow.add(((CausalFactor) element).getIdString());
+          eachRow.add(((CausalFactor) element).getIntention());
+          
+          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
+          int severSum = 0;
+          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+            System.out.println("sever pair key" + pair.getKey().toString());
+            if(pair.getKey().toString() == "Severity")
+              severSum += pair.getValue();
+            }          
+          eachRow.add(Integer.toString(severSum));
+          
+          int likeliSum = 0;
+          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+            if(pair.getKey().toString() == "Likelihood")
+              likeliSum += pair.getValue();
+            }
+          eachRow.add(Integer.toString(likeliSum));
+          }
+          rows.add(eachRow);
+        }
+//        List<List<String>> rows = Arrays.asList(
+//            Arrays.asList("Jean", "author", "Java"),
+//            Arrays.asList("David", "editor", "Python"),
+//            Arrays.asList("Scott", "editor", "Node.js")
+//        );
 
         try {
           FileWriter csvWriter = new FileWriter("makingnewcsvtotest.csv");
