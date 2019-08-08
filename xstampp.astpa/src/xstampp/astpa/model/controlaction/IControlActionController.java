@@ -563,4 +563,6 @@ public interface IControlActionController {
 
   boolean setControlActionDescription(UUID entryId, String description);
 
+  ICorrespondingUnsafeControlAction getOneUCA(UUID ucaId);
+
 }

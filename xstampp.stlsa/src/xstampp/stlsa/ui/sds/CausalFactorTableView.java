@@ -12,6 +12,7 @@
 package xstampp.stlsa.ui.sds;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
 
@@ -25,6 +26,7 @@ import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
+import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.astpa.model.controlaction.ControlAction;
@@ -109,10 +111,16 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
       @Override
       public String getText(Object element) {
         if (element instanceof CausalFactor) {
-          UUID ucaId = ((CausalFactor) element).getParentUUID();
-          UnsafeControlAction uca = (UnsafeControlAction) CausalFactorTableView.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
+          List<ICorrespondingUnsafeControlAction> list = getStlsaController().getUCAList(null);
+          for (ICorrespondingUnsafeControlAction uca : list) {
+          if(uca.getId() == ((CausalFactor) element).getParentUUID()) {}
           return uca.getIdString();
+          }
+//          UUID ucaId = ((CausalFactor) element).getParentUUID();
+//          ICorrespondingUnsafeControlAction uca =  CausalFactorTableView.this.getStlsaController().getControlActionController().getOneUCA(ucaId);      
+//          return uca.getIdString();
         }
+        
         return null;
       }  
     });
@@ -127,9 +135,11 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
       @Override
       public String getText(Object element) {
         if (element instanceof CausalFactor) {
-          UUID ucaId = ((CausalFactor) element).getParentUUID();
-          UnsafeControlAction uca = (UnsafeControlAction) CausalFactorTableView.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
-          return uca.getType().toString();
+          List<ICorrespondingUnsafeControlAction> list = getStlsaController().getUCAList(null);
+          for (ICorrespondingUnsafeControlAction uca : list) {
+          if(uca.getId() == ((CausalFactor) element).getParentUUID()) {}
+          return ((UnsafeControlAction) uca).getType().toString();
+          }
         }
         return null;
       }  

@@ -317,7 +317,18 @@ public class ControlActionController extends ATableModelController
     Collections.sort(result);
     return result;
   }
-
+  
+  @Override
+  public ICorrespondingUnsafeControlAction getOneUCA(UUID ucaId) {
+    List<ICorrespondingUnsafeControlAction> allUca = getUCAList(null);
+    for (ICorrespondingUnsafeControlAction eachUca : allUca) {
+      if(eachUca.getId() == ucaId) {
+        return eachUca;
+      }
+    }
+    return null;
+  }
+  
   @Override
   public int getUCANumber(UUID ucaID) {
     for (ControlAction controlAction : this.getControlActions()) {
