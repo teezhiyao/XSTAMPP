@@ -150,6 +150,7 @@
             <xs:element name="title" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
             <xs:element name="number" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>    
             <xs:element name="smdescription" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
+            <xs:element name="severityLikelihood" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
             <xs:element name="smid" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>
             <xs:element name="smtext" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
             <xs:element name="causalEntries" maxOccurs="1" minOccurs="0">

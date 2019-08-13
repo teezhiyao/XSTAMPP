@@ -86,6 +86,7 @@ public class SubMeasurementController extends ATableModelController implements I
 
   private int excessCount;
   public int getExcessCount() {
+    System.out.println("get excess count: " + excessCount);
     return excessCount;
   }
   @Override

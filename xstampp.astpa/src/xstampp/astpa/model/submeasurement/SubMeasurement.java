@@ -67,11 +67,13 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
   private String description = "Description not set";
 
   private String modId;
-
+  
+  @XmlElement(name = "severityLikelihood")
   private String severityLikelihood;
 
   public String getSeverityLikelihood() {
-    return severityLikelihood;
+    System.out.println("In get SeverityLikelihood: " + this.severityLikelihood);
+    return this.severityLikelihood;
   }
 
   public void setSeverityLikelihood(String severityLikelihood) {

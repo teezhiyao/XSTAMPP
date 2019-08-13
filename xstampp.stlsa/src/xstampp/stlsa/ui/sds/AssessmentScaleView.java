@@ -212,6 +212,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
       
       for(int y = 0; y < corresSub.size(); y++) {
         if(y == 0) {
+          System.out.println(corresSub.get(0));
         metric.getComboCell().setText(corresSub.get(0).getSeverityLikelihood());
         metricType.getComboCell().setText(corresSub.get(0).getType());
         }

@@ -1228,4 +1228,10 @@ public class SecControlActionController implements IControlActionController {
     return result;
   }
 
+  @Override
+  public ICorrespondingUnsafeControlAction getOneUCA(UUID ucaId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }
