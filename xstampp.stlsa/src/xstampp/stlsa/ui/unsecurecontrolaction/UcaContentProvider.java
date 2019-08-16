@@ -27,7 +27,7 @@ import xstampp.ui.common.contentassist.ITableContentProvider;
  * 
  */
 public class UcaContentProvider  implements ITableContentProvider<ITableModel> {
-  private static final String HAZARD_ID_PREFIX = "V-"; //$NON-NLS-1$
+  private static final String HAZARD_ID_PREFIX = "H-"; //$NON-NLS-1$
 	private final transient IUnsafeControlActionDataModel ucaInterface;
 
 	/**

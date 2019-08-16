@@ -393,7 +393,7 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 		int index = 0;
 	
 		for (ITableModel model : getDataModel().getAllHazards()) {
-			choices[index] = "V-" + model.getNumber() + ": "+ model.getTitle(); //$NON-NLS-1$ //$NON-NLS-2$
+			choices[index] = "H-" + model.getNumber() + ": "+ model.getTitle(); //$NON-NLS-1$ //$NON-NLS-2$
 			choiceIDs[index] = "" + model.getNumber(); //$NON-NLS-1$
 			choiceValues[index++] = model.getTitle();
 		}

@@ -37,6 +37,7 @@ public class ConnectionCreationFactory implements CreationFactory {
    * 
    */
   public ConnectionCreationFactory(ConnectionType typeConstant) {
+    System.out.println("Connection Creation Factory" + typeConstant.toString());
     this.connectionType = typeConstant;
   }
 
