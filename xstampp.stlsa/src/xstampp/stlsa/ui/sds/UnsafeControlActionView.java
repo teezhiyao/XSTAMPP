@@ -118,7 +118,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
         if ((UnsafeControlAction) element instanceof UnsafeControlAction) {
             System.out.println("In get Hazard"); //Gets the data Interface
             UUID Ucauuid = ((UnsafeControlAction) element).getId();
-            List<String> linkedHazard = ((StlsaController) UnsafeControlActionView.this.getDataInterface()).getStringLinkedHazardsOfUCA(Ucauuid); //Gets the data Interface
+            List<String> linkedHazard = ((StlsaController) UnsafeControlActionView.this.getDataInterface()).getStringLinkedHazardsOfUCAIDString(Ucauuid); //Gets the data Interface
             if(linkedHazard.size() > 0) {
             return String.join(",", linkedHazard);
             }
