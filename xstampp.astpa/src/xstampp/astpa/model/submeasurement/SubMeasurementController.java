@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
 
 import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.ATableModelController;
@@ -56,6 +57,7 @@ import xstampp.model.ObserverValue;
  * for reference of the causal factor model during runtime refere to xstampp.astpa/docs/architecture
  */
 @XmlAccessorType(XmlAccessType.NONE)
+@XmlType(name = "submeasurementController")
 public class SubMeasurementController extends ATableModelController implements ISubMeasurementController {
 
   @XmlElementWrapper(name = "causalComponents")

@@ -76,7 +76,7 @@ public class GridCellEditor extends GridCellComposite {
     // this.compositeArea.setRedraw(false);
     this.description = new Text(this.compositeArea, SWT.PUSH | SWT.WRAP);
 
-    if (initialText.trim().isEmpty()) {
+    if (initialText == null || initialText.trim().isEmpty()) {
       this.description.setText(GridCellEditor.EMPTY_CELL_TEXT);
     } else {
       this.description.setText(initialText);

@@ -161,8 +161,8 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
   protected void fillTable() throws SWTException {
 //    List<ITableModel> list = getSubMeasurementController().getSubMeasurement();
 //    List<String> typeCount = getSubMeasurementController().getTypeCount();
-    
-    for(int i = 0; i < getSubMeasurementController().getExcessCount(); i++) {
+    System.out.println("Size of SubMeasurement" + getSubMeasurementController().getSubMeasurement().size());
+    for(int i = 0; i < 6; i++) {
       //The same set of submeasurement
       final List<SubMeasurement> corresSub = getSubMeasurementController().getSubMeasurement(i);
       
@@ -214,7 +214,12 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         if(y == 0) {
           System.out.println(corresSub.get(0));
         metric.getComboCell().setText(corresSub.get(0).getSeverityLikelihood());
-        metricType.getComboCell().setText(corresSub.get(0).getType());
+        if(corresSub.get(0).getType() == null) {
+          metricType.getComboCell().setText("Not set");
+        }
+        else {
+          metricType.getComboCell().setText(corresSub.get(0).getType());
+        };
         }
         
         final UUID tempSubUUID = corresSub.get(y).getId();
@@ -272,7 +277,13 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
 
   private void addDetailsRow(SubMeasurement subMeasurement, GridRow subMeas) {
     List<String> detailsLst = subMeasurement.getDetails();
-    for(int i = 0; i < detailsLst.size(); i++) {
+    System.out.println("SubMeasurement details" + subMeasurement.getDetails());
+    int detailLstSize = 0;
+
+    if(subMeasurement.getDetails() != null) {
+      detailLstSize = detailsLst.size();
+    }
+    for(int i = 0; i < detailLstSize; i++) {
       final int index = i;
       GridCellEditor detailEditor = new GridCellEditor(getGridWrapper(), detailsLst.get(i)) {
         @Override

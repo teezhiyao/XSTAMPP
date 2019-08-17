@@ -105,7 +105,7 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
   }
 
   private String type;
-
+  @XmlElement(name = "smtitle")
   private String subMeasurement;
 
   private int scale;
