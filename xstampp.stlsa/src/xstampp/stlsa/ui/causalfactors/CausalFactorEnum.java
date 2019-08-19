@@ -1,6 +1,7 @@
 package xstampp.stlsa.ui.causalfactors;
 
 public enum CausalFactorEnum implements CausalFactorInterface {
+    BLANK(" ", Intention.INTENTIONAL),
 
     MANIPULATED_OPERATION("Manipulated Operation", Intention.INTENTIONAL),
     REPLACED_SENSORS("Replaced Sensors", Intention.INTENTIONAL),
@@ -8,15 +9,13 @@ public enum CausalFactorEnum implements CausalFactorInterface {
     INTENTIONAL_CONGESTION_OF_FEEDBACK_PATH("Intentional congestion of feedback path", Intention.INTENTIONAL),
     INJECTION_OF_INPUT("Injection of Input", Intention.INTENTIONAL),
     TAMPERED_OR_FABRICATED_SIGNAL("Tampered or fabricated sensor signal", Intention.INTENTIONAL),
-    SENDING_MANUFACTURED_CONTROL_ACTION("Sending manufactured control action", Intention.INTENTIONAL),
-    OVERRIDING_LEGITIMATE_CONTROL_ACTIONS("Overriding legitimate control actions", Intention.INTENTIONAL),
+    SENDING_MANUFACTURED_CONTROL_ACTION_OVERRIDING_LEGITIMATE_CONTROL_ACTIONS("Sending manufactured control action, overriding legitimate control actions", Intention.INTENTIONAL),
     REPLAYED_CONTROL_INPUT("Replayed control input", Intention.INTENTIONAL),
     JAMMED_CONTROL_INPUT("Jammed Control input", Intention.INTENTIONAL),
-    SENDING_MANUFACTURED_CONTROL_INPUT("Sending manufactured control input", Intention.INTENTIONAL),
-    OVERRIDING_LEGITIMATE_CONTROL_INPUT("Overriding legitimate control input", Intention.INTENTIONAL),
+    SENDING_MANUFACTURED_CONTROL_INPUT_OVERRIDING_LEGITIMATE_CONTROL_INPUT("Sending manufactured control input, overriding legitimate control input", Intention.INTENTIONAL),
     TAMPERED_OR_MANUFACTURED_INFORMATION("Tampered or manufactured information", Intention.INTENTIONAL),
     INJECTION_OF_MANIPULATED_CONTROL_ALGORITHM("Injection of manipulated control algorithm", Intention.INTENTIONAL),
-    UNAUTHORIZED_CHANGES_TO_THE_CONTROL_ALGORITHM("Unauthorized changes to the control algorithm", Intention.INTENTIONAL),
+    UNATHORIZED_CHANGES_TO_THE_CONTROL_ALGORITHM("Unathorized changes to the control algorithm", Intention.INTENTIONAL),
     PROCESS_MODEL_TAMPERED("Process Model tampered", Intention.INTENTIONAL),
             
     INAPPROPRIATE_INEFFECTIVE_OR_MISSING_CONTROL_ACTIONS("Inappropriate, Ineffective or missing control actions", Intention.UNINTENTIONAL),
