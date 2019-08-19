@@ -22,6 +22,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -78,7 +79,17 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
   private String colorPreference;
   private String text;
   protected Rectangle rect;
+  public Rectangle getRect() {
+    return rect;
+  }
+
+  public void setRect(Rectangle rect) {
+    this.rect = rect;
+  }
+
   protected boolean isDirty = true;
+
+  private boolean layered = false;
 
   /**
    * the xOrientations array which stores the locations on the x-axis as
@@ -129,6 +140,29 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
     setBackgroundColor(ColorConstants.white);
   }
 
+  public CSFigure(UUID id, Image img, String colorPreference, boolean layered) {
+    this.layered  = layered;
+    this.decoBorderColor = CSFigure.STANDARD_BORDER_COLOR;
+    this.componentID = id;
+    this.setLayoutManager(new XYLayout());
+    this.image = img;
+    this.border = new LineBorder(STANDARD_BORDER_COLOR, 20);
+    this.textLabel = new CSTextLabel(this);
+    this.add(this.textLabel);
+//    this.add((IFigure) new Rectangle(1, 1, -1, -1));
+    isDirty = true;
+    this.setConstraint(this.textLabel, new Rectangle(1, 1, -1, -1));
+    this.setOpaque(true);
+    this.setBackgroundColor(ColorConstants.white);
+    setDeco(true);
+    setCanConnect(true);
+    this.setForegroundColor(ColorConstants.black);
+    this.colorPreference = colorPreference;
+    this.decoBorderColor = CSFigure.STANDARD_BORDER_COLOR;
+    this.setDeco(true);
+    setBackgroundColor(ColorConstants.white);
+  }
+  
   /**
    * The CSFigure constructor creates a new <code>XYLayout</code> instance and
    * sets the Layout manager for the Components
@@ -252,8 +286,11 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
       }
       this.textLabel.setLocation(new Point(this.leftMargin, 0));
       int height = this.getChildren().size() > 1 ? -1 : rect.height;
-      this.textLabel.setSize(rect.width - this.leftMargin - 4, height);
-
+      if(this.layered) {
+        this.textLabel.setSize(rect.width - this.leftMargin - 40, height - 40);}
+      else {
+        this.textLabel.setSize(rect.width - this.leftMargin, height);
+      }
       this.setConstraint(this.textLabel, this.textLabel.getBounds());
       this.textLabel.setText(text);
       this.textLabel.repaint();
