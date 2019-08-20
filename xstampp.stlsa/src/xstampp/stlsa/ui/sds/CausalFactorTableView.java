@@ -113,7 +113,7 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
         if (element instanceof CausalFactor) {
           List<ICorrespondingUnsafeControlAction> list = getStlsaController().getUCAList(null);
           for (ICorrespondingUnsafeControlAction uca : list) {
-          if(uca.getId() == ((CausalFactor) element).getParentUUID()) {
+          if(uca.getId().equals(((CausalFactor) element).getParentUUID())) {
           return uca.getIdString();
           }
 //          UUID ucaId = ((CausalFactor) element).getParentUUID();
@@ -135,7 +135,7 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
         if (element instanceof CausalFactor) {
           List<ICorrespondingUnsafeControlAction> list = getStlsaController().getUCAList(null);
           for (ICorrespondingUnsafeControlAction uca : list) {
-          if(uca.getId() == ((CausalFactor) element).getParentUUID()) {
+          if(uca.getId().equals(((CausalFactor) element).getParentUUID())) {
           return ((UnsafeControlAction) uca).getType().toString();}
           }
         }
