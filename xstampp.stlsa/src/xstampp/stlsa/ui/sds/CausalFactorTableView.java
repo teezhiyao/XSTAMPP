@@ -113,16 +113,14 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
         if (element instanceof CausalFactor) {
           List<ICorrespondingUnsafeControlAction> list = getStlsaController().getUCAList(null);
           for (ICorrespondingUnsafeControlAction uca : list) {
-          if(uca.getId() == ((CausalFactor) element).getParentUUID()) {}
+          if(uca.getId() == ((CausalFactor) element).getParentUUID()) {
           return uca.getIdString();
           }
 //          UUID ucaId = ((CausalFactor) element).getParentUUID();
 //          ICorrespondingUnsafeControlAction uca =  CausalFactorTableView.this.getStlsaController().getControlActionController().getOneUCA(ucaId);      
 //          return uca.getIdString();
-        }
-        
-        return null;
-      }  
+        }}
+        return null;}  
     });
         
     TableViewerColumn ucaTypeCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
@@ -137,8 +135,8 @@ public class CausalFactorTableView extends CausalFactorBaseView<IControlActionVi
         if (element instanceof CausalFactor) {
           List<ICorrespondingUnsafeControlAction> list = getStlsaController().getUCAList(null);
           for (ICorrespondingUnsafeControlAction uca : list) {
-          if(uca.getId() == ((CausalFactor) element).getParentUUID()) {}
-          return ((UnsafeControlAction) uca).getType().toString();
+          if(uca.getId() == ((CausalFactor) element).getParentUUID()) {
+          return ((UnsafeControlAction) uca).getType().toString();}
           }
         }
         return null;
