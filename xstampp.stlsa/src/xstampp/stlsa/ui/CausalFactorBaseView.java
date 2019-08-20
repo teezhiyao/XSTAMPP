@@ -812,30 +812,30 @@ public abstract class CausalFactorBaseView<T extends IDataModel> extends Standar
 
     // Adding a right click context menu and the option to delete an entry
     // this way
-    MenuManager menuMgr = new MenuManager();
-    Menu menu = menuMgr.createContextMenu(getTableViewer().getControl());
-    menuMgr.addMenuListener(new IMenuListener() {
+//    MenuManager menuMgr = new MenuManager();
+//    Menu menu = menuMgr.createContextMenu(getTableViewer().getControl());
+//    menuMgr.addMenuListener(new IMenuListener() {
+//
+//      @Override
+//      public void menuAboutToShow(IMenuManager manager) {
+//        if (getTableViewer().getSelection().isEmpty()) {
+//          return;
+//        }
+//        if (getTableViewer().getSelection() instanceof IStructuredSelection) {
+//          Action deleteDesignRequirement = new Action("Delete") {
+//
+//            @Override
+//            public void run() {
+//              deleteItems();
+//            }
+//          };
+//          manager.add(deleteDesignRequirement);
+//        }
+//      }
+//    });
 
-      @Override
-      public void menuAboutToShow(IMenuManager manager) {
-        if (getTableViewer().getSelection().isEmpty()) {
-          return;
-        }
-        if (getTableViewer().getSelection() instanceof IStructuredSelection) {
-          Action deleteDesignRequirement = new Action("Delete") {
-
-            @Override
-            public void run() {
-              deleteItems();
-            }
-          };
-          manager.add(deleteDesignRequirement);
-        }
-      }
-    });
-
-    menuMgr.setRemoveAllWhenShown(true);
-    getTableViewer().getControl().setMenu(menu);
+//    menuMgr.setRemoveAllWhenShown(true);
+//    getTableViewer().getControl().setMenu(menu);
 
   }
 
