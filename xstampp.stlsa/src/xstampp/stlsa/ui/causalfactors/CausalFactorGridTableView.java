@@ -151,7 +151,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	}
 	@Override
 	public DeleteGridEntryAction<IUnsafeControlActionDataModel> getDeleteAction() {
-	  return new DeleteUcaAction(getGridWrapper(), getDataModel(),StlsaMessages.UnsecureControlActions,UCA1);
+	  return null;
 	}
 	
 	@Override
@@ -179,8 +179,6 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
       for(int y = 0; y < corresCF.size(); y++) {
         final UUID currentCFUUID = corresCF.get(y);
         CausalFactor currentCf = (CausalFactor) getStlsaController().getCausalFactor(currentCFUUID);
-        System.out.println("Currentcf: " + currentCf);
-        System.out.println("Currentcf: " + currentCFUUID);
         GridRow cfChildRow = new GridRow(columns.length,3);
 //        System.out.println("CausalFactor Size: " + getStlsaController().getCausalFactorController().getCausalFactors().size());
 //        System.out.println("CausalFactor Size: " + getStlsaController().getCausalFactorController().getCausalFactors().get(0).toString());
@@ -276,27 +274,6 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
     }
   }
 	
-	private void addRows(List<ITableModel> linkedItems,GridRow cfRows, SingleGridCellLinking<CfContentProvider> cfGridCell, int i, String ucaNumber) {
-//    while (linkedItems.size() > i ) {
-//      linkedItems.remove(i);
-//    }
-	  if(!linkedItems.isEmpty()) {
-	  CausalFactor currentItem = (CausalFactor) linkedItems.get(i);
-    cfRows.addCell(2, new GridCellText(currentItem.setIdString(ucaNumber)));
-    CausalFactorCell editor = new CausalFactorCell(getGridWrapper(),currentItem.getDescription(), currentItem.getId(), true);
-    cfRows.addCell(4,editor);
-    cfRows.addCell(5, new GridCellText(currentItem.getIntention()));
-    }
-	  
-	  cfRows.addCell(3, cfGridCell);
-
-//    String intention = "Intended";
-//    String title = "Testing add button";
-//    String message = "Click to make new CF";
-//    cfRows.addCell(6, new AddNewCfButton(message, title, intention ));
-
-	}
-	
 	@Override
 	public String getId() {
 	  ProjectManager.getLOGGER().info("getID()"); //$NON-NLS-1$
@@ -366,37 +343,6 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
   public void dispose() {
     this.getDataModel().deleteObserver(this);
     super.dispose();
-  }
-  
-  private class CausalFactorCell extends GridCellTextEditor {
-
-    public CausalFactorCell(GridWrapper grid, String initialText, UUID cf,
-        boolean canDelete) {
-      super(grid, initialText, cf);
-      setShowDelete(canDelete);
-      setReadOnly(!canDelete);
-    }
-
-    @Override
-    public void delete() {
-      deleteEntry();
-    }
-
-    @Override
-    public void updateDataModel(String newValue) {
-      CausalFactor currentCf = (CausalFactor) ((StlsaController) getDataModel()).getCausalFactorController().getCausalFactor(getUUID());
-      currentCf.setDescription(newValue);
-    }
-
-    @Override
-    protected void editorOpening() {
-      getDataModel().lockUpdate();
-    }
-
-    @Override
-    protected void editorClosing() {
-      getDataModel().releaseLockAndUpdate(new ObserverValue[] {});
-    }
   }
   
 }
