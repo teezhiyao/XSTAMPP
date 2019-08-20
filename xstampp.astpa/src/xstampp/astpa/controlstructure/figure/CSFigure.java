@@ -287,7 +287,7 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
       isDirty = false;
       if(this.layered) {
         if(rect.height == 40 && rect.width == 120) {
-          rect.setSize(180, 60);
+          rect.setSize(240, 80);
         }
       }
       
