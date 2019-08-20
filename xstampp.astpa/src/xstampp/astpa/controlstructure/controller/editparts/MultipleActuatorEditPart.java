@@ -51,8 +51,7 @@ public class MultipleActuatorEditPart extends CSAbstractEditPart {
     ImageDescriptor imgDesc = Activator
         .getImageDescriptor("/icons/buttons/controlstructure/actuator_80.png"); //$NON-NLS-1$
     Image img = imgDesc.createImage(null);
-    CSFigure tmpFigure = new CSFigure(this.getId(), img,
-        IControlStructureConstants.CONTROLSTRUCTURE_ACTUATOR_COLOR, true);
+    CSFigure tmpFigure = new CSFigure(this.getId(), img, IControlStructureConstants.CONTROLSTRUCTURE_ACTUATOR_COLOR, true);
     tmpFigure.setStepId(getStepId());
     tmpFigure.setDeco((boolean) getViewer().getProperty(CSAbstractEditor.IS_DECORATED));
     tmpFigure.setPreferenceStore(getStore());

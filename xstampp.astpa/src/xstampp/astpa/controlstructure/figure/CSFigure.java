@@ -66,6 +66,8 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
   protected static final int CENTER_COMPENSATION = 2;
 
   private final CSTextLabel textLabel;
+  private final CSTextLabel textLabel2;
+  private final CSTextLabel textLabel3;
   private final Image image;
   private final UUID componentID;
   private String stepId;
@@ -75,6 +77,7 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
   private int leftMargin = 0;
   private Color decoBorderColor;
   private LineBorder border;
+//  private LineBorder innerborder;
   private IPreferenceStore store;
   private String colorPreference;
   private String text;
@@ -141,20 +144,8 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
   }
 
   public CSFigure(UUID id, Image img, String colorPreference, boolean layered) {
+    this(id, img, false);
     this.layered  = layered;
-    this.decoBorderColor = CSFigure.STANDARD_BORDER_COLOR;
-    this.componentID = id;
-    this.setLayoutManager(new XYLayout());
-    this.image = img;
-    this.border = new LineBorder(STANDARD_BORDER_COLOR, 20);
-    this.textLabel = new CSTextLabel(this);
-    this.add(this.textLabel);
-//    this.add((IFigure) new Rectangle(1, 1, -1, -1));
-    isDirty = true;
-    this.setConstraint(this.textLabel, new Rectangle(1, 1, -1, -1));
-    this.setOpaque(true);
-    this.setBackgroundColor(ColorConstants.white);
-    setDeco(true);
     setCanConnect(true);
     this.setForegroundColor(ColorConstants.black);
     this.colorPreference = colorPreference;
@@ -188,8 +179,14 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
     } else {
       this.border = new LineBorder(STANDARD_BORDER_COLOR, 1);
     }
-    this.textLabel = new CSTextLabel(this);
+    this.textLabel = new CSTextLabel(this);    
+    this.textLabel2 = new CSTextLabel(this);
+    this.textLabel3 = new CSTextLabel(this);
     this.add(this.textLabel);
+    this.add(this.textLabel2);
+    this.add(this.textLabel3);
+    this.setConstraint(this.textLabel2, new Rectangle(1, 1, -1, -1));
+    this.setConstraint(this.textLabel3, new Rectangle(1, 1, -1, -1));
     isDirty = true;
     this.setConstraint(this.textLabel, new Rectangle(1, 1, -1, -1));
     this.setOpaque(true);
@@ -278,17 +275,43 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
   public void refresh(boolean ignoreDirtyCheck) {
     if (ignoreDirtyCheck || isDirty) {
       isDirty = false;
+      if(this.layered) {
+        if(rect.height == 40 && rect.width == 120) {
+          rect.setSize(180, 60);
+        }
+      }
+      
       setBounds(rect);
       for (Object child : getChildren()) {
         if (child instanceof IControlStructureFigure) {
           ((IControlStructureFigure) child).refresh(ignoreDirtyCheck);
         }
       }
-      this.textLabel.setLocation(new Point(this.leftMargin, 0));
       int height = this.getChildren().size() > 1 ? -1 : rect.height;
+//      System.out.println("rect height: " + rect.height + "rect width" + rect.width);
+      System.out.println("left margin:  " + this.leftMargin);
       if(this.layered) {
-        this.textLabel.setSize(rect.width - this.leftMargin - 40, height - 40);}
+        this.textLabel.setLocation(new Point(this.leftMargin + 40,40));
+        this.textLabel.setSize(rect.width - this.leftMargin - 40, rect.height - 40);
+        this.textLabel.setBorder(this.border);
+
+        this.textLabel2.setLocation(new Point(this.leftMargin + 20, 20));
+        this.textLabel2.setSize(rect.width - this.leftMargin - 20, rect.height - 20);
+        this.textLabel2.setBorder(this.border);
+        this.textLabel2.setText("Multiple");
+        this.setConstraint(this.textLabel2, this.textLabel2.getBounds());
+        this.textLabel2.repaint();
+//        
+        this.textLabel3.setLocation(new Point(this.leftMargin, 0));
+        this.textLabel3.setSize(rect.width - this.leftMargin, rect.height);
+        this.textLabel3.setBorder(this.border);
+        this.textLabel3.setText("Multiple");
+        this.setConstraint(this.textLabel3, this.textLabel3.getBounds());
+        this.textLabel3.repaint();
+
+      }
       else {
+        this.textLabel.setLocation(new Point(this.leftMargin,0));
         this.textLabel.setSize(rect.width - this.leftMargin, height);
       }
       this.setConstraint(this.textLabel, this.textLabel.getBounds());
@@ -431,12 +454,15 @@ public class CSFigure extends Figure implements IControlStructureFigure, IProper
     this.hasDeco = deco;
     if (deco) {
       this.border.setColor(this.decoBorderColor);
+//      this.innerborder.setColor(this.decoBorderColor);
       setMargin(CSFigure.IMG_WIDTH);
     } else {
       this.border.setColor(STANDARD_BORDER_COLOR);
+//      this.innerborder.setColor(STANDARD_BORDER_COLOR);
       setMargin(0);
     }
     if (!hideBorder) {
+//      this.innerFigure.setBorder(this.innerborder);
       setBorder(this.border);
     }
     for (Object child : this.getChildren()) {
