@@ -101,7 +101,7 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
       }
       else {
       TableViewerColumn subMeasurementCol = new TableViewerColumn(this.getTableViewer(), SWT.CENTER);
-      subMeasurementCol.getColumn().setText(currentSub.getSeverityLikelihood() + "-" +currentSub.getSubMeasurement()); //$NON-NLS-1$
+      subMeasurementCol.getColumn().setText(currentSub.getSeverityLikelihood() + "-" + currentSub.getSubMeasurement() + "(" + currentSub.getType() +")"); //$NON-NLS-1$
       getTableColumnLayout().setColumnData(subMeasurementCol.getColumn(), new ColumnWeightData(10, 100, true));
       subMeasurementCol.setLabelProvider(new ColumnLabelProvider() {
         @Override
