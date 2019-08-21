@@ -104,12 +104,23 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
       subMeasurementCol.getColumn().setText(currentSub.getSeverityLikelihood() + "-" + currentSub.getSubMeasurement() + "(" + currentSub.getType() +")"); //$NON-NLS-1$
       getTableColumnLayout().setColumnData(subMeasurementCol.getColumn(), new ColumnWeightData(10, 100, true));
       subMeasurementCol.setLabelProvider(new ColumnLabelProvider() {
+        
+        protected boolean canEdit(Object element) {
+          if(((CausalFactor) element).getIntention().contentEquals(currentSub.getType())) {
+            return true;
+          };
+          return false;
+        }
+        
         @Override
         public String getText(Object element) {
           if (element instanceof CausalFactor) {
             int scale = ((CausalFactor)element).getSubMeasurements(subMeasurementTitle);
-            if(scale == -999) {
+            if(!canEdit(element)) {
               return "N.A";
+            }
+            else if(scale == -999) {
+              return "Edit here";
             }
             else{
               return Integer.toString(scale);
@@ -130,7 +141,6 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
           return false;
         }
 
-
         @Override
         protected CellEditor getCellEditor(Object element) {
           return new TextCellEditor(getTableViewer().getTable());
@@ -140,8 +150,11 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
         protected Object getValue(Object element) {
           if (element instanceof CausalFactor) {
             int scale = ((CausalFactor)element).getSubMeasurements(subMeasurementTitle);
-            if(scale == -999) {
+            if(!canEdit(element)) {
               return "N.A";
+            }
+            else if(scale == -999) {
+              return "Edit here";
             }
             else{
               return Integer.toString(scale);
