@@ -208,7 +208,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
         GridCellEditor cfDescEditor = new GridCellEditor(getGridWrapper(), cfDescription) {
           @Override
           public void onTextChanged(String newText) {
-            System.out.println("CausalFactor Description change:" + newText);
+//            System.out.println("CausalFactor Description change:" + newText);
             CausalFactor currentCf = (CausalFactor) getStlsaController().getCausalFactor(currentCFUUID);
             currentCf.setDescription(newText);
           }

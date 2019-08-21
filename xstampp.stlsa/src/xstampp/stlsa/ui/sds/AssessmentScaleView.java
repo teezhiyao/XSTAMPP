@@ -162,65 +162,83 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
 //    List<ITableModel> list = getSubMeasurementController().getSubMeasurement();
 //    List<String> typeCount = getSubMeasurementController().getTypeCount();
     System.out.println("Size of SubMeasurement" + getSubMeasurementController().getSubMeasurement().size());
-    for(int i = 0; i < 6; i++) {
+    for(int i = 0; i < 4; i++) {
       //The same set of submeasurement
       final List<SubMeasurement> corresSub = getSubMeasurementController().getSubMeasurement(i);
       
       
       //Drop down for Severity & Type in 0th and 1st column
       GridRow controlActionRow = new GridRow(columns.length,3,new int[] {0,1}); 
-      String[] metricOptions = new String[]{"Severity", "Likelihood"};
-      GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), metricOptions, true) {
-        @Override
-        public void onTextChanged(String newText) {
-          System.out.println("Combo Text: "+ this.getComboCell().getText());
-          List<UUID> subMeasUuid = new ArrayList<UUID>();
-          for(SubMeasurement subMeasurement :corresSub) {
-            subMeasUuid.add(subMeasurement.getId());
-          }
-          
-          for(UUID cellId : subMeasUuid) {
-            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(cellId);
-            if(tempSub instanceof SubMeasurement) {
-              ((SubMeasurement) tempSub).setSeverityLikelihood(this.getComboCell().getText());
-            }
-          }
-        }
-      };
-      controlActionRow.addCell(0, metric);
+//      String[] metricOptions = new String[]{"Severity", "Likelihood"};
+//      GridCellComboEditor metric = new GridCellComboEditor(getGridWrapper(), metricOptions, true) {
+//        @Override
+//        public void onTextChanged(String newText) {
+//          System.out.println("Combo Text: "+ this.getComboCell().getText());
+//          List<UUID> subMeasUuid = new ArrayList<UUID>();
+//          for(SubMeasurement subMeasurement :corresSub) {
+//            subMeasUuid.add(subMeasurement.getId());
+//          }
+//          
+//          for(UUID cellId : subMeasUuid) {
+//            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(cellId);
+//            if(tempSub instanceof SubMeasurement) {
+//              ((SubMeasurement) tempSub).setSeverityLikelihood(this.getComboCell().getText());
+//            }
+//          }
+//        }
+//      };
+      String currentSever;
+      if( i < 2) {
+        controlActionRow.addCell(0, new GridCellText("Severity"));
+         currentSever = "Severity";
+      }
+      else {
+        controlActionRow.addCell(0, new GridCellText("Likelihood"));
+         currentSever = "Likelihood";
+      }
+      String currentIntention;
+      if( i % 2 == 0) {
+        controlActionRow.addCell(1, new GridCellText("Intentional Scenario"));
+        currentIntention = "Intentional Scenario";
+      }
+      else {
+        controlActionRow.addCell(1, new GridCellText("Unintentional Causal Scenario"));
+        currentIntention = "Unintentional Causal Scenario";
+      }
       
       //first Column
-      String[] metricTypeOptions = new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"};
-      GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),metricTypeOptions, true) {
-        @Override
-        public void onTextChanged(String newText) {
-          System.out.println("Combo Text: "+ this.getComboCell().getText());
-          List<UUID> subMeasUuid = new ArrayList<UUID>();
-          for(SubMeasurement subMeasurement :corresSub) {
-            subMeasUuid.add(subMeasurement.getId());
-          }
-          
-          for(UUID cellId : subMeasUuid) {
-            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(cellId);
-            if(tempSub instanceof SubMeasurement) {
-              ((SubMeasurement) tempSub).setType((this.getComboCell().getText()));
-            }
-          }
-        }
-      };
-      controlActionRow.addCell(1, metricType);
+//      String[] metricTypeOptions = new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"};
+//      GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),metricTypeOptions, true) {
+//        @Override
+//        public void onTextChanged(String newText) {
+//          System.out.println("Combo Text: "+ this.getComboCell().getText());
+//          List<UUID> subMeasUuid = new ArrayList<UUID>();
+//          for(SubMeasurement subMeasurement :corresSub) {
+//            subMeasUuid.add(subMeasurement.getId());
+//          }
+//          
+//          for(UUID cellId : subMeasUuid) {
+//            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(cellId);
+//            if(tempSub instanceof SubMeasurement) {
+//              ((SubMeasurement) tempSub).setType((this.getComboCell().getText()));
+//            }
+//          }
+//        }
+//      };
+//      controlActionRow.addCell(1, metricType);
       
       for(int y = 0; y < corresSub.size(); y++) {
-        if(y == 0) {
-          System.out.println(corresSub.get(0));
-        metric.getComboCell().setText(corresSub.get(0).getSeverityLikelihood());
-        if(corresSub.get(0).getType() == null) {
-          metricType.getComboCell().setText("Not set");
-        }
-        else {
-          metricType.getComboCell().setText(corresSub.get(0).getType());
-        };
-        }
+        
+        //        if(y == 0) {
+//          System.out.println(corresSub.get(0));
+//        metric.getComboCell().setText(corresSub.get(0).getSeverityLikelihood());
+//        if(corresSub.get(0).getType() == null) {
+//          metricType.getComboCell().setText("Not set");
+//        }
+//        else {
+//          metricType.getComboCell().setText(corresSub.get(0).getType());
+//        };
+//        }
         
         final UUID tempSubUUID = corresSub.get(y).getId();
         
@@ -265,12 +283,12 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         else {controlActionRow.addChildRow(subMeas);}
       }
 
-      addSubMeasurementRow(controlActionRow, i); 
+      addSubMeasurementRow(controlActionRow, i, currentSever,currentIntention); 
   }
-    GridRow addingRow = new GridRow(columns.length,3); 
-
-    addingRow.addCell(0, new addNewFullRowButton(addingRow));
-    getGridWrapper().addRow(addingRow);;      
+//    GridRow addingRow = new GridRow(columns.length,3); 
+//
+//    addingRow.addCell(0, new addNewFullRowButton(addingRow));
+//    getGridWrapper().addRow(addingRow);;      
 
     
   }
@@ -322,10 +340,10 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
 
   boolean row1 = false;
   
-  public void addSubMeasurementRow(GridRow controlActionRow, int currentSub) {
+  public void addSubMeasurementRow(GridRow controlActionRow, int currentSub, String currentSever, String currentIntention) {
       
       GridRow addSubMeas = new GridRow(columns.length,3,new int[] {0,1,2,3});
-      addSubMeas.addCell(2, new addNewSubMeasurementRowButton(controlActionRow, currentSub));
+      addSubMeas.addCell(2, new addNewSubMeasurementRowButton(controlActionRow, currentSub, currentSever, currentIntention));
       controlActionRow.addChildRow(addSubMeas);
       getGridWrapper().addRow(controlActionRow);;      
 
@@ -339,18 +357,22 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     
     private GridRow controlActionRow;
     private int currentSub;
+    private String currentServer;
+    private String currentIntention;
 
-    public addNewSubMeasurementRowButton(GridRow controlActionRow, int currentSub) {
+    public addNewSubMeasurementRowButton(GridRow controlActionRow, int currentSub, String currentSever, String currentIntention) {
       super("New Sub Measurement");
       this.controlActionRow = controlActionRow;
       this.currentSub = currentSub;
+      this.currentServer = currentSever;
+      this.currentIntention = currentIntention;
     }
 
     @Override
     public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
         Rectangle cellBounds) {
       if(e.button == 1){
-        SubMeasurement newSubM = new SubMeasurement("new", "new", "N.A", 6, this.currentSub);
+        SubMeasurement newSubM = new SubMeasurement(this.currentServer, this.currentIntention, "N.A", 6, this.currentSub);
         getSubMeasurementController().addSubMeasurement(newSubM);
         reloadTable();
         ProjectManager.getLOGGER().debug("Add new Sub Measurement");
