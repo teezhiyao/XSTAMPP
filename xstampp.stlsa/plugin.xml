@@ -124,12 +124,6 @@
                   name="Assessment overview">
             </step>
             
-            <step
-                  editorId="stlsa.steps.step6"
-                  icon="icons/buttons/navigation/STEP3_1(16).png"
-                  id="stlsa.navigation.step6"
-                  name="Export STLSA Report">
-            </step>
          
       </process>
       <SettingsPage
