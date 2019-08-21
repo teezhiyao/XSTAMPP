@@ -271,7 +271,7 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
 
   @Override
   public String getTitle() {
-    return Messages.ControlActions;
+    return Messages.SeverityLikelihoodTable;
   }
 
   @Override

@@ -283,7 +283,7 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 
 	@Override
 	public String getTitle() {
-		return "Unsecure Control Actions Table"; //$NON-NLS-1$
+		return "Causal Factors Table"; //$NON-NLS-1$
 	}
 	
 	private void updateCausalFactors(){

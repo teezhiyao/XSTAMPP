@@ -339,7 +339,7 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
 
   @Override
   public String getTitle() {
-    return Messages.ControlActions;
+    return "Assessment Overview";
   }
 
   @Override

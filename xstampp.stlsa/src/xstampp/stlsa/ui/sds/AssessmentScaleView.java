@@ -411,7 +411,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
 
   @Override
   public String getTitle() {
-    return "Unsafe Control Actions Table"; //$NON-NLS-1$
+    return "Assessment Scales"; //$NON-NLS-1$
   }
 
   private void updateHazards() {

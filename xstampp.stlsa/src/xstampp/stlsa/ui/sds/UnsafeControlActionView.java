@@ -187,7 +187,7 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
 
   @Override
   public String getTitle() {
-    return Messages.ControlActions;
+    return "Unsafe/Insecure Control Actions";
   }
 
   @Override

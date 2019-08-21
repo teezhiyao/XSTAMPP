@@ -144,6 +144,8 @@ public final class Messages extends NLS {
   @SuppressWarnings("javadoc")
   public static String ControlAction;
   @SuppressWarnings("javadoc")
+  public static String SeverityLikelihoodTable;
+  @SuppressWarnings("javadoc")
   public static String ControlActions;
   public static String ControlActionView_1;
   @SuppressWarnings("javadoc")
