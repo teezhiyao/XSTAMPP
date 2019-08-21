@@ -103,8 +103,9 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
   public void setScale(int scale) {
     this.scale = scale;
   }
-
+  @XmlElement(name = "smIntention")
   private String type;
+  
   @XmlElement(name = "smtitle")
   private String subMeasurement;
 
