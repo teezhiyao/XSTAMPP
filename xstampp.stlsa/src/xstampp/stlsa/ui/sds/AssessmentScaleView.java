@@ -199,11 +199,11 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
       String currentIntention;
       if( i % 2 == 0) {
         controlActionRow.addCell(1, new GridCellText("Intentional Scenario"));
-        currentIntention = "Intentional Scenario";
+        currentIntention = "Intentional";
       }
       else {
         controlActionRow.addCell(1, new GridCellText("Unintentional Causal Scenario"));
-        currentIntention = "Unintentional Causal Scenario";
+        currentIntention = "Unintentional";
       }
       
       //first Column

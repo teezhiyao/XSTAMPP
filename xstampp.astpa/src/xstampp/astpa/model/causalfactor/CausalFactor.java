@@ -89,12 +89,12 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
   }
 
   public Integer getSubMeasurements(String subMeasurementTitle) {
-    if(subMeasurements.containsKey(subMeasurementTitle)) {
-      return subMeasurements.get(subMeasurementTitle);
-      }
-    else {
+//    if(subMeasurementTitle != null && subMeasurements.containsKey(subMeasurementTitle)) {
+//      return subMeasurements.get(subMeasurementTitle);
+//      }
+//    else {
       return -999;
-    }
+//    }
   }
   
   public void setSubMeasurements(String subMeasurementTitle, Integer scale) {

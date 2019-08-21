@@ -94,7 +94,7 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
     
     List<ITableModel> allSub = getSubMeasurementController().getSubMeasurement();
     for(int i = 0; i < allSub.size(); i++) {
-      SubMeasurement currentSub = (SubMeasurement) allSub.get(i);
+      final SubMeasurement currentSub = (SubMeasurement) allSub.get(i);
       final String subMeasurementTitle = currentSub.getSubMeasurement();
       if(currentSub.getSubMeasurement() == "N.A") {
 
@@ -124,7 +124,10 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
 
         @Override
         protected boolean canEdit(Object element) {
-          return SeverLikeliEvalTableView.this.canEdit((ATableModel) element, AccessRights.WRITE);
+          if(((CausalFactor) element).getIntention().contentEquals(currentSub.getType())) {
+            return true;
+          };
+          return false;
         }
 
 
@@ -178,19 +181,19 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
 
       @Override
       public String getText(Object element) {
-        if (element instanceof CausalFactor) {
-            HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
-            int severSum = 0;
-            if(severLst.isEmpty()) {
-              for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-                System.out.println("sever pair key" + pair.getKey().toString());
-                if(pair.getKey().toString() == "Severity")
-                  severSum += pair.getValue();
-                }
-            }
-            else {}
-            return Integer.toString(severSum);
-            }
+//        if (element instanceof CausalFactor) {
+//            HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
+//            int severSum = 0;
+//            if(severLst.isEmpty()) {
+//              for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+//                System.out.println("sever pair key" + pair.getKey().toString());
+//                if(pair.getKey().toString() == "Severity")
+//                  severSum += pair.getValue();
+//                }
+//            }
+//            else {}
+//            return Integer.toString(severSum);
+//            }
         return null;
       }  
     });
@@ -204,15 +207,15 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
 
       @Override
       public String getText(Object element) {
-        if (element instanceof CausalFactor) {
-          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
-          int likeliSum = 0;
-          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-            if(pair.getKey().toString() == "Likelihood")
-              likeliSum += pair.getValue();
-            }
-          return Integer.toString(likeliSum);
-          }
+//        if (element instanceof CausalFactor) {
+//          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
+//          int likeliSum = 0;
+//          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+//            if(pair.getKey().toString() == "Likelihood")
+//              likeliSum += pair.getValue();
+//            }
+//          return Integer.toString(likeliSum);
+//          }
         return null;
       }  
     });    
