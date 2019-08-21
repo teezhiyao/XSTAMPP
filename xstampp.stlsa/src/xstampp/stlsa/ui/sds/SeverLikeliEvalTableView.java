@@ -181,11 +181,14 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
         if (element instanceof CausalFactor) {
             HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
             int severSum = 0;
-            for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-              System.out.println("sever pair key" + pair.getKey().toString());
-              if(pair.getKey().toString() == "Severity")
-                severSum += pair.getValue();
-              }
+            if(severLst.isEmpty()) {
+              for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+                System.out.println("sever pair key" + pair.getKey().toString());
+                if(pair.getKey().toString() == "Severity")
+                  severSum += pair.getValue();
+                }
+            }
+            else {}
             return Integer.toString(severSum);
             }
         return null;
