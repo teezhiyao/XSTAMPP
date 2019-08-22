@@ -144,8 +144,6 @@ public class UnsecureControlActionsView extends UnsafeControlActionsView{
 		  getDataModel().getControlActionController().setUcaDescription(getUUID(), newValue);
 		}
 		
-
-
 	  @Override
 	  protected void editorOpening() {
 	    getDataModel().lockUpdate();

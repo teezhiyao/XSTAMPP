@@ -24,6 +24,8 @@ import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
+
+import messages.Messages;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
@@ -39,6 +41,7 @@ import xstampp.model.ObserverValue;
 import xstampp.stlsa.messages.StlsaMessages;
 import xstampp.stlsa.model.StlsaController;
 import xstampp.ui.common.ProjectManager;
+import xstampp.ui.common.grid.CellButton;
 import xstampp.ui.common.grid.DeleteGridEntryAction;
 import xstampp.ui.common.grid.GridCellButton;
 import xstampp.ui.common.grid.GridCellComboEditor;
@@ -171,20 +174,14 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
 	    boolean canWrite = checkAccess(uca.getId(), AccessRights.WRITE);
 	    System.out.println("In fill table" + uca.getClass());
       List<UUID> corresCF = getStlsaController().getCausalFactorsLinksOfUCA(uca.getId());
-//      List<UUID> corresCF = new ArrayList<>();
-//      for(ITableModel cf : ITablecorresCF) {
-//        corresCF.add(((CausalFactor)cf).getId());
-//      }
 	    
       for(int y = 0; y < corresCF.size(); y++) {
         final UUID currentCFUUID = corresCF.get(y);
         CausalFactor currentCf = (CausalFactor) getStlsaController().getCausalFactor(currentCFUUID);
         GridRow cfChildRow = new GridRow(columns.length,3);
-//        System.out.println("CausalFactor Size: " + getStlsaController().getCausalFactorController().getCausalFactors().size());
-//        System.out.println("CausalFactor Size: " + getStlsaController().getCausalFactorController().getCausalFactors().get(0).toString());
-//        System.out.println("CausalFactor Size: " + getStlsaController().getCausalFactorController().getCausalFactors().get(1).toString());
+
         //Column 2 - CausalFactor ID
-        GridCellText cFId = new GridCellText(currentCf.getIdString(),currentCFUUID);
+        cfIdCell cFId = new cfIdCell(getGridWrapper(),currentCf.getIdString(),currentCFUUID,true,true,currentCFUUID);
         cfChildRow.addCell(2, cFId);
         
         //Column 3 - CausalFactor GuideWord/Title
@@ -344,5 +341,40 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
     this.getDataModel().deleteObserver(this);
     super.dispose();
   }
+  
+  
+  private class cfIdCell extends GridCellTextEditor {
+
+    private UUID ucaid;
+    private UUID cfID;
+    public cfIdCell(GridWrapper grid, String initialText, UUID uca,
+        boolean canDelete, boolean readOnly, UUID cfID) {
+      super(grid, initialText,canDelete,readOnly,uca);
+      this.ucaid = uca;
+      this.cfID = cfID;
+    }
+    @Override
+    public void delete() {
+      System.out.println("Delete button pressed?");
+      getStlsaController().removeUCACausalFactorLink(ucaid, cfID);
+      deleteEntry();
+    }
+    
+    @Override
+    protected void editorOpening() {
+      getDataModel().lockUpdate();
+    }
+    
+    @Override
+    protected void editorClosing() {
+      getDataModel().releaseLockAndUpdate(new ObserverValue[] {});
+    }
+    @Override
+    public void updateDataModel(String newValue) {
+      // TODO Auto-generated method stub
+      
+    }
+  }
+  
   
 }
