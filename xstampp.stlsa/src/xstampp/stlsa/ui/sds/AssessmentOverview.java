@@ -163,16 +163,16 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
       
       @Override
       public String getText(Object element) {
-        if (element instanceof CausalFactor) {
-            HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
-            int severSum = 0;
-            for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-              System.out.println("sever pair key" + pair.getKey().toString());
-              if(pair.getKey().toString() == "Severity")
-                severSum += pair.getValue();
-              }
-            return Integer.toString(severSum);
-            }
+//        if (element instanceof CausalFactor) {
+//            HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
+//            int severSum = 0;
+//            for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+//              System.out.println("sever pair key" + pair.getKey().toString());
+//              if(pair.getKey().toString() == "Severity")
+//                severSum += pair.getValue();
+//              }
+//            return Integer.toString(severSum);
+//            }
         return null;
       }        
 
@@ -185,15 +185,15 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
 
       @Override
       public String getText(Object element) {
-        if (element instanceof CausalFactor) {
-          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
-          int likeliSum = 0;
-          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-            if(pair.getKey().toString() == "Likelihood")
-              likeliSum += pair.getValue();
-            }
-          return Integer.toString(likeliSum);
-          }
+//        if (element instanceof CausalFactor) {
+//          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
+//          int likeliSum = 0;
+//          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+//            if(pair.getKey().toString() == "Likelihood")
+//              likeliSum += pair.getValue();
+//            }
+//          return Integer.toString(likeliSum);
+//          }
         return null;
       }  
     });    
@@ -234,21 +234,21 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
           eachRow.add(((CausalFactor) element).getIdString());
           eachRow.add(((CausalFactor) element).getIntention());
           
-          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
-          int severSum = 0;
-          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-            System.out.println("sever pair key" + pair.getKey().toString());
-            if(pair.getKey().toString() == "Severity")
-              severSum += pair.getValue();
-            }          
-          eachRow.add(Integer.toString(severSum));
+//          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
+//          int severSum = 0;
+//          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+//            System.out.println("sever pair key" + pair.getKey().toString());
+//            if(pair.getKey().toString() == "Severity")
+//              severSum += pair.getValue();
+//            }          
+//          eachRow.add(Integer.toString(severSum));
           
-          int likeliSum = 0;
-          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-            if(pair.getKey().toString() == "Likelihood")
-              likeliSum += pair.getValue();
-            }
-          eachRow.add(Integer.toString(likeliSum));
+//          int likeliSum = 0;
+//          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
+//            if(pair.getKey().toString() == "Likelihood")
+//              likeliSum += pair.getValue();
+//            }
+//          eachRow.add(Integer.toString(likeliSum));
           }
           rows.add(eachRow);
         }

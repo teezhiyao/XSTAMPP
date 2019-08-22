@@ -36,7 +36,22 @@
             <xs:element name="intention" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
             <xs:element name="description" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
             <xs:element name="number" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>            
-            <xs:element name="parentUUID" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>                     
+            <xs:element name="parentUUID" type="xs:string" maxOccurs="1" minOccurs="1"></xs:element>              
+            <xs:element name="scales" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="scale" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                                <xs:all>    
+                                    <xs:element name="scaletitle" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+                                    <xs:element name="scaleint" type="xs:integer" maxOccurs="1" minOccurs="0"></xs:element>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>            
+                   
             <xs:element name="causalEntries" maxOccurs="1" minOccurs="0">
                 <xs:complexType>
                     <xs:sequence>

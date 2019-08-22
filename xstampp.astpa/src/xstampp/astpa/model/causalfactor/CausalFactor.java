@@ -81,24 +81,44 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
   private UUID parentUUID;
 
   private String modId;
-  private HashMap<String,Integer> subMeasurements;
+  
+  @XmlElementWrapper(name = "scales")
+  @XmlElement(name = "scale")
+  private List<Scale> subMeasurements;
   
   
-  public HashMap<String, Integer> getSubMeasurements() {
+  public List<Scale> getSubMeasurements() {
     return subMeasurements;
   }
 
   public Integer getSubMeasurements(String subMeasurementTitle) {
-//    if(subMeasurementTitle != null && subMeasurements.containsKey(subMeasurementTitle)) {
-//      return subMeasurements.get(subMeasurementTitle);
-//      }
-//    else {
+    for(Scale smScale : subMeasurements) {
+      if(smScale.getTitle().contentEquals(subMeasurementTitle)) {
+        return smScale.getInteger();
+      }
+    }
       return -999;
-//    }
   }
   
-  public void setSubMeasurements(String subMeasurementTitle, Integer scale) {
-    this.subMeasurements.put(subMeasurementTitle, scale);
+  
+  public Integer checkSubMeasurements(String subMeasurementTitle) {
+    for(Scale smScale : subMeasurements) {
+      if(smScale.getTitle().contentEquals(subMeasurementTitle)) {
+        return subMeasurements.indexOf(smScale); 
+      }
+    }
+      return -999;
+  }
+  
+  public void setSubMeasurements(String subMeasurementTitle, Integer scaleInt) {
+    int smIndex = checkSubMeasurements(subMeasurementTitle);
+    if(smIndex == -999) {
+      }
+    else {
+      this.subMeasurements.remove(smIndex);
+    }
+    this.subMeasurements.add(new Scale(subMeasurementTitle, scaleInt));
+
   }
 
   public UUID getParentUUID() {
@@ -125,7 +145,7 @@ public class CausalFactor extends ATableModel implements ITableModel, IEntryWith
     this.id = UUID.randomUUID();
     this.title = title;
     this.intention = intention;
-    this.subMeasurements = new HashMap<String, Integer>();
+    this.subMeasurements = new ArrayList<Scale>();
     this.number = 0;
     this.text = " ";
   }

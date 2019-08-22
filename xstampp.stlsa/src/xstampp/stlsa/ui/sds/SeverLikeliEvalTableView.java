@@ -164,16 +164,11 @@ public class SeverLikeliEvalTableView extends CausalFactorBaseView<IControlActio
         }
 
         @Override
-        protected void setValue(Object element, Object value) {
-          System.out.println("element: " + element.getClass().toString());
-          System.out.println("value: " + value.toString());  
+        protected void setValue(Object element, Object value) { 
           if (element instanceof CausalFactor) {
-            System.out.println(subMeasurementTitle);
             ((CausalFactor)element).setSubMeasurements(subMeasurementTitle,Integer.parseInt(value.toString()));
           }
           SeverLikeliEvalTableView.this.refreshView();
-          //          UUID uuid = ((ATableModel) element).getId();
-//          updateTitle(uuid, String.valueOf(value));
         }
 
         protected Object getValue(String string) {
