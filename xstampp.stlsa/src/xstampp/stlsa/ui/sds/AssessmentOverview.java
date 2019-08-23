@@ -105,6 +105,9 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
         if (element instanceof CausalFactor) {
           UUID ucaId = ((CausalFactor) element).getParentUUID();
           UnsafeControlAction uca = (UnsafeControlAction) AssessmentOverview.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
+          System.out.println("uca here?.. " + uca);
+          System.out.println("parentuuid " + ucaId);
+          System.out.println(uca.getType());
           return uca.getType().toString();
         }
         return null;
