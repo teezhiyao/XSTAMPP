@@ -150,20 +150,6 @@ public class UnsafeControlActionView extends UnsafeCAView<IControlActionViewData
   @Override
   public void updateTable() {
 
-//    List<ICorrespondingUnsafeControlAction> CAlist = this.getDataInterface().getControlActionController().getAllUnsafeControlActions();
-//    List<IUnsafeControlAction> UCA = new ArrayList<IUnsafeControlAction>();
-//    for (IControlAction CA : CAlist) {
-//      List<IUnsafeControlAction> tempUCA = CA.getUnsafeControlActions();
-//      for (IUnsafeControlAction unsafe : tempUCA) {
-//        System.out.println("Hi here");
-//        System.out.println(unsafe.getType().toString());
-//        UCA.add((IUnsafeControlAction) unsafe);
-//      }
-//  }     
-//    System.out.println("Trying to updatetable in unsafe control action view");
-//    System.out.println(this.getDataInterface().toString());
-//    System.out.println(this.getDataInterface().getControlActionController().toString());
-
     UnsafeControlActionView.this.getTableViewer().setInput(this.getDataInterface().getControlActionController().getUCAList(null));
   }
 

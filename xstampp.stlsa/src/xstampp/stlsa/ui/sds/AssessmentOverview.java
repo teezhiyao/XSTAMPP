@@ -38,6 +38,8 @@ import xstampp.astpa.model.ATableModel;
 import xstampp.astpa.model.causalfactor.CausalFactor;
 import xstampp.astpa.model.causalfactor.CausalFactorController;
 import xstampp.astpa.model.controlaction.UnsafeControlAction;
+import xstampp.astpa.model.controlaction.interfaces.IControlAction;
+import xstampp.astpa.model.controlaction.safetyconstraint.ICorrespondingUnsafeControlAction;
 import xstampp.astpa.model.interfaces.IControlActionViewDataModel;
 import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.stlsa.model.StlsaController;
@@ -91,6 +93,12 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
           ControlAction ca = (ControlAction) AssessmentOverview.this.getStlsaController().getControlActionForUca(ucaId);
           return ca.getTitle();
         }
+        else if(element instanceof UnsafeControlAction) {
+          return getStlsaController().getControlActionForUca(((UnsafeControlAction) element).getId()).getTitle();
+        }
+        else if(element instanceof ControlAction) {
+          return ((ControlAction) element).getTitle();
+        }
         return null;
       }  
     });  
@@ -105,10 +113,13 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
         if (element instanceof CausalFactor) {
           UUID ucaId = ((CausalFactor) element).getParentUUID();
           UnsafeControlAction uca = (UnsafeControlAction) AssessmentOverview.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
-          System.out.println("uca here?.. " + uca);
-          System.out.println("parentuuid " + ucaId);
-          System.out.println(uca.getType());
           return uca.getType().toString();
+        }
+        else if(element instanceof UnsafeControlAction) {
+          return ((UnsafeControlAction) element).getType().toString();
+        }
+        else if(element instanceof ControlAction) {
+          return "N.A";
         }
         return null;
       }  
@@ -126,6 +137,12 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
           UnsafeControlAction uca = (UnsafeControlAction) AssessmentOverview.this.getStlsaController().getControlActionController().getUnsafeControlAction(ucaId);
           return uca.getIdString();
         }
+        else if(element instanceof UnsafeControlAction) {
+          return ((UnsafeControlAction) element).getIdString();
+        }
+        else if(element instanceof ControlAction) {
+          return "N.A";
+        }
         return null;
       }  
     });
@@ -141,6 +158,12 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
         if (element instanceof CausalFactor) {
           return ((CausalFactor) element).getIdString();
         }
+        else if(element instanceof UnsafeControlAction) {
+          return "N.A";
+        }
+        else if(element instanceof ControlAction) {
+          return "N.A";
+        }
         return null;
       }  
     });
@@ -155,6 +178,12 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
         if (element instanceof CausalFactor) {
           return ((CausalFactor) element).getIntention();
         }
+        else if(element instanceof UnsafeControlAction) {
+          return "N.A";
+        }
+        else if(element instanceof ControlAction) {
+          return "N.A";
+        }
         return null;
       }  
     });
@@ -166,16 +195,7 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
       
       @Override
       public String getText(Object element) {
-//        if (element instanceof CausalFactor) {
-//            HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
-//            int severSum = 0;
-//            for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-//              System.out.println("sever pair key" + pair.getKey().toString());
-//              if(pair.getKey().toString() == "Severity")
-//                severSum += pair.getValue();
-//              }
-//            return Integer.toString(severSum);
-//            }
+
         if (element instanceof CausalFactor) {
           int scale = ((CausalFactor)element).getSubMeasurements("Severity");
           if(scale == -999) {
@@ -184,6 +204,12 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
           else{
             return Integer.toString(scale);
           }
+        }
+        else if(element instanceof UnsafeControlAction) {
+          return "N.A";
+        }
+        else if(element instanceof ControlAction) {
+          return "N.A";
         }
         return null;
       }        
@@ -205,6 +231,12 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
           else{
             return Integer.toString(scale);
           }
+        }
+        else if(element instanceof UnsafeControlAction) {
+          return "N.A";
+        }
+        else if(element instanceof ControlAction) {
+          return "N.A";
         }
         return null;
       }  
@@ -246,32 +278,12 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
           eachRow.add(((CausalFactor) element).getIdString());
           eachRow.add(((CausalFactor) element).getIntention());
           
-//          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
-//          int severSum = 0;
-//          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-//            System.out.println("sever pair key" + pair.getKey().toString());
-//            if(pair.getKey().toString() == "Severity")
-//              severSum += pair.getValue();
-//            }          
-//          eachRow.add(Integer.toString(severSum));
-          
-//          int likeliSum = 0;
-//          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-//            if(pair.getKey().toString() == "Likelihood")
-//              likeliSum += pair.getValue();
-//            }
-//          eachRow.add(Integer.toString(likeliSum));
           }
           rows.add(eachRow);
         }
-//        List<List<String>> rows = Arrays.asList(
-//            Arrays.asList("Jean", "author", "Java"),
-//            Arrays.asList("David", "editor", "Python"),
-//            Arrays.asList("Scott", "editor", "Node.js")
-//        );
 
         try {
-          FileWriter csvWriter = new FileWriter("makingnewcsvtotest.csv");
+          FileWriter csvWriter = new FileWriter("exportedcsv.csv");
           csvWriter.append("Control Action");
           csvWriter.append(",");
           csvWriter.append("UCA Type");
@@ -317,8 +329,21 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
    */
   @Override
   public void updateTable() {
-
-    AssessmentOverview.this.getTableViewer().setInput(getStlsaController().getAllLinkedCausalFactor());
+    List<ITableModel> cfelements = getStlsaController().getAllLinkedCausalFactor();
+    List<ICorrespondingUnsafeControlAction> ucaelements = getStlsaController().getUCAList(null);
+    for(ICorrespondingUnsafeControlAction uca : ucaelements) {
+      if(getStlsaController().getLinkedCausalFactorOfUCA(uca.getId()).size() == 0) {
+        cfelements.add(uca);
+      }
+    }
+    List<IControlAction> CAelements = getStlsaController().getAllControlActions();
+    for(IControlAction ca : CAelements) {
+      if(ca.getUnsafeControlActions().size() == 0) {
+        cfelements.add(ca);
+      }
+    }
+    
+    AssessmentOverview.this.getTableViewer().setInput(cfelements);
   }
 
   
