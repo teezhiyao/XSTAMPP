@@ -355,7 +355,6 @@ public class CausalFactorGridTableView extends UnsafeControlActionsView{
     }
     @Override
     public void delete() {
-      System.out.println("Delete button pressed?");
       getStlsaController().removeUCACausalFactorLink(ucaid, cfID);
       deleteEntry();
     }

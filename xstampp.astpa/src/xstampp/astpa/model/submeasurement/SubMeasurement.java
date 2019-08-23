@@ -111,6 +111,9 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
 
   private int scale;
   
+  
+  @XmlElementWrapper(name = "details")
+  @XmlElement(name = "detail")
   private ArrayList<String> details;
   
   public ArrayList<String> getDetails() {
@@ -146,12 +149,12 @@ public class SubMeasurement extends ATableModel implements ITableModel, IEntryWi
     this.id = UUID.randomUUID();
   }
 
-  public SubMeasurement(String severityLikelihood, String type, String subMeasurement, int scale,int row) {
+  public SubMeasurement(String severityLikelihood, String type, String subMeasurement,int row) {
     this.id = UUID.randomUUID();
     this.severityLikelihood = severityLikelihood;
     this.type = type;
     this.subMeasurement = subMeasurement;
-    this.scale = scale;
+    this.scale = -999;
     this.row = row;
     this.details = new ArrayList<String>();
   }

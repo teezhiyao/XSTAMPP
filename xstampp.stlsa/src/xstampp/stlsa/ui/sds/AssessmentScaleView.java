@@ -42,6 +42,7 @@ import xstampp.ui.common.grid.GridCellButton;
 import xstampp.ui.common.grid.GridCellComboEditor;
 import xstampp.ui.common.grid.GridCellEditor;
 import xstampp.ui.common.grid.GridCellText;
+import xstampp.ui.common.grid.GridCellTextEditor;
 import xstampp.ui.common.grid.GridRow;
 import xstampp.ui.common.grid.GridWrapper;
 import xstampp.ui.common.grid.SingleGridCellLinking;
@@ -207,38 +208,8 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
       }
       
       //first Column
-//      String[] metricTypeOptions = new String[]{"Unintentional Causal Scenario", "Intentional Scenario", "Both Unintentional Scenario and Intentional Scenario"};
-//      GridCellComboEditor metricType = new GridCellComboEditor(getGridWrapper(),metricTypeOptions, true) {
-//        @Override
-//        public void onTextChanged(String newText) {
-//          System.out.println("Combo Text: "+ this.getComboCell().getText());
-//          List<UUID> subMeasUuid = new ArrayList<UUID>();
-//          for(SubMeasurement subMeasurement :corresSub) {
-//            subMeasUuid.add(subMeasurement.getId());
-//          }
-//          
-//          for(UUID cellId : subMeasUuid) {
-//            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(cellId);
-//            if(tempSub instanceof SubMeasurement) {
-//              ((SubMeasurement) tempSub).setType((this.getComboCell().getText()));
-//            }
-//          }
-//        }
-//      };
-//      controlActionRow.addCell(1, metricType);
       
       for(int y = 0; y < corresSub.size(); y++) {
-        
-        //        if(y == 0) {
-//          System.out.println(corresSub.get(0));
-//        metric.getComboCell().setText(corresSub.get(0).getSeverityLikelihood());
-//        if(corresSub.get(0).getType() == null) {
-//          metricType.getComboCell().setText("Not set");
-//        }
-//        else {
-//          metricType.getComboCell().setText(corresSub.get(0).getType());
-//        };
-//        }
         
         final UUID tempSubUUID = corresSub.get(y).getId();
         
@@ -246,26 +217,36 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
         GridRow subMeas = new GridRow(columns.length,3,new int[] {0,1,2,3});
         
         String subMeasurementTitle = corresSub.get(y).getSubMeasurement();
-        GridCellEditor subMeasDesc = new GridCellEditor(getGridWrapper(), subMeasurementTitle) {
-          @Override
-          public void onTextChanged(String newText) {
-            System.out.println("newText" + newText);
-            ITableModel tempSub = getSubMeasurementController().getSubMeasurement(tempSubUUID);
-            if(tempSub instanceof SubMeasurement) {
-              ((SubMeasurement) tempSub).setSubMeasurement(newText);
-            }            
-          }
+        
+        subMeasurementCell subMeasDesc = new subMeasurementCell(getGridWrapper(), subMeasurementTitle, tempSubUUID, true,false) {
         };       
         subMeas.addCell(2, subMeasDesc);
         
         int subMeasurementscale = corresSub.get(y).getScale();
-        GridCellEditor scaleEditor = new GridCellEditor(getGridWrapper(), Integer.toString(subMeasurementscale)) {
+        String smScaleDisplay;
+        if(subMeasurementscale == -999) {
+           smScaleDisplay = "Input Integer";
+        }
+        else {
+          try{
+             smScaleDisplay = Integer.toString(subMeasurementscale);
+          }
+          catch(NumberFormatException e){
+            smScaleDisplay = "Input Integer";
+          }
+        }
+        GridCellEditor scaleEditor = new GridCellEditor(getGridWrapper(), smScaleDisplay) {
           @Override
           public void onTextChanged(String newText) {
             System.out.println("newText" + newText);
             ITableModel tempSub = getSubMeasurementController().getSubMeasurement(tempSubUUID);
             if(tempSub instanceof SubMeasurement) {
-              ((SubMeasurement) tempSub).setScale(Integer.parseInt(newText));;
+              try {
+              ((SubMeasurement) tempSub).setScale(Integer.parseInt(newText));
+              }
+              catch(NumberFormatException e) {
+                
+              }
             }            
           }
         };       
@@ -284,12 +265,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
       }
 
       addSubMeasurementRow(controlActionRow, i, currentSever,currentIntention); 
-  }
-//    GridRow addingRow = new GridRow(columns.length,3); 
-//
-//    addingRow.addCell(0, new addNewFullRowButton(addingRow));
-//    getGridWrapper().addRow(addingRow);;      
-
+  } 
     
   }
 
@@ -372,7 +348,7 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     public void onMouseDown(MouseEvent e, org.eclipse.swt.graphics.Point relativeMouse,
         Rectangle cellBounds) {
       if(e.button == 1){
-        SubMeasurement newSubM = new SubMeasurement(this.currentServer, this.currentIntention, "N.A", 6, this.currentSub);
+        SubMeasurement newSubM = new SubMeasurement(this.currentServer, this.currentIntention, "N.A", this.currentSub);
         getSubMeasurementController().addSubMeasurement(newSubM);
         reloadTable();
         ProjectManager.getLOGGER().debug("Add new Sub Measurement");
@@ -496,4 +472,50 @@ public class AssessmentScaleView extends CommonGridView<IUnsafeControlActionData
     super.dispose();
   }
 
+  private class subMeasurementCell extends GridCellTextEditor {
+
+    private UUID smid;
+    public subMeasurementCell(GridWrapper grid, String initialText, UUID smid,
+        boolean canDelete, boolean readOnly) {
+      super(grid, initialText,canDelete,readOnly,smid);
+      this.smid = smid;
+    }
+    @Override
+    public void delete() {
+      System.out.println("smid?? " + smid.toString());
+      getSubMeasurementController().deleteSubMeasurement(smid);
+//      try {
+//        this.reloadTable();
+//      } catch (SWTException e) {
+//        dataModelController.deleteObserver(this);
+//      }
+      try {
+        reloadTable();
+      } catch (SWTException e) {
+      }
+      deleteEntry();
+    }
+    
+    @Override
+    protected void editorOpening() {
+      getDataModel().lockUpdate();
+    }
+    
+    @Override
+    protected void editorClosing() {
+      getDataModel().releaseLockAndUpdate(new ObserverValue[] {});
+    }
+    @Override
+    public void updateDataModel(String newValue) {
+      System.out.println("newvalue here??" + newValue);
+    ITableModel tempSub = getSubMeasurementController().getSubMeasurement(smid);
+    if(tempSub instanceof SubMeasurement) {
+      ((SubMeasurement) tempSub).setSubMeasurement(newValue);
+    }            
+    }
+    
+  }
+  
+  
+  
 }

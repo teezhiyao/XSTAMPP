@@ -173,6 +173,15 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
 //              }
 //            return Integer.toString(severSum);
 //            }
+        if (element instanceof CausalFactor) {
+          int scale = ((CausalFactor)element).getSubMeasurements("Severity");
+          if(scale == -999) {
+            return "N.A";
+          }
+          else{
+            return Integer.toString(scale);
+          }
+        }
         return null;
       }        
 
@@ -185,15 +194,15 @@ public class AssessmentOverview extends EmptyBaseView<IControlActionViewDataMode
 
       @Override
       public String getText(Object element) {
-//        if (element instanceof CausalFactor) {
-//          HashMap<String, Integer> severLst= ((CausalFactor) element).getSubMeasurements();
-//          int likeliSum = 0;
-//          for (Map.Entry<String, Integer> pair : severLst.entrySet()) {
-//            if(pair.getKey().toString() == "Likelihood")
-//              likeliSum += pair.getValue();
-//            }
-//          return Integer.toString(likeliSum);
-//          }
+        if (element instanceof CausalFactor) {
+          int scale = ((CausalFactor)element).getSubMeasurements("Likelihood");
+          if(scale == -999) {
+            return "N.A";
+          }
+          else{
+            return Integer.toString(scale);
+          }
+        }
         return null;
       }  
     });    

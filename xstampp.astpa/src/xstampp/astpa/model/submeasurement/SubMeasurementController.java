@@ -44,6 +44,7 @@ import xstampp.astpa.model.interfaces.ITableModel;
 import xstampp.astpa.model.linking.Link;
 import xstampp.astpa.model.linking.LinkController;
 import xstampp.astpa.model.linking.LinkingType;
+import xstampp.astpa.model.linking.UndoRemoveLinkingCallback;
 import xstampp.astpa.model.sds.ISDSController;
 import xstampp.astpa.model.service.UndoTextChange;
 import xstampp.astpa.preferences.ASTPADefaultConfig;
@@ -174,6 +175,7 @@ public class SubMeasurementController extends ATableModelController implements I
   public void setTypeCount(List<String> typeCount) {
     this.typeCount = typeCount;
   }
+  
   public ITableModel getSubMeasurement(UUID causalFactorId) {
     Optional<SubMeasurement> first = this.subMeasurement.stream().filter((factor) -> factor.getId().equals(causalFactorId))
         .findFirst();
@@ -184,6 +186,7 @@ public class SubMeasurementController extends ATableModelController implements I
     }
   }
 
+  
   public List<ITableModel> getSubMeasurement() {
     return new ArrayList<>(subMeasurement);
   }
@@ -217,9 +220,9 @@ public class SubMeasurementController extends ATableModelController implements I
   }
 
   @Override
-  public boolean removeSubMeasurement(UUID causalFactor) {
+  public boolean removeSubMeasurement(UUID smid) {
     Optional<SubMeasurement> removeOptional = this.subMeasurement.stream()
-        .filter(factor -> factor.getId().equals(causalFactor)).findFirst();
+        .filter(factor -> factor.getId().equals(smid)).findFirst();
     if (removeOptional.isPresent() && this.subMeasurement.remove(removeOptional.get())) {
       setChanged();
       notifyObservers(new UndoRemoveSubMeasurement(this, removeOptional.get(), this.linkController));
@@ -227,7 +230,21 @@ public class SubMeasurementController extends ATableModelController implements I
     }
     return false;
   }
-
+  
+  public void deleteSubMeasurement(UUID smid) {
+    List<ITableModel> smList = getSubMeasurement();
+        for(ITableModel sm : smList) {
+          System.out.println(sm.getId().equals(smid));
+          System.out.println(sm.getId());
+          System.out.println(smid);
+          if(sm.getId().equals(smid)) {
+            int smIndex = smList.indexOf(sm);
+            this.subMeasurement.remove(smIndex);
+          }
+        }
+        setChanged();
+        notifyObservers();
+  }
   @Override
   public boolean removeSafetyConstraint(UUID constraintId) {
     Optional<SubMeasurementSafetyConstraint> removeOptional = this.causalSafetyConstraints.stream()
